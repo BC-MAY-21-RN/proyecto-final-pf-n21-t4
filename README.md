@@ -15,32 +15,48 @@ y recibir pedidos a traves de una interfaz de usuario sencilla y facil de usar t
 para el vendedor.
 
 ## Definición de requerimientos del MVP
-#### Negocios
-- Permitir el registro exitoso de un negocio dentro de la aplicacion
-- Que el negocio pueda completar su informacion (domicilio, telefono, propietario, etc.) una vez creada su 
-  cuenta de negocio
-- Que el negocio pueda agregar, editar y eliminar tantos productos como desee
-- Cualquier usuario puede registrar un negocio aceptando las clausulas inficadas
-- Permitir al negocio registrarse con su cuenta google
-- Permitir al negocio iniciar sesion con su cuenta de google
-- Agregar un boton para que el negocio pueda cerra sesion cuando quiera
-- Permitir al negocio visualizar los pedidos pendientes a realizar
-
-#### Clientes
-- Permitir el registro de usuarios clientes
-- Poder visualizar el catalago de productos sin necesidad de iniciar sesion o crearte una cuenta
-- Prmitirle al usuario agregar produtos a su carrito de compras
-- Permitir al usuario vizualizar un catalago de negocios
-- Permitir al usuarui vizualizar los productos de todos los negocios registrados en la aplicacion
-- Permitir al usuario Inciar sesion con un correo y una contraseña
-- Permitir al usuario registrarse con su cuenta google
-- Permitir al usuario iniciar sesion con su cuenta de google
-- Agregar un boton para que el usuario pueda cerra sesion cuando quiera
 
 
 ### Requerimientos funcionales
 
+#### Clientes
+- **Los usuarios _no registrados podran_**
+  - Registrarse en la aplicación con su correo normal o cuenta de google
+  - Visualizar el catalogo de productos y negocios sin necesidad de estar registrado
+
+- **Los usuarios _registrados_ podran**
+  - Agregar produtos a su carrito de compras
+  - Cerrar sesion cuando quiera
+  - Ver el progreso de su orden
+  
+### Negocio
+- **Permitir al usuario _dar de alta un negocio_**
+  - Cualquier usuario puede registrar un negocio aceptando las clausulas indicad
+  - El usuario podra registrar informacion del negocio como domicilio, telefono, propietario, etc. una vez creada su cuenta
+
+- **Permitir al _administrador del negocio_**
+  - Agregar, editar y eliminar tantos productos como dese
+  - Tener la opción para que el administrador pueda cerrar el negocio de forma definitiva.
+  - Agregar un horario de servicio (Horas de trabajo y dias de descanso)
+  - Ver un apartado en el cual pueda visualizar los productos, pedidos pendientes (información básica del cliente) y los datos de su negocio
+
+
 ### Requerimientos no funcionales
+- Base de datos
+  - La información se guardará en firebase
+- Calidad
+  - Utilizar un estilo de código estandarizado (revisado por Eslint y SOLID)
+  - Incluir pruebas unitarias
+  - Puntuación A obtenida en CodeClimate
+- Ejecución
+  - Puede ejecutarse en Android o iOs
+- Diseño
+  - Debe ser lo más cercano posible al proporcionado
+- Código fuente
+  - Orientado a Objetos
+  - Métodos pequeños
+- Manejo del estado
+  - Redux para el manejo del estado de la App
 
 ## Diseño del MVP
 
