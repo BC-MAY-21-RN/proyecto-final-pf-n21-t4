@@ -1,10 +1,9 @@
 ![BrightCoders Logo](img/logo-bc.png)
 
 # LocalFood
+![LocalFoot](https://user-images.githubusercontent.com/26613957/149460778-5b2aac4c-c4c4-440b-86ed-fd99b655e32e.png) 
+<span>Design por <a href="https://bit.ly/3Go4l9c">Gabriel</a> y <a>Roberto</a></span>
 
-## Diseño del MVP![LocalFoot](https://user-images.githubusercontent.com/26613957/149460778-5b2aac4c-c4c4-440b-86ed-fd99b655e32e.png)
-
-<span>Design by <a href="https://bit.ly/3Go4l9c">Gabriel</a> y <a>Roberto</a></span>
 
 # Nombre del proyecto
 LocalFoot
