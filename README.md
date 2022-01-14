@@ -5,9 +5,6 @@
 <span>Design por <a href="https://bit.ly/3Go4l9c">Gabriel</a> y <a>Roberto</a></span>
 
 
-# Nombre del proyecto
-LocalFoot
-
 ## Problematica que atiende
 La falta de una plataforma mobil local, para que todos los micronegocios y pequeñas empresas puedan 
 ofertar sus productos de manera sencilla, en una aplicacion que centraliza los negocios locales a 
