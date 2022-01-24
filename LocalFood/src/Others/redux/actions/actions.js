@@ -1,29 +1,29 @@
 import { LOGIN, LOGOUT, ADD_TO_CART, REMOVE_FROM_CART } from './types';
 
 export const login = (login) =>{
-    dispatch({
+    return{
         type: LOGIN,
         payload: login
-    })
+    }
 };
 
 export const logout = () =>{
-    dispatch({
+    return{
         type: LOGOUT,
         payload: ""
-    })
+    }
 };
 
 export const addToCart = (Item) =>{
-    dispatch({
+    return{
         type: ADD_TO_CART,
         payload: Item
-    })
+    }
 };
 
 export const removeFromCart = (Item) =>{
-    dispatch({
+    return{
         type: REMOVE_FROM_CART,
         payload: Item
-    })
+    }
 };
