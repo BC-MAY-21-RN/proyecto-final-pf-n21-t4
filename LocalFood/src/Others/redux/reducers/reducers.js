@@ -1,7 +1,10 @@
 import { LOGIN, LOGOUT, ADD_TO_CART, REMOVE_FROM_CART } from '../actions/types'
 
 const initialState = {
-    user: '',
+    userInfo: {
+        userName: '',
+        uid: ''
+    },
     cart: new Array()
 }
 
