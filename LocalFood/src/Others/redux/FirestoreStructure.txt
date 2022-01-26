@@ -15,21 +15,20 @@ Shops (shop + uid del usuario)
     + Domicilio tienda
     + Telefono tienda
     + Propietario (aquí va el displayname/nombre del usuario)
-    + Producto (arreglo que contiene los productos/comidas "producto + id tienda")
+    + Productos (Contiene el id del documento de firestore que contiene )
+    + Pedidos (esto va a ser un arreglo de objetos.)
+            + codigo pedido (el cual se genera debido al carrito)
+            + nombre del usuario
+                + nombre del producto
+                + cantidad
+                + Total
+                + Pedido terminado (Booleano)
+
+ShopProducts (Contiene los productos de una determinada tienda)
+    + ShopId (Contiene el id de la tienda a la que pertenece)
+    + Productos (Array de objetos que contiene los productos)
         + hash (id_autogenerado)
         + Nombre de la comida
         + url de la imagen
         + Pequeña descripcion (Esta puede contener info sobre el plato y para cuantas personas es)
         + Precio.
-    + Pedidos (esto va a ser un arreglo de objetos.)
-        + codigo pedido (el cual se genera debido al carrito)
-        + nombre del usuario
-            + nombre del producto
-            + cantidad
-            + Total
-            + Pedido terminado (Booleano)
-
-metodo previo para juntar los pedidos de una misma tienda de un mismo carrito (el id de la tienda sea el mismo, producto)
-
-metodo para agregar los pedidos a la tienda (id_tienda, infoPedido) - se ejecuta antes de subir la información a las tiendas
-(recorra el carrito y envie los pedidos realizados a su respectiva tienda.)
