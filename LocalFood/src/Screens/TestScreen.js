@@ -13,7 +13,7 @@ export const TestScreen = () => {
             <TouchableOpacity onPress={()=>{
                 dispatch(logout())
             }}>
-                <Text>Touch me for add user.</Text>
+                <Text>Touch me to ad an add user.</Text>
             </TouchableOpacity>
         </View>
     );
