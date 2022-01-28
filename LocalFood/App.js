@@ -20,17 +20,7 @@ const App = () => {
 
   return (
     <Provider store={Store}>
-      <NavigationContainer>
-        {
-          <Stack.Navigator>
-            <Stack.Screen name="Home" component={Home} options={screenOptions} />
-            <Stack.Screen name="Login" component={Login} options={screenOptions} />
-            <Stack.Screen name="SignUp" component={SignUp} options={screenOptions} />
-            <Stack.Screen name="Confirmation" component={Confirmation} options={screenOptions} />
-            <Stack.Screen name="Cart" component={Cart} options={screenOptions} />
-          </Stack.Navigator>
-        }
-      </NavigationContainer>
+      <Login />
     </Provider>
   );
 };
