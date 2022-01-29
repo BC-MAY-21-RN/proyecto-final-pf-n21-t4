@@ -19,7 +19,7 @@ export const InputHeadText = styled.Text`
     margin-bottom: 5px;
 `;
 
-export const Input = styled.TextInput`
+export const Inputt = styled.TextInput`
     margin: 0.5px;
     width: 90%;
 `;
