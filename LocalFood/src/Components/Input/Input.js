@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Container, InputContainer, InputHeadText, Input } from './SignUpInputStyles';
+import { Container, InputContainer, InputHeadText, Inputt } from './InputStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export const SignUpInput = ({Tipo}) => {
+export const InputComponent = ({Tipo}) => {
     const [InputIcon, setInputIcon] = useState('md-home-outline')
     const [IsPassword, setIsPassword] = useState(false)
-    const [TypeInput, setTypeInput] = useState(<Input />)
+    const [TypeInput, setTypeInput] = useState(<Inputt />)
 
     useEffect(()=>{
         switch(Tipo){
@@ -30,9 +30,9 @@ export const SignUpInput = ({Tipo}) => {
                 break;
         }
         if(IsPassword==true)
-            setTypeInput(<Input secureTextEntry={true}/>)
+            setTypeInput(<Inputt secureTextEntry={true}/>)
         else
-            setTypeInput(<Input />)
+            setTypeInput(<Inputt />)
     },[])
 
 
