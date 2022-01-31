@@ -1,0 +1,34 @@
+Auth guarda lo que es nombre y al contraseña, por lo que no se incluiran en el archivo de usuarios de la firestore.
+
+
+Users (uid del usuario)
+    + ShopOwner (Espacio de valor booleano el cual indica si es dueño de una tienda o no)
+    + Cart (Carrito de pedidas del usuario){tienda: obtener mediante shopid + producto:produto hash}
+        + codigo_pedido/hash (Codigo general del carrito que se genera automaticamente)
+        + imagen (es el url)
+        + nombre del producto (se obitene por el id de la tienda y el producto)
+        + precio (se obitene por el id de la tienda y el producto)
+        + cantidad (va a ser un calculo local)
+
+Shops (shop + uid del usuario)
+    + nombre tienda
+    + Domicilio tienda
+    + Telefono tienda
+    + Propietario (aquí va el displayname/nombre del usuario)
+    + Productos (Contiene el id del documento de firestore que contiene )
+    + Pedidos (esto va a ser un arreglo de objetos.)
+            + codigo pedido (el cual se genera debido al carrito)
+            + nombre del usuario
+                + nombre del producto
+                + cantidad
+                + Total
+                + Pedido terminado (Booleano)
+
+ShopProducts (Contiene los productos de una determinada tienda)
+    + ShopId (Contiene el id de la tienda a la que pertenece)
+    + Productos (Array de objetos que contiene los productos)
+        + hash (id_autogenerado)
+        + Nombre de la comida
+        + url de la imagen
+        + Pequeña descripcion (Esta puede contener info sobre el plato y para cuantas personas es)
+        + Precio.
