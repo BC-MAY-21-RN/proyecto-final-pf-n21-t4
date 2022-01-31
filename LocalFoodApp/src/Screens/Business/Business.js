@@ -1,19 +1,14 @@
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 
-export const Business = ({navigation}) => {
+const Business = () => {
   return (
     <View>
-      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.text}>Home</Text>
-      </TouchableOpacity>
+      <Text></Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  text:{
-    padding: 20,
-    color: 'black',
-  }
-});
+export default Business;
+
+const styles = StyleSheet.create({});

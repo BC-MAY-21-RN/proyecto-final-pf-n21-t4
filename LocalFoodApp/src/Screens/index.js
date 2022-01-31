@@ -1,2 +1,5 @@
 export { Home } from './Home/Home'
-export {Business} from './Business/Business'
+export { Login } from './Login/Login'
+export { SignUp } from './SignUp/SignUp'
+export { Confirmation } from './Confirmation/Confirmation'
+export { Cart } from './Cart/Cart'
