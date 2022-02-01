@@ -11,10 +11,11 @@ export const InputContainer = styled.View`
     background-color: #F3F9F6;
     border-radius: 10px;
     align-items: center;
+    padding-left: 10px;
 `;
 
 export const InputHeadText = styled.Text`
-    font-size: 18px;
+    font-size: 15px;
     color: #B0B0B0;
     margin-bottom: 5px;
 `;

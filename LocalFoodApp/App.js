@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 //import { Provider } from 'react-redux';
 //import { Store } from './src/Others/redux/store.js';
 import { NavigationContainer } from '@react-navigation/native';
