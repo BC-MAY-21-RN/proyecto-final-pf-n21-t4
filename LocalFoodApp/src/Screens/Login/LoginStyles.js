@@ -1,21 +1,19 @@
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
-    padding-left: 5%;
-    padding-right: 5%;
-    width: 100%;
-    height: 100%
+    padding: 25px;
+    background-color: #fff;
 `;
 
 export const Logo = styled.Image`
-    margin-top: 40px;
-    width: 220px;
-    height: 150px;
+    margin-top: 25px;
+    width: 170px;
+    height: 110px;
     margin-bottom: 25px;
 `;
 
 export const LoginText = styled.Text`
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     color: #393939;
     margin-bottom: 15px;

@@ -5,7 +5,9 @@ import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { GoogleBtn } from '../../Components/GoogleBtn/GoogleBtn';
 import { ScrollView, Text, View } from 'react-native';
 
-export const Login = () => {
+export const Login = (Props) => {
+
+  const { navigation } = Props
   return (
     <ScrollView>
       <Container>
@@ -22,7 +24,7 @@ export const Login = () => {
 
         <GoogleBtn />
 
-        <BottomText>No tienes cuenta? <ClickHere>registrate aquí</ClickHere> </BottomText>
+        <BottomText>No tienes cuenta? <ClickHere onPress={()=>{navigation.navigate("SignUp")}}>registrate aquí</ClickHere> </BottomText>
 
         <Text style={{textAlign: 'center', marginTop: 30, marginBottom: 5, fontSize: 18, }}>Ingresar sin cuenta</Text>
       </Container>

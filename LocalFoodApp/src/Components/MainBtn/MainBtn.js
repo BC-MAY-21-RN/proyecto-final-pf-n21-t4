@@ -7,4 +7,4 @@ export const MainBtn = ({type}) => {
             <MBtnText>{type}</MBtnText>
         </MBtn>
   );
-};
+}
