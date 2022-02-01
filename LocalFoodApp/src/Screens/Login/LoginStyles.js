@@ -25,10 +25,18 @@ export const BottomText = styled.Text`
     font-weight: 500;
     color: #000;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
 `;
 
 export const ClickHere = styled.Text`
     color: #198654;
     text-decoration: underline;
+`;
+
+export const EndText = styled.Text`
+    font-size 18px;
+    color: #198654;
+    text-decoration: underline;
+    text-align: center;
+    margin-top: 20px
 `;

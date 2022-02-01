@@ -3,9 +3,11 @@ import styled from "styled-components";
 export const GBtn = styled.TouchableOpacity`
     padding: 10px;
     background-color: #fff;
-    border-radius: 20px;
+    border-radius: 10px;
     align-items: center;
     margin-top: 20px;
+    border: 2px;
+    border-color: #198654;
 `;
 
 export const GBtnText = styled.Text`
