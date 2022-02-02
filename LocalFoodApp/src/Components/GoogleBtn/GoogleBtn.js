@@ -4,19 +4,19 @@ import { GBtn, GBtnText } from './GoogleBtnStyles';
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import auth from '@react-native-firebase/auth'
 import { webClientIdT3 } from '../../Others/AuthKeys/GoogleAuthKeys'
+import { NewUserDoc } from '../../Others/FirebaseFunctions/FirebaseFunctions'
 
-// GoogleSignin.configure({
-//     webClientId: webClientIdT3,
-// });
+GoogleSignin.configure({
+    webClientId: webClientIdT3,
+});
 
 export const GoogleBtn = () => {
-
-    // const GoogleLogin = async () => {
-    //     console.log('Im in')
-    //     const { idToken } = await GoogleSignin.signIn();
-    //     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    //     await auth().signInWithCredential(googleCredential).then((e)=>console.log(e));
-    // }
+    const GoogleLogin = async () => {
+        console.log('Im in')
+        const { idToken } = await GoogleSignin.signIn();
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+        await auth().signInWithCredential(googleCredential).then((e)=>{NewUserDoc(e.user.uid)});
+    }
 
     return (
         <GBtn onPress={()=>{GoogleLogin()}}>
