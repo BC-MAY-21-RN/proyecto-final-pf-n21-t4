@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Container, InputContainer, InputHeadText, Inputt } from './InputStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export const InputComponent = ({Tipo}) => {
+export const InputComponent = ({Tipo, action}) => {
     const [InputIcon, setInputIcon] = useState('md-home-outline')
     const [IsPassword, setIsPassword] = useState(false)
     const [TypeInput, setTypeInput] = useState(<Inputt />)
+
 
     useEffect(()=>{
         switch(Tipo){
@@ -29,10 +30,11 @@ export const InputComponent = ({Tipo}) => {
                 setInputIcon('eye')
                 break;
         }
+
         if(IsPassword==true)
-            setTypeInput(<Inputt secureTextEntry={true}/>)
+            setTypeInput(<Inputt secureTextEntry={true} onChangeText={(e)=>{action(e)}}/>)
         else
-            setTypeInput(<Inputt />)
+            setTypeInput(<Inputt onChangeText={(e)=>{action(e)}}/>)
     },[])
 
 

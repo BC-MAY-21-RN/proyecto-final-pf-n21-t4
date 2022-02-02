@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     padding: 25px;
+    background-color: #fff;
 `;
 
 export const BottomText = styled.Text`
@@ -10,6 +11,14 @@ export const BottomText = styled.Text`
     color: #000;
     text-align: center;
     margin-top: 20px;
+`;
+
+export const SignUpText = styled.Text`
+    font-size: 30px;
+    font-weight: bold;
+    color: #393939;
+    margin-bottom: 15px;
+    letter-spacing: 0.2px;
 `;
 
 export const ClickHere = styled.Text`

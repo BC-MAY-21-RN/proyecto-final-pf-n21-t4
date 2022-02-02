@@ -1,11 +1,18 @@
-import { LOGIN, LOGOUT, ADD_TO_CART, REMOVE_FROM_CART } from '../actions/types'
+import { LOGIN, LOGOUT, ADD_TO_CART, REMOVE_FROM_CART, CREDENTIALS } from '../actions/types'
 
 const initialState = {
     userInfo: {
         userName: '',
         uid: ''
     },
-    cart: new Array()
+    cart: new Array(),
+    credentials:{
+        email: '',
+        name: '',
+        password: '',
+        phonenumber: '',
+        direction: '',
+    }
 }
 
 const LocalFoodReducer = (state = initialState, action) => {
@@ -18,7 +25,8 @@ const LocalFoodReducer = (state = initialState, action) => {
             return {...state, cart: state.cart.push(action.payload)};
         case REMOVE_FROM_CART:
             return {...state, cart: state.cart.pop()};
-
+        case CREDENTIALS:
+            return {...state, credentials: action.payload}
         default:
             return state
     }
