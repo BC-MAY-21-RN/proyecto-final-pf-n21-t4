@@ -40,7 +40,7 @@ export const login = (email, pwd) => {
 }
 
 
-const NewUserDoc = (uid) =>{
+export const NewUserDoc = (uid) =>{
     firestore()
         .collection('Users')
         .doc(uid)
