@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "390776774445",
-    "project_id": "localfood-8ef55",
-    "storage_bucket": "localfood-8ef55.appspot.com"
+    "project_number": "141334156336",
+    "project_id": "localfood-71b51",
+    "storage_bucket": "localfood-71b51.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:390776774445:android:2c52cc8a12e2bf43e3bda4",
+        "mobilesdk_app_id": "1:141334156336:android:75f2fe414be48208b4c9f5",
         "android_client_info": {
           "package_name": "com.localfoodapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "390776774445-1u47898j067d98b7e3jbasd1up2rrppe.apps.googleusercontent.com",
+          "client_id": "141334156336-f3v9ddtipspjtraelmk4b5v5g77fp454.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.localfoodapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "141334156336-ahbrbpphbh308m10cghd36kg33jh33b8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCgZ81z6vZGHJdF-nEbH1S-7gL1nOCPj7Q"
+          "current_key": "AIzaSyCnR6XD72ToHNi0MhMRVDOnHyE4Vo978k0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "390776774445-1u47898j067d98b7e3jbasd1up2rrppe.apps.googleusercontent.com",
+              "client_id": "141334156336-ahbrbpphbh308m10cghd36kg33jh33b8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

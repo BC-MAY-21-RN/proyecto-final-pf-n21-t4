@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, ScrollView, View } from 'react-native';
 import { Container, SignUpText, BottomText, ClickHere } from './SignUpStlyes';
 import { InputComponent } from '../../Components/Input/Input';
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
+import { registrarse } from '../../Others/FirebaseFunctions/FirebaseFunctions';
 
 export const SignUp = (Props) => {
-  
   const { navigation } = Props
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [phonenumber, setPhonenumber] = useState('');
+  const [direction, setDirection] = useState('');
+  
   return (
     <ScrollView>
       <Container>
@@ -15,14 +21,14 @@ export const SignUp = (Props) => {
         <SignUpText>Sign up</SignUpText>
 
         <View style={{borderTopWidth: 2, borderTopColor: "#B0B0B0"}}>
-          <InputComponent Tipo={'Correo'}/>
-          <InputComponent Tipo={'Contraseña'}/>
-          <InputComponent Tipo={'Nombre'}/>
-          <InputComponent Tipo={'Domicilio'}/>
-          <InputComponent Tipo={'Teléfono'}/>
+          <InputComponent Tipo={'Correo'} action={setEmail}/>
+          <InputComponent Tipo={'Contraseña'} action={setPwd}/>
+          <InputComponent Tipo={'Nombre'} action={setName}/>
+          <InputComponent Tipo={'Domicilio'} action={setDirection}/>
+          <InputComponent Tipo={'Teléfono'} action={setPhonenumber}/>
         </View>
 
-        <MainBtn type={'Sign up'}/>
+        <MainBtn type={'Sign up'} Action={()=>{registrarse(email, pwd)}}/>
 
         <BottomText>Ya tienes una cuenta? <ClickHere onPress={()=>{navigation.navigate("Login")}}>Ingresa aquí</ClickHere> </BottomText>
       </Container>

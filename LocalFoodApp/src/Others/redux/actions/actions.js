@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, ADD_TO_CART, REMOVE_FROM_CART } from './types';
+import { LOGIN, LOGOUT, ADD_TO_CART, REMOVE_FROM_CART, CREDENTIALS } from './types';
 
 export const login = (login) =>{
     return{
@@ -25,5 +25,12 @@ export const removeFromCart = (Item) =>{
     return{
         type: REMOVE_FROM_CART,
         payload: Item
+    }
+};
+
+export const addCredentials = (email, name, password, phonenumber, direction) =>{
+    return{
+        type: CREDENTIALS,
+        payload: {email, name, password, phonenumber, direction}
     }
 };

@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 export const Container = styled.View`
     padding: 25px;
     background-color: #fff;
+    height: 100%;
 `;
 
 export const Logo = styled.Image`
@@ -34,9 +35,10 @@ export const ClickHere = styled.Text`
 `;
 
 export const EndText = styled.Text`
-    font-size 18px;
+    font-size 20px;
     color: #198654;
     text-decoration: underline;
-    text-align: center;
-    margin-top: 20px
+    align-self: center;
+    position: absolute;
+    bottom: 20px;
 `;
