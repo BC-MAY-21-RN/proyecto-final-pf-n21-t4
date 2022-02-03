@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-//import { Provider } from 'react-redux';
-//import { Store } from './src/Others/redux/store.js';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { Store } from './src/Others/redux/store.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login, Home } from './src/Screens/index'
+import { Home, Login, SignUp } from './src/Screens/index.js';
 
 const Stack = createNativeStackNavigator()
 
@@ -20,12 +20,15 @@ const App = () => {
   }
 
   return (    
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={Home} options={screenOptions}/>          
-          <Stack.Screen name="Login" component={Login} options={screenOptions}/>          
-        </Stack.Navigator>
-      </NavigationContainer>    
+      <Provider store={Store}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={Home} options={screenOptions}/>
+            <Stack.Screen name="Login" component={Login} options={screenOptions}/>          
+            <Stack.Screen name="SignUp" component={SignUp} options={screenOptions}/>          
+          </Stack.Navigator>
+        </NavigationContainer>   
+      </Provider> 
   );
 };
 

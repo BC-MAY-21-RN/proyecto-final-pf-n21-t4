@@ -11,12 +11,13 @@ export const Container = styled.View`
 export const Logo = styled.Image`
     width: 220px;
     height: 150px;
-    margin-bottom: 25px;
-    margin-top: 40px;
+    padding: 25px;
+    background-color: #fff;
+    height: 100%;
 `;
 
 export const LoginText = styled.Text`
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     color: #393939;
     margin-bottom: 10px;
@@ -28,10 +29,19 @@ export const BottomText = styled.Text`
     font-weight: 500;
     color: #000;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
 `;
 
 export const ClickHere = styled.Text`
     color: #198654;
     text-decoration: underline;
+`;
+
+export const EndText = styled.Text`
+    font-size 20px;
+    color: #198654;
+    text-decoration: underline;
+    align-self: center;
+    position: absolute;
+    bottom: 20px;
 `;
