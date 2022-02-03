@@ -4,10 +4,13 @@ import { InputComponent } from '../../Components/Input/Input';
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { GoogleBtn } from '../../Components/GoogleBtn/GoogleBtn';
 import { ScrollView, Text, View } from 'react-native';
+import {styles} from '../SharedScreenStyle';
+;
+
 
 export const Login = () => {
   return (
-    <ScrollView>
+    <ScrollView style={styles.bg}>
       <Container>
         <Logo source={require('../../Assets/Images/Logo.png')} />
 

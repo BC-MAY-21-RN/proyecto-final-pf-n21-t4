@@ -8,7 +8,7 @@ export const Container = styled.View`
 
 export const InputContainer = styled.View`
     flex-direction: row;
-    background-color: #F3F9F6;
+    background-color: #f3f9f6;
     border-radius: 10px;
     align-items: center;
     padding-left: 10px;

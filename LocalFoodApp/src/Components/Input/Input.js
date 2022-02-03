@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, InputContainer, InputHeadText, Inputt } from './InputStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export const InputComponent = ({Tipo}) => {
+export const InputComponent = ({hasLabel = true, Tipo, inputPlaceHolder = ""}) => {
     const [InputIcon, setInputIcon] = useState('md-home-outline')
     const [IsPassword, setIsPassword] = useState(false)
     const [TypeInput, setTypeInput] = useState(<Inputt />)
@@ -25,6 +25,9 @@ export const InputComponent = ({Tipo}) => {
             case 'Teléfono':
                 setInputIcon('call-outline')
                 break;
+            case 'Busqueda':
+                setInputIcon('search')
+                break;
             default:
                 setInputIcon('eye')
                 break;
@@ -32,13 +35,13 @@ export const InputComponent = ({Tipo}) => {
         if(IsPassword==true)
             setTypeInput(<Inputt secureTextEntry={true}/>)
         else
-            setTypeInput(<Inputt />)
+            setTypeInput(<Inputt placeholder={inputPlaceHolder} />)
     },[])
 
 
     return (
         <Container>
-            <InputHeadText>{Tipo}*</InputHeadText>
+            <InputHeadText> {hasLabel ? (`${Tipo}*`) : ("")}</InputHeadText>
             <InputContainer>
                 {TypeInput}
                 <Ionicons name={InputIcon} size={20} color={'#198654'}/>

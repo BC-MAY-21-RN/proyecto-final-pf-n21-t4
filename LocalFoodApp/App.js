@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 //import { Store } from './src/Others/redux/store.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login } from './src/Screens/Login/Login'
+import { Login, Home } from './src/Screens/index'
 
 const Stack = createNativeStackNavigator()
 
@@ -22,6 +22,7 @@ const App = () => {
   return (    
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} options={screenOptions}/>          
           <Stack.Screen name="Login" component={Login} options={screenOptions}/>          
         </Stack.Navigator>
       </NavigationContainer>    
