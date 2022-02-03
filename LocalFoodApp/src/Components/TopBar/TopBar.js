@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './TopBarStyles'
 import logoSource from '../../Assets/Images/Logo.png'
 
-const TopBar = () => {
+const TopBar = ({hasIcons = false}) => {
   return (
     <SafeAreaView>
         <View style={styles.Center}>
@@ -15,20 +15,24 @@ const TopBar = () => {
                     source={logoSource}
                 />
                 <View style={styles.IconBar}>
-                    <Icon
-                        style={styles.Icon}
-                        name='fast-food-outline'
-                        size={25}
-                        type='ionicon'
-                        color='#198553'
-                    />
-                    <Icon
-                        style={styles.Icon}
-                        name='notifications-outline'
-                        size={25}
-                        type='ionicon'
-                        color='#198553'
-                    />
+                    {hasIcons &&
+                        <>
+                            <Icon
+                            style={styles.Icon}
+                            name='fast-food-outline'
+                            size={25}
+                            type='ionicon'
+                            color='#198553'
+                            />
+                            <Icon
+                                style={styles.Icon}
+                                name='notifications-outline'
+                                size={25}
+                                type='ionicon'
+                                color='#198553'
+                            />
+                        </>
+                    }
                     <Icon
                         style={styles.IconBurger}
                         name='menu-outline'
