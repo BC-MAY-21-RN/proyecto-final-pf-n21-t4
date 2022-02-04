@@ -4,8 +4,8 @@ import TopBar from '../../Components/TopBar/TopBar';
 import { InputComponent } from '../../Components/Input/Input';
 import {styles} from './HomeStyle';
 import Carousel from '../../Components/Carousel/Carousel';
-;
-
+import {Title} from '../../Components/Title/Title.js';
+import ShopCard from '../../Components/ShopCad/ShopCard';
 
 {/**
   * top bar component ✔
@@ -17,19 +17,34 @@ import Carousel from '../../Components/Carousel/Carousel';
 */} 
 
 export const Home = () => {
+
+  const shops = {
+    shop1 : {
+      name: 'Dominos Pizza',
+      image: 'https://static.onecms.io/wp-content/uploads/sites/35/2019/02/03192047/processed-food-fb.jpg',
+    },
+    shop2 : {
+      name: 'shop two',
+      image: 'https://static.onecms.io/wp-content/uploads/sites/35/2019/02/03192047/processed-food-fb.jpg'
+    }
+  }
+
+  // const mapthis = Object.entries(shops)
+  // console.log(mapthis);
+
   return (
     <SafeAreaView style={styles.bg}>
       <View style={styles.Boundaries}>
-        <TopBar hasIcons={true}/>
+        <TopBar hasIcons={false}/>
         <InputComponent Tipo={'Busqueda'} inputPlaceHolder='Que se te antoja hoy?' hasLabel={false}/>
         {/* <Title  texto={"los mas pedidos de la semana"} hasBottomLine={false} hasIcon={false} />*/}
         
-        <Carousel />
-        {/* <Title  texto={"Recien añadidos"} hasBottomLine={true} hasIcon={false} />*/}
+        <Title text={"Los mas pedidos de la semana"}/>
+        <Carousel stores={shops}/>
+        <Title text={"Recien añadidos"} lineBelow={true}/>
 
-        {/*StoreContainer name={"la tostada y la guayaba"}*/}
-        {/*StoreContainer name={"dominos pizza"}*/}
-        {/*StoreContainer name={"bel pase"}*/}
+        {/* {mapthis.map(shop => <ShopCard key={shop} stores={shop}/>)} */}
+
       </View>
     </SafeAreaView>
   );

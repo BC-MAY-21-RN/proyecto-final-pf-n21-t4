@@ -12,7 +12,6 @@ export const Login = (Props) => {
   const [email, setEmail] = useState('')
   const [pwd, setPwd] = useState('')
 
-
   return (
     <ScrollView style={styles.bg}>
       <Container>
@@ -24,8 +23,8 @@ export const Login = (Props) => {
           <InputComponent Tipo={'Correo'} action={setEmail}/>
           <InputComponent Tipo={'Contraseña'} action={setPwd}/>
         </View>
-
-        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd)}}/>
+        
+        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd)}} color={true}/>
 
         <GoogleBtn />
 

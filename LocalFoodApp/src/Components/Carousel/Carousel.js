@@ -1,21 +1,14 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import React from 'react';
+import { styles } from './CarouselStyles';
 
-const Carousel = () => {
-
-    const storersNImages = {
-        stores : [
-            ['Dominos pizza','image123'], 
-            ['La tostada y la guayaba','image124'], 
-            ['bel pasee','image 125']
-        ]
-    }
+const Carousel = ({stores}) => {
 
   return (
-    <View>  
+    <View style={styles.carousel}>  
         {/**recieves a collection of objects, map through the array*/}
-        <Text>{storersNImages.stores[0][0]}</Text>
-        <Text>{storersNImages.stores[0][1]}</Text>
+        <Text style={styles.title}>{stores.shop1.name}</Text>
+        <Image style={styles.image} source={{uri: stores.shop1.image}}/>
     </View>
   );
 };

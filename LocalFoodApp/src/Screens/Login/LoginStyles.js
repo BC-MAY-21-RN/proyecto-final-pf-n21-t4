@@ -1,31 +1,27 @@
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
-    padding-left: 5%;
-    padding-right: 5%;
-    width: 100%;
-    height: 100%;
-    background-color: white;
+    padding: 25px;
+    background-color: #fff;
 `;
 
 export const Logo = styled.Image`
-    width: 220px;
-    height: 150px;
-    padding: 25px;
-    background-color: #fff;
-    height: 100%;
+    margin-top: 25px;
+    width: 170px;
+    height: 110px;
+    margin-bottom: 25px;
 `;
 
 export const LoginText = styled.Text`
     font-size: 30px;
     font-weight: bold;
     color: #393939;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     letter-spacing: 0.2px;
 `;
 
 export const BottomText = styled.Text`
-    font-size 10px;
+    font-size 16px;
     font-weight: 500;
     color: #000;
     text-align: center;
@@ -41,7 +37,6 @@ export const EndText = styled.Text`
     font-size 20px;
     color: #198654;
     text-decoration: underline;
+    bottom: 0%;
     align-self: center;
-    position: absolute;
-    bottom: 20px;
 `;

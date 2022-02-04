@@ -1,21 +1,20 @@
-import { StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import TopBar from '../../Components/TopBar/TopBar'
+import { Container, ConfirmationText, Logo } from './ConfirmationStyles'
+import { MainBtn } from '../../Components/MainBtn/MainBtn'
 
 export const Confirmation = ({navigation}) => {
   return (
-    <View>
+    <Container>
       <TopBar hasIcons={false}/>
-      <Image source={require('../../Assets/Images/Logo.png')} style={{width: 250, height: 220}}/>
 
-      <View>
-        <Text>Tu pedido se ha realizado con exito!</Text>
-        <TouchableOpacity>
-          <Text>Continuar</Text>
-        </TouchableOpacity>
+      <Logo source={require('../../Assets/Images/Logo.png')} />
+
+      <View style={{borderTopWidth: 2, borderTopColor: '#B0B0B0', alignItems: 'center'}}>
+        <ConfirmationText>Tu pedido se ha realizado con exito!</ConfirmationText>
+        <MainBtn type={'Confirmar'} Action={()=>{navigation.navigate('Home')}} color={false}/>
       </View>
-    </View>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({});
