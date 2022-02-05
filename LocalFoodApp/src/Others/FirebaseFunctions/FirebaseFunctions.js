@@ -49,3 +49,12 @@ export const NewUserDoc = (uid) =>{
             ShopOwner: false,
         })
 }
+
+export const GetShops = async () =>{
+    const info = await firestore()
+    .collection('Shops')
+    .get();
+
+    console.log(info)
+    return info
+}

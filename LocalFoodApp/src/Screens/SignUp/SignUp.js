@@ -24,7 +24,6 @@ export const SignUp = (Props) => {
           <InputComponent Tipo={'Correo'} action={setEmail}/>
           <InputComponent Tipo={'Contraseña'} action={setPwd}/>
           <InputComponent Tipo={'Nombre'} action={setName}/>
-          <InputComponent Tipo={'Domicilio'} action={setDirection}/>
           <InputComponent Tipo={'Teléfono'} action={setPhonenumber}/>
         </View>
 

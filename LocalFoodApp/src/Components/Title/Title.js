@@ -19,7 +19,8 @@ export const Title = (
       display: 'flex',
       flexDirection: 'row',
       width: '100%',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      borderWidth: 1,
     },
     textSmall:{
       color: 'black',

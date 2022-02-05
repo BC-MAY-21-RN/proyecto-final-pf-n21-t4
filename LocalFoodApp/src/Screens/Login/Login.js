@@ -30,7 +30,7 @@ export const Login = (Props) => {
 
         <BottomText>No tienes cuenta? <ClickHere onPress={()=>{navigation.navigate("SignUp")}}>registrate aquí</ClickHere> </BottomText>
 
-        <EndText>Ingresar sin cuenta</EndText>
+        <EndText onPress={()=>{navigation.navigate("Home")}}>Ingresar sin cuenta</EndText>
       </Container>
     </ScrollView>
   );

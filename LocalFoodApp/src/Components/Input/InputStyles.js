@@ -2,8 +2,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     margin-top: 10px;
-    padding-left: 5px;
-    padding-right: 5px;
 `;
 
 export const InputContainer = styled.View`

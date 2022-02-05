@@ -20,9 +20,6 @@ export const InputComponent = ({hasLabel = true, Tipo, inputPlaceHolder = "", ac
             case 'Nombre':
                 setInputIcon('person-outline')
                 break;
-            case 'Domicilio':
-                setInputIcon('location-outline')
-                break;
             case 'Teléfono':
                 setInputIcon('call-outline')
                 break;
