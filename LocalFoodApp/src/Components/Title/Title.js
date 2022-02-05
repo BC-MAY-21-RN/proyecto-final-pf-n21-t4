@@ -15,12 +15,21 @@ export const Title = (
   const style = StyleSheet.create({
     container: {
       borderBottomColor: 'gray',
-      borderBottomWidth: 2,
+      borderBottomWidth: 1,
       display: 'flex',
       flexDirection: 'row',
       width: '100%',
       justifyContent: 'space-between',
-      borderWidth: 1,
+      paddingTop: 10,
+      paddingLeft: 0,
+    },
+    containerNoLine: {
+      display: 'flex',
+      flexDirection: 'row',
+      width: '100%',
+      justifyContent: 'space-between',
+      paddingTop: 20,
+      paddingLeft: 0,
     },
     textSmall:{
       color: 'black',
@@ -29,7 +38,7 @@ export const Title = (
       },
     textMedium:{
       color: 'black',
-      fontSize: 20,
+      fontSize: 22,
       fontWeight: 'bold',
     },
     textBig:{
@@ -43,13 +52,10 @@ export const Title = (
     switch(sizeSelected) {
       case 'small':
         return <Text style={style.textSmall}>{text}</Text>  
-        break;
       case 'medium':
         return <Text style={style.textMedium}>{text}</Text>
-        break;
       case 'big':
         return <Text style={style.textBig}>{text}</Text>
-        break;
       default: 
         return <Text style={style.textSmall}>{text}</Text>
     }
@@ -57,9 +63,8 @@ export const Title = (
 
   return (
     <>
-      <View style={(lineBelow) ? (style.container) : ('')}>
+      <View style={(lineBelow) ? (style.container) : (style.containerNoLine)}>
         {getText(textSize)}
-        
         <View>
           { hasIcon && <Icon name={icon}/>}
         </View>
