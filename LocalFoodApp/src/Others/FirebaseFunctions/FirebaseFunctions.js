@@ -50,11 +50,31 @@ export const NewUserDoc = (uid) =>{
         })
 }
 
-export const GetShops = async () =>{
-    const info = await firestore()
-    .collection('Shops')
-    .get();
+export const GetShops = async (accion) =>{
+    let info = []
+    try{
+        firestore()
+        .collection("Shops")
+        .orderBy("Fecha", "desc")
+        .limit(3)
+        .get().then((e)=>{
+            e.forEach((element)=>{
+                info.push(element.data());
+            })
+            accion(info)
+        });
+    } catch(e){
+        console.log('Este es un error '+ e)
+    }
+}
 
-    console.log(info)
-    return info
+export const GetShop = async (shopname) =>{
+    try{
+        firestore()
+        .collection('Shops')
+        .doc(shopname)
+        .get();
+    } catch(e){
+        console.log('Este es un error '+ e)
+    }
 }

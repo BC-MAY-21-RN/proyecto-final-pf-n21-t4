@@ -1,33 +1,26 @@
-import { View, SafeAreaView, ScrollView} from 'react-native';
-import React, { useState} from 'react';
+import { View, SafeAreaView, ScrollView, FlatList} from 'react-native';
+import React, { useEffect, useState} from 'react';
 import TopBar from '../../Components/TopBar/TopBar';
 import { InputComponent } from '../../Components/Input/Input';
 import {styles} from './HomeStyle';
 import Carousel from '../../Components/Carousel/Carousel';
 import {Title} from '../../Components/Title/Title.js';
 import ShopCard from '../../Components/ShopCad/ShopCard';
-
-
-{/**
-  * top bar component ✔
-  * searchbox (input component) ✔
-  * title bar (styled) ✔
-  * hor bar? 
-  * carousel (component)
-    * business card ✔
-*/} 
-const shops = [
-  {
-    name: 'Dominos Pizza',
-    image: 'https://static.onecms.io/wp-content/uploads/sites/35/2019/02/03192047/processed-food-fb.jpg',
-  },
-  {
-    name: 'shop two',
-    image: 'https://static.onecms.io/wp-content/uploads/sites/35/2019/02/03192047/processed-food-fb.jpg'
-  }
-]
+import { GetShops } from '../../Others/FirebaseFunctions/FirebaseFunctions'
 
 export const Home = () => {
+  const  [shops, setShops] = useState([])
+
+  useEffect(()=>{
+    GetShops(setShops)
+  },[])
+
+  const renderShop = ({item}) =>{
+    return(
+      <ShopCard shop={item}/>
+    )
+  }
+
   return (
     <SafeAreaView style={styles.bg}>
       <ScrollView>
@@ -39,8 +32,11 @@ export const Home = () => {
           <Carousel shops={shops}/>
 
           <Title text={"Recien añadidos"} lineBelow={true}/>
-          {shops?.map((tienda, index) => <ShopCard key={index} shop={tienda}/>)}
-
+          <FlatList
+            data={shops}
+            renderItem={renderShop}
+            keyExtractor={item => item.key}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
