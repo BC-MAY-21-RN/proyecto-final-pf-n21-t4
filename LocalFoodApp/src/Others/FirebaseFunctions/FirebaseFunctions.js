@@ -68,6 +68,7 @@ export const GetShops = async (accion) =>{
     }
 }
 
+/*Funcion para redirijir a cada tienda */
 export const GetShop = async (shopname) =>{
     try{
         firestore()

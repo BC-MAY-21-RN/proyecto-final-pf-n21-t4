@@ -4,8 +4,10 @@ import { Store } from './src/Others/redux/store.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Confirmation, Home, Login, SignUp } from './src/Screens/index.js';
+//import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createNativeStackNavigator()
+//sconst Drawer = createDrawerNavigator();
 
 const App = () => {
 

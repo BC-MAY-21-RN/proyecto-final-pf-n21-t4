@@ -29,7 +29,7 @@ export const Home = () => {
           <InputComponent Tipo={'Busqueda'} inputPlaceHolder='Que se te antoja hoy?' hasLabel={false}/>
           <Title text={"Los más pedidos de la semana"} lineBelow={false}/>
           
-          <Carousel shops={shops}/>
+          <Carousel shops={shops} timer={3000}/>
 
           <Title text={"Recien añadidos"} lineBelow={true}/>
           <FlatList
