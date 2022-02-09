@@ -11,6 +11,7 @@ export const ShopFilterBar = () => {
       <Title text="Menú"/>
       <View style={styles.container}>
         <Text>Filter bar</Text>
+        {/**needs basket icon */}
       </View>
       {/**map shop items heer */}
       <ShopItem />
