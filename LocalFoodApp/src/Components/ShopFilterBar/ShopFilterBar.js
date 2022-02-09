@@ -17,7 +17,7 @@ export const ShopFilterBar = () => {
       <ShopItem />
       <ShopItem />
       <ShopItem />
-      <ShopItem />f
+      <ShopItem />
     </>
   )
 }
