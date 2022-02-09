@@ -8,12 +8,13 @@ import { ShopFilterBar } from '../../Components/ShopFilterBar/ShopFilterBar';
 
 export const Business = (props) => {
   const { route: { params: { shop } } } = props
+  console.log(shop)
   const { ShopName } = shop
   return (
     <SafeAreaView style={styles.bg}>
       <ScrollView style={styles.Boundaries}>
         <TopBar />
-        <Title text="Dominos pizza" textSize='big' lineBelow={true}/>
+        <Title text={ShopName} textSize='big' lineBelow={true}/>
         <ShopFilterBar />
       </ScrollView>
     </SafeAreaView>
