@@ -9,7 +9,7 @@ export const Title = (
     text = 'Titulo vacio', 
     textSize = 'medium', 
     hasIcon = false,
-    icon = 'rowing'
+    icon = 'rowing',
   }
 ) => {
 
