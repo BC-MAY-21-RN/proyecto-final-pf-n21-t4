@@ -7,11 +7,11 @@ import Carousel from '../../Components/Carousel/Carousel';
 import {Title} from '../../Components/Title/Title.js';
 import ShopCard from '../../Components/ShopCad/ShopCard';
 import { GetShops } from '../../Others/FirebaseFunctions/FirebaseFunctions'
-import { waitFor } from '../../Others/Functions';
 
 export const Home = ({navigation}) => {
   const [shops, setShops] = useState([])
-  const [carous, setCarousel] = useState(<></>)
+
+
   useEffect(()=>{
     GetShops(setShops)
   },[])
@@ -24,7 +24,6 @@ export const Home = ({navigation}) => {
     />
   })
 
-  waitFor(3000)
 
   return (
     <SafeAreaView style={styles.bg}>
