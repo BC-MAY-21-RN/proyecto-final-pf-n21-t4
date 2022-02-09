@@ -4,7 +4,7 @@ import { styles } from '../Carousel/CarouselStyles';
 
 const ShopCard = ({shop, nav}) => {
   return (
-    <TouchableOpacity onPress={()=>{nav.navigate('Shop', {shop})}}>
+    <TouchableOpacity onPress={()=>{nav.navigate('Business', {shop})}}>
       <View style={styles.carousel}>  
         {/**recieves a collection of objects, map through the array*/}
         <Text style={styles.title}>{shop.ShopName}</Text>

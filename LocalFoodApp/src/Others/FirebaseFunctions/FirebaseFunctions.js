@@ -72,6 +72,10 @@ export const GetShops = async (accion) =>{
     }
 }
 
+export const GetTopShops = () =>{
+    //to do
+}
+
 /*Funcion para redirijir a cada tienda */
 export const GetShop = async (shopname) =>{
     try{

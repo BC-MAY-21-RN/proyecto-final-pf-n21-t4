@@ -1,8 +1,8 @@
-import { View, SafeAreaView, ScrollView} from 'react-native';
+import { View, SafeAreaView, SectionList, FlatList} from 'react-native';
 import React, { useEffect, useState} from 'react';
 import TopBar from '../../Components/TopBar/TopBar';
 import { InputComponent } from '../../Components/Input/Input';
-import {styles} from './HomeStyle';
+import {styles} from '../Home/HomeStyle';
 import Carousel from '../../Components/Carousel/Carousel';
 import {Title} from '../../Components/Title/Title.js';
 import ShopCard from '../../Components/ShopCad/ShopCard';
@@ -27,7 +27,6 @@ export const Home = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.bg}>
-      <ScrollView>
         <View style={styles.Boundaries}>
           <TopBar hasIcons={false}/>
           <InputComponent Tipo={'Busqueda'} inputPlaceHolder='Que se te antoja hoy?' hasLabel={false}/>
@@ -38,7 +37,6 @@ export const Home = ({navigation}) => {
           <Title text={"Recien añadidos"} lineBelow={true}/>
           {renderShops}
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };
