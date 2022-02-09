@@ -24,11 +24,10 @@ export const SignUp = (Props) => {
           <InputComponent Tipo={'Correo'} action={setEmail}/>
           <InputComponent Tipo={'Contraseña'} action={setPwd}/>
           <InputComponent Tipo={'Nombre'} action={setName}/>
-          <InputComponent Tipo={'Domicilio'} action={setDirection}/>
           <InputComponent Tipo={'Teléfono'} action={setPhonenumber}/>
         </View>
 
-        <MainBtn type={'Sign up'} Action={()=>{registrarse(email, pwd)}}/>
+        <MainBtn type={'Sign up'} Action={()=>{registrarse(email, pwd)}} color={true}/>
 
         <BottomText>Ya tienes una cuenta? <ClickHere onPress={()=>{navigation.navigate("Login")}}>Ingresa aquí</ClickHere> </BottomText>
       </Container>

@@ -1,14 +1,16 @@
 import styled from "styled-components";
 
 export const MBtn = styled.TouchableOpacity`
-    margin-top: 30px;
-    padding: 10px;
-    background-color: #198654;
+    width: 96%;
+    margin-top: 20px;
+    padding: 7px;
+    background-color: ${props => props.color};
     border-radius: 8px;
+    border: 1px solid #198553;
 `;
 
 export const MBtnText = styled.Text`
     font-size: 20px;
     text-align: center;
-    color: #fff;
+    color: ${props => props.color};
 `;

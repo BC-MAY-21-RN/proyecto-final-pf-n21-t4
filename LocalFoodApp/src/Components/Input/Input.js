@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, InputContainer, InputHeadText, Inputt } from './InputStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export const InputComponent = ({Tipo, action}) => {
+export const InputComponent = ({hasLabel = true, Tipo, inputPlaceHolder = "", action}) => {
     const [InputIcon, setInputIcon] = useState('md-home-outline')
     const [IsPassword, setIsPassword] = useState(false)
     const [TypeInput, setTypeInput] = useState(<Inputt />)
@@ -20,11 +20,11 @@ export const InputComponent = ({Tipo, action}) => {
             case 'Nombre':
                 setInputIcon('person-outline')
                 break;
-            case 'Domicilio':
-                setInputIcon('location-outline')
-                break;
             case 'Teléfono':
                 setInputIcon('call-outline')
+                break;
+            case 'Busqueda':
+                setInputIcon('search')
                 break;
             default:
                 setInputIcon('eye')
@@ -34,13 +34,13 @@ export const InputComponent = ({Tipo, action}) => {
         if(IsPassword==true)
             setTypeInput(<Inputt secureTextEntry={true} onChangeText={(e)=>{action(e)}}/>)
         else
-            setTypeInput(<Inputt onChangeText={(e)=>{action(e)}}/>)
+            setTypeInput(<Inputt onChangeText={(e)=>{action(e)}} placeholder={inputPlaceHolder}/>)
     },[])
-
+    
 
     return (
         <Container>
-            <InputHeadText>{Tipo}*</InputHeadText>
+            <InputHeadText> {hasLabel ? (`${Tipo}*`) : ("")}</InputHeadText>
             <InputContainer>
                 {TypeInput}
                 <Ionicons name={InputIcon} size={20} color={'#198654'}/>
