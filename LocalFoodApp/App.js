@@ -7,7 +7,6 @@ import { Confirmation, Home, Login, SignUp, Business } from './src/Screens/index
 //import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createNativeStackNavigator()
-//sconst Drawer = createDrawerNavigator();
 
 const App = () => {
 
@@ -27,6 +26,7 @@ const App = () => {
           <Stack.Navigator initialRouteName="Business">
             <Stack.Screen name="Home" component={Home} options={screenOptions}/>
             <Stack.Screen name="SignUp" component={SignUp} options={screenOptions}/>
+            <Stack.Screen name="Home" component={Home} options={screenOptions}/>
             <Stack.Screen name="Confirmation" component={Confirmation} options={screenOptions}/>  
             <Stack.Screen name="Login" component={Login} options={screenOptions}/>          
             <Stack.Screen name="Business" component={Business} options={screenOptions}/>          

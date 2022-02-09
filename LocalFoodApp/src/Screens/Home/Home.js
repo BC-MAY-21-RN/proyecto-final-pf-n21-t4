@@ -7,10 +7,11 @@ import Carousel from '../../Components/Carousel/Carousel';
 import {Title} from '../../Components/Title/Title.js';
 import ShopCard from '../../Components/ShopCad/ShopCard';
 import { GetShops } from '../../Others/FirebaseFunctions/FirebaseFunctions'
+import { waitFor } from '../../Others/Functions';
 
-export const Home = () => {
-  const  [shops, setShops] = useState([])
-
+export const Home = ({navigation}) => {
+  const [shops, setShops] = useState([])
+  const [carous, setCarousel] = useState(<></>)
   useEffect(()=>{
     GetShops(setShops)
   },[])
@@ -31,11 +32,7 @@ export const Home = () => {
           <Carousel shops={shops} timer={3000}/>
 
           <Title text={"Recien añadidos"} lineBelow={true}/>
-          <FlatList
-            data={shops}
-            renderItem={renderShop}
-            keyExtractor={item => item.key}
-          />
+          {renderShops}
         </View>
     </SafeAreaView>
   );
