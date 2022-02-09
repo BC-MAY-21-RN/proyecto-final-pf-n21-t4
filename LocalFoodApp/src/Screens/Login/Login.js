@@ -3,7 +3,8 @@ import { Container, EndText, Logo, LoginText, BottomText, ClickHere } from './Lo
 import { InputComponent } from '../../Components/Input/Input';
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { GoogleBtn } from '../../Components/GoogleBtn/GoogleBtn';
-import { View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
+import {styles} from '../SharedScreenStyle';
 import { login } from '../../Others/FirebaseFunctions/FirebaseFunctions';
 
 export const Login = (Props) => {
@@ -11,8 +12,8 @@ export const Login = (Props) => {
   const [email, setEmail] = useState('')
   const [pwd, setPwd] = useState('')
 
-
   return (
+    <ScrollView style={styles.bg}>
       <Container>
         <Logo source={require('../../Assets/Images/Logo.png')} />
 
@@ -22,14 +23,15 @@ export const Login = (Props) => {
           <InputComponent Tipo={'Correo'} action={setEmail}/>
           <InputComponent Tipo={'Contraseña'} action={setPwd}/>
         </View>
-
-        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd)}}/>
+        
+        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd, navigation)}} color={true}/>
 
         <GoogleBtn />
 
         <BottomText>No tienes cuenta? <ClickHere onPress={()=>{navigation.navigate("SignUp")}}>registrate aquí</ClickHere> </BottomText>
 
-        <EndText>Ingresar sin cuenta</EndText>
+        <EndText onPress={()=>{navigation.navigate("Home")}}>Ingresar sin cuenta</EndText>
       </Container>
+    </ScrollView>
   );
 };

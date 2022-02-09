@@ -31,4 +31,5 @@ ShopProducts (Contiene los productos de una determinada tienda)
         + Nombre de la comida
         + url de la imagen
         + Pequeña descripcion (Esta puede contener info sobre el plato y para cuantas personas es)
+        + categoria
         + Precio.
