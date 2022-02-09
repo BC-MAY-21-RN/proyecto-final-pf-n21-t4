@@ -12,8 +12,8 @@ const Carousel = ({shops, timer}) => {
 
   return (
       <View style={styles.carousel}>  
-        <Text style={styles.title}>{shops[count].name}</Text>
-        <Image style={styles.image} source={{uri: shops[count].image}}/>
+        <Text style={styles.title}>{shops[count].ShopName}</Text>
+        <Image style={styles.image} source={{uri: shops[count].Image}}/>
       </View>
   );
 };

@@ -68,6 +68,24 @@ export const GetShops = async (accion) =>{
     }
 }
 
+export const GetTopShops = async (accion) =>{
+    let info = []
+    try{
+        firestore()
+        .collection("Shops")
+        .orderBy("Fecha", "desc")
+        .limit(3)
+        .get().then((e)=>{
+            e.forEach((element)=>{
+                info.push(element.data());
+            })
+            accion(info)
+        });
+    } catch(e){
+        console.log('Este es un error '+ e)
+    }
+}
+
 /*Funcion para redirijir a cada tienda */
 export const GetShop = async (shopname) =>{
     try{
