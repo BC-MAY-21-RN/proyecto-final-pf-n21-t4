@@ -9,6 +9,7 @@ export const registrarse = (email, pwd) => {
         .then((e) => {
             ToastAndroid.show('Welcome', ToastAndroid.SHORT)
             NewUserDoc(e.user.uid)
+            nav.navigate('Home');
         })
         .catch(error => {
             if (error.code === 'auth/email-already-in-use') {
@@ -25,15 +26,18 @@ export const registrarse = (email, pwd) => {
 }
 
 
-export const login = (email, pwd) => {
+export const login = (email, pwd, nav) => {
     if(email!=''||pwd!='')
         auth()
         .signInWithEmailAndPassword(email, pwd)
         .then((e) => {
             ToastAndroid.show('Welcome', ToastAndroid.SHORT)
+            nav.navigate('Home');
         })
         .catch(error => {
-            console.log(error)
+            if (error.code === 'auth/wrong-password') {
+                ToastAndroid.show('Invalid password!', ToastAndroid.SHORT)
+            }
         });
     else
         ToastAndroid.show('Please, fill up all the fields.', ToastAndroid.SHORT)

@@ -24,7 +24,7 @@ export const Login = (Props) => {
           <InputComponent Tipo={'Contraseña'} action={setPwd}/>
         </View>
         
-        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd)}} color={true}/>
+        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd, navigation)}} color={true}/>
 
         <GoogleBtn />
 

@@ -1,4 +1,4 @@
-import { View, SafeAreaView, ScrollView, FlatList} from 'react-native';
+import { View, SafeAreaView, ScrollView} from 'react-native';
 import React, { useEffect, useState} from 'react';
 import TopBar from '../../Components/TopBar/TopBar';
 import { InputComponent } from '../../Components/Input/Input';
@@ -7,19 +7,24 @@ import Carousel from '../../Components/Carousel/Carousel';
 import {Title} from '../../Components/Title/Title.js';
 import ShopCard from '../../Components/ShopCad/ShopCard';
 import { GetShops } from '../../Others/FirebaseFunctions/FirebaseFunctions'
+import { waitFor } from '../../Others/Functions';
 
-export const Home = () => {
-  const  [shops, setShops] = useState([])
-
+export const Home = ({navigation}) => {
+  const [shops, setShops] = useState([])
+  const [carous, setCarousel] = useState(<></>)
   useEffect(()=>{
     GetShops(setShops)
   },[])
 
-  const renderShop = ({item}) =>{
-    return(
-      <ShopCard shop={item}/>
-    )
-  }
+  const renderShops = shops?.map((shop, index)=>{
+    return <ShopCard 
+      key={`Shop${index}`}
+      shop={shop}
+      nav={navigation}
+    />
+  })
+
+  waitFor(3000)
 
   return (
     <SafeAreaView style={styles.bg}>
@@ -32,11 +37,7 @@ export const Home = () => {
           <Carousel shops={shops} timer={3000}/>
 
           <Title text={"Recien añadidos"} lineBelow={true}/>
-          <FlatList
-            data={shops}
-            renderItem={renderShop}
-            keyExtractor={item => item.key}
-          />
+          {renderShops}
         </View>
       </ScrollView>
     </SafeAreaView>

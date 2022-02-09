@@ -36,7 +36,7 @@ export const InputComponent = ({hasLabel = true, Tipo, inputPlaceHolder = "", ac
         else
             setTypeInput(<Inputt onChangeText={(e)=>{action(e)}} placeholder={inputPlaceHolder}/>)
     },[])
-
+    
 
     return (
         <Container>

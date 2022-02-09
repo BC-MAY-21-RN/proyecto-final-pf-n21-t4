@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { styles } from './CarouselStyles';
 
 const Carousel = ({shops, timer}) => {
-
   const [count, setCount] = useState(0);
 
   setTimeout(() => {
@@ -12,8 +11,8 @@ const Carousel = ({shops, timer}) => {
 
   return (
       <View style={styles.carousel}>  
-        <Text style={styles.title}>{shops[count].name}</Text>
-        <Image style={styles.image} source={{uri: shops[count].image}}/>
+        <Text style={styles.title}>{shops[count].ShopName}</Text>
+        <Image style={styles.image} source={{uri: shops[count].Image}}/>
       </View>
   );
 };

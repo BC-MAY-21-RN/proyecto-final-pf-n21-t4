@@ -1,14 +1,16 @@
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { styles } from '../Carousel/CarouselStyles';
 
-const ShopCard = ({shop}) => {
+const ShopCard = ({shop, nav}) => {
   return (
-    <View style={styles.carousel}>  
+    <TouchableOpacity onPress={()=>{nav.navigate('Shop', {shop})}}>
+      <View style={styles.carousel}>  
         {/**recieves a collection of objects, map through the array*/}
         <Text style={styles.title}>{shop.ShopName}</Text>
         <Image style={styles.image} source={{uri: shop.Image}}/>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 

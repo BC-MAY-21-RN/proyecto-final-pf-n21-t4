@@ -1,7 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import React from 'react';
 
-export const Business = (props) => {
+export const Shop = (props) => {
   const { route: { params: { shop } } } = props
   const { ShopName } = shop
   return (
@@ -10,5 +10,3 @@ export const Business = (props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
