@@ -6,7 +6,7 @@ const Carousel = ({shops, timer}) => {
   const [count, setCount] = useState(0);
 
   setTimeout(() => {
-    count <= shops?.length -2 ? setCount(count +1) : setCount(0)
+     count <= shops?.length -2 ? setCount(count +1) : setCount(0)
   }, timer);
 
   return (
