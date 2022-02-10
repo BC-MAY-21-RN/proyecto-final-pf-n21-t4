@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-const SignUpBusinessForm = () => {
+export const SignUpBusinessForm = () => {
   return (
     <View>
       <Text></Text>
@@ -9,6 +9,3 @@ const SignUpBusinessForm = () => {
   );
 };
 
-export default SignUpBusinessForm;
-
-const styles = StyleSheet.create({});
