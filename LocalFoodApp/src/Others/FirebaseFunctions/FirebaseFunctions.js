@@ -63,7 +63,7 @@ export const GetShops = async (accion) => {
       .limit(3)
       .get().then((e) => {
         e.forEach((element) => {
-          info.push(element.data())
+            info.push({...element.data(), ShopId: element.id})   
         })
         accion(info)
       });
@@ -85,24 +85,22 @@ export const GetTopShops = () => {
    */}
 }
 
-// export const GetProducts = async (shopId) => {
-//   let info = []
-//   if (shopId) {
-//     try {
-//       firestore()
-//         .collection("ShopProducts")
-//         .where("ShopId", "==", shopId)
-//         .get().then((e) => {
-//           e.forEach((element) => {
-//             info.push(element.data());
-//           })
-//           accion(info)
-//         });
-//     } catch (e) {
-//       console.log('Este es un error ' + e)
-//     }
-//   }
-// }
+export const GetProducts = async (shopId, setProducts) => {
+  let info
+  if (shopId) {
+    try {
+      firestore()
+        .collection("ShopProducts")
+        .where("ShopId", "==", shopId)
+        .get().then((e) => {
+            info = e._docs[0]._data
+            setProducts(info)
+    });
+    } catch (e) {
+      console.log('Este es un error ' + e)
+    }
+  }
+}
 
 /*Funcion para redirijir a cada tienda */
 export const GetShop = async (shopname) => {
