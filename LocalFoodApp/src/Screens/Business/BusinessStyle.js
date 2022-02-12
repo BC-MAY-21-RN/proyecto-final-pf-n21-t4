@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
   },
 
   bg: {
+    height: '100%',
     backgroundColor: 'white',
   },
   
@@ -19,6 +20,7 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     flex: 1,
     flexDirection: 'row',
+    marginBottom: 15,
   },
 
 });

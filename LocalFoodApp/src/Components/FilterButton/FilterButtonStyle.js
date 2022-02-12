@@ -10,7 +10,7 @@ export const styles = (selected) => StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
     marginTop: 10,
-    marginRight: 20,
+    marginRight: 10,
     height: 80,
     display: 'flex',
     justifyContent: 'center',
