@@ -1,6 +1,8 @@
 import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { ToastAndroid } from 'react-native';
+import storage from '@react-native-firebase/storage';
+import { utils } from '@react-native-firebase/app';
 
 export const registrarse = (email, pwd, name, number, nav) => {
     if(email!=''||pwd!='')
@@ -94,6 +96,61 @@ export const GetShop = async (shopname) =>{
         .collection('Shops')
         .doc(shopname)
         .get();
+    } catch(e){
+        console.log('Este es un error '+ e)
+    }
+}
+
+export const UserGeneralInfo = async (setUserIsOwner) =>{
+    let x = false;
+    try{
+        firestore()
+        .collection('Users')
+        .doc(auth().currentUser.uid)
+        .get()
+        .then((e)=>{
+            x = e.data()
+            setUserIsOwner(x.ShopOwner);
+        });
+        console.log(x.ShopOwner)
+    } catch(e){
+        console.log('Este es un error '+ e)
+    }
+}
+
+export const RegisterShop = async (name, number, street,img) =>{
+    const folder = 'images';
+    
+    try{
+        let uploadUri = img.uri;
+        let filename = img.fileName;
+        
+        //ref es el folder donde se va a subir, child es el nombre del archivo y putFile es la función que sube la imagen.
+        await storage().ref(folder).child(filename).putFile(uploadUri);
+
+        //recupera el URL de la imagen.
+        const url = await storage().ref(folder).child(filename).getDownloadURL();
+
+        firestore() 
+        .collection('Shops')
+        .doc('shop-'+auth().currentUser.uid)
+        .set({
+            Fecha: firestore.Timestamp.now().toDate(),
+            Image: url,
+            Orders: [],
+            Owner: auth().currentUser.displayName,
+            PhoneNumber: number,
+            ShopName: name,
+            Street: street, 
+        })
+        .then(() => {
+          firestore()
+          .collection('Users')
+          .doc(auth().currentUser.uid)
+          .update({
+                ShopOwner: true
+          })
+        });
     } catch(e){
         console.log('Este es un error '+ e)
     }

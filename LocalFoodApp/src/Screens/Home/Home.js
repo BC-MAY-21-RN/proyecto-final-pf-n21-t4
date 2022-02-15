@@ -1,6 +1,6 @@
 import { View, SafeAreaView, ScrollView} from 'react-native';
 import React, { useEffect, useState} from 'react';
-import TopBar from '../../Components/TopBar/TopBar';
+import {TopBar} from '../../Components/TopBar/TopBar';
 import { InputComponent } from '../../Components/Input/Input';
 import {styles} from '../Home/HomeStyle';
 import Carousel from '../../Components/Carousel/Carousel';

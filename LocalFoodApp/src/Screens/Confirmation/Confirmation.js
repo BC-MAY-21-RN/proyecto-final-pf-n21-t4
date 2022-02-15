@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import TopBar from '../../Components/TopBar/TopBar'
+import {TopBar} from '../../Components/TopBar/TopBar'
 import { Container, ConfirmationText, Logo } from './ConfirmationStyles'
 import { MainBtn } from '../../Components/MainBtn/MainBtn'
 
