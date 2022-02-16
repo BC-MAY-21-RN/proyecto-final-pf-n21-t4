@@ -32,37 +32,6 @@ export const styles = StyleSheet.create({
     color: 'gray',
     fontSize: 16,
   },
-  containerAddedPRoducts: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: 15
-
-  },
-  containerProductDescription: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginLeft: 8
-  },
-  productOptions: {
-    display: 'flex',
-    flexDirection: 'row',
-
-  },
-  image: {
-    width: 80,
-    height: 80,
-
-  },
-  iconOperator: {
-    width: 18,
-    height: 18,
-
-  },
-  productName: {
-    color: 'black',
-    fontSize: 17,
-    fontWeight: 'bold'
-  },
   total: {
     color: 'green',
     fontSize: 30,

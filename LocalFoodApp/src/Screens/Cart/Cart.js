@@ -4,6 +4,7 @@ import TopBar from '../../Components/TopBar/TopBar';
 import { styles } from './CartStyle'
 import { Title } from '../../Components/Title/Title';
 import { MainBtn } from '../../Components/MainBtn/MainBtn'
+import { ProductDescriptionAdded } from '../../Components/ProductDescriptionAdded/ProductDescriptionAdded';
 
 export const Cart = ({ navigation }) => {
   return (
@@ -19,19 +20,13 @@ export const Cart = ({ navigation }) => {
           <Title text={'Dominos Pizza'}/>
           <Text style={styles.shopsAddress}> Domicilio del negocio</Text>
 
-          <View style={ styles.containerAddedPRoducts }>
-            <Image style={ styles.image } source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}/>
-            <View style={ styles.containerProductDescription }>
-              <Text style={ styles.productName }>Nombre del producto</Text>
-              <Text style= {{ fontSize: 11}}>Descripcion del producto</Text>
-              <View style={ styles.productOptions }>
-                <Text style={{ color: 'green'}}>$100.00</Text>
-                <Image style={ styles.iconOperator } source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}/>
-                <Text style={{ color: 'green', fontWeight:'bold'}}> 5 </Text>
-                <Image style={ styles.iconOperator } source={{ uri: 'https://reactnative.dev/img/tiny_logo.png' }}/>
-              </View>
-            </View>
-          </View>
+          <ProductDescriptionAdded
+            uriImage={'https://reactnative.dev/img/tiny_logo.png'}
+            productName={'Pizza doble queso'}
+            productDescription={'Aqui debe de ir un chingo de descripcion pero en variables optenidas de la base de datos'}
+            price={100}
+            amount={5}
+          />
 
           <Title text='' lineBelow={true} />
 
