@@ -23,7 +23,7 @@ const App = () => {
   return (
       <Provider store={Store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Cart">
+          <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={Home} options={screenOptions}/>
             <Stack.Screen name="SignUp" component={SignUp} options={screenOptions}/>
             <Stack.Screen name="Confirmation" component={Confirmation} options={screenOptions}/>
