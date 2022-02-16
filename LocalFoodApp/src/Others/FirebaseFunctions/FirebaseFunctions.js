@@ -2,11 +2,16 @@ import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { ToastAndroid } from 'react-native';
 
-export const registrarse = (email, pwd) => {
+export const registrarse = (email, pwd, name, number, nav) => {
     if(email!=''||pwd!='')
         auth()
         .createUserWithEmailAndPassword(email, pwd)
         .then((e) => {
+            e.user.updateProfile({
+                displayName: name
+            })
+            e.user.updatePhoneNumber(number)
+
             ToastAndroid.show('Welcome', ToastAndroid.SHORT)
             NewUserDoc(e.user.uid)
             nav.navigate('Home');
@@ -43,6 +48,12 @@ export const login = (email, pwd, nav) => {
         ToastAndroid.show('Please, fill up all the fields.', ToastAndroid.SHORT)
 }
 
+export const signOut = async () =>{
+    if(auth().currentUser!=null)
+    {
+        await auth().signOut();
+    }
+}
 
 export const NewUserDoc = (uid) =>{
     firestore()

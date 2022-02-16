@@ -11,7 +11,6 @@ export const SignUp = (Props) => {
   const [name, setName] = useState('');
   const [pwd, setPwd] = useState('');
   const [phonenumber, setPhonenumber] = useState('');
-  const [direction, setDirection] = useState('');
   
   return (
     <ScrollView>
@@ -27,7 +26,7 @@ export const SignUp = (Props) => {
           <InputComponent Tipo={'Teléfono'} action={setPhonenumber}/>
         </View>
 
-        <MainBtn type={'Sign up'} Action={()=>{registrarse(email, pwd)}} color={true}/>
+        <MainBtn type={'Sign up'} Action={()=>{registrarse(email, pwd, name, phonenumber, navigation)}} color={true}/>
 
         <BottomText>Ya tienes una cuenta? <ClickHere onPress={()=>{navigation.navigate("Login")}}>Ingresa aquí</ClickHere> </BottomText>
       </Container>
