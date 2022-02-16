@@ -16,7 +16,7 @@ export const ProductDescriptionAdded = ({uriImage, productName, productDescripti
         <View style={ styles.productOptions }>
 
 
-          <Text style={{ color: 'green', fontSize:18, fontWeight:'bold'}}>${ price }</Text>
+          <Text style={{ color: 'green', fontSize:18, fontWeight:'bold', marginRight:10}}>${ price }</Text>
           <Icon name='add-circle-outline' size={30} type='ionicon' color='green'/> 
           <Text style={{ color: 'green', fontWeight:'bold', fontSize:18}}> { amount } </Text>
           <Icon name='close-circle-outline' size={30} type='ionicon' color='green'/>
