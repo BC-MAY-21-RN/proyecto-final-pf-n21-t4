@@ -90,12 +90,13 @@ export const GetProducts = async (shopId, setProducts) => {
   if (shopId) {
     try {
       firestore()
-        .collection("ShopProducts")
-        .where("ShopId", "==", shopId)
-        .get().then((e) => {
-            info = e._docs[0]._data
-            setProducts(info)
-    });
+      .collection("ShopProducts")
+      .where("ShopId", "==", shopId)
+      .get()
+      .then((e) => {
+          info = e._docs[0]._data
+          setProducts(info.Products)
+        });
     } catch (e) {
       console.log('Este es un error ' + e)
     }

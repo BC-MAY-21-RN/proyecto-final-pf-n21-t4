@@ -1,19 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './TopBarStyles'
 import logoSource from '../../Assets/Images/Logo.png'
 
-const TopBar = ({hasIcons = false}) => {
+export const TopBar = ({hasIcons = false, showLogo = true, icon ='menu-outline', type="ionicon"}) => {
   return (
     <SafeAreaView>
         <View style={styles.Center}>
             <View style={styles.BarContainer}>
-                <Image
-                    style={styles.Logo}
-                    source={logoSource}
-                />
+                <Image style={styles.Logo} source={logoSource} />
                 <View style={styles.IconBar}>
                     {hasIcons &&
                         <>
@@ -35,9 +32,9 @@ const TopBar = ({hasIcons = false}) => {
                     }
                     <Icon
                         style={styles.IconBurger}
-                        name='menu-outline'
+                        name={icon}
                         size={35}
-                        type='ionicon'
+                        type={type}
                         color='#8a8a8a'
                     />
                 </View>
@@ -46,5 +43,3 @@ const TopBar = ({hasIcons = false}) => {
     </SafeAreaView>
   );
 };
-
-export default TopBar;

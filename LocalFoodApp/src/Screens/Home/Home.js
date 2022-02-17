@@ -1,6 +1,6 @@
 import { View, SafeAreaView, ScrollView} from 'react-native';
 import React, { useEffect, useState} from 'react';
-import TopBar from '../../Components/TopBar/TopBar';
+import {TopBar} from '../../Components/TopBar/TopBar';
 import { InputComponent } from '../../Components/Input/Input';
 import {styles} from '../Home/HomeStyle';
 import Carousel from '../../Components/Carousel/Carousel';
@@ -32,7 +32,6 @@ export const Home = ({navigation}) => {
           <TopBar hasIcons={false}/>
           <InputComponent Tipo={'Busqueda'} inputPlaceHolder='Que se te antoja hoy?' hasLabel={false}/>
           <Title text={"Los más pedidos de la semana"} lineBelow={false}/>
-          
           <Carousel shops={shops} timer={3000}/>
 
           <Title text={"Recien añadidos"} lineBelow={true}/>

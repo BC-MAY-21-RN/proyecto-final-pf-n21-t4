@@ -16,7 +16,7 @@ export const Title = (
   const getText = sizeSelected => {
     switch(sizeSelected) {
         case 'small':
-            return <Text style={style.textSmall}>{text}</Text>  
+            return <Text style={style.textSmall} style={{'color':'black'}}>{text}</Text>  
         case 'medium':
             return <Text style={style.textMedium}>{text}</Text>
         case 'big':
@@ -24,7 +24,7 @@ export const Title = (
         case 'line':
             return <></>
         default: 
-            return <Text style={style.textSmall}>{text}</Text>
+            return <Text style={style.textSmall,  {color: {color}}}>{text}</Text>
         }
   }
 
