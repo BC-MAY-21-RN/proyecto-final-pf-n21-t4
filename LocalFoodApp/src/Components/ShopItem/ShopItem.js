@@ -6,29 +6,34 @@ import { Title } from '../Title/Title'
 
 export const ShopItem = ({ product }) => {
 
-    return (
-        <View>
-            <View style={styles.container}>
+  const addToCart = (prod) => {
+    console.log(prod)
+    //reddux code to send the product to the cart
+  }
 
-                <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={{ uri: product.ImgURL }} />
-                </View>
+  return (
+    <View>
+      <View style={styles.container}>
 
-                <View style={styles.dataContainer}>
-
-                    <Text style={styles.shopItemTitle}>{product.Name}</Text>
-                    <View>
-                        <Text style={styles.ShopItemDescription}>{(product.Description.length > 60) && product.Description.substring(0, 60)}</Text>
-                    </View>
-
-                    <View style={styles.shopItemBottomBar}>
-                        <Text style={styles.Cost}>${product.Cost}.00</Text>
-                        <Button text={"Agregar"} />
-                    </View>
-                </View>
-
-            </View>
-            <Title textSize='line' lineBelow={true}/>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={{ uri: product.ImgURL }} />
         </View>
-    )
+
+        <View style={styles.dataContainer}>
+
+          <Text style={styles.shopItemTitle}>{product.Name}</Text>
+          <View>
+            <Text style={styles.ShopItemDescription}>{(product.Description.length > 60) && product.Description.substring(0, 60)}</Text>
+          </View>
+
+          <View style={styles.shopItemBottomBar}>
+            <Text style={styles.Cost}>${product.Cost}.00</Text>
+            <Button text={"Agregar"} whenPressed={() => addToCart(product)}/>
+          </View>
+        </View>
+
+      </View>
+      <Title textSize='line' lineBelow={true} />
+    </View>
+  )
 }
