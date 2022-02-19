@@ -5,11 +5,14 @@ import { InputComponent } from '../../Components/Input/Input';
 import {styles} from '../Home/HomeStyle';
 import Carousel from '../../Components/Carousel/Carousel';
 import {Title} from '../../Components/Title/Title.js';
-import ShopCard from '../../Components/ShopCad/ShopCard';
 import { GetShops } from '../../Others/FirebaseFunctions/FirebaseFunctions'
+import {OrderStatus} from '../../Components/OrderStatus/OrderStatus';
+import ShopCard from '../../Components/ShopCad/ShopCard';
 
 export const Home = ({navigation}) => {
   const [shops, setShops] = useState([])
+  //this state getts its value from redux when confirming the order in the cart,
+  const [hasActiveOrder, setHasActiveOrder] = useState(false)
 
 
   useEffect(()=>{
@@ -24,20 +27,23 @@ export const Home = ({navigation}) => {
     />
   })
 
-
   return (
     <SafeAreaView style={styles.bg}>
-      <ScrollView>
-        <View style={styles.Boundaries}>
+      <View style={styles.Boundaries}>
+      <ScrollView 
+        stickyHeaderIndices={hasActiveOrder ? [2] : [0]}
+        showsVerticalScrollIndicator={false}
+      >
           <TopBar hasIcons={false}/>
           <InputComponent Tipo={'Busqueda'} inputPlaceHolder='Que se te antoja hoy?' hasLabel={false}/>
+          {hasActiveOrder && <OrderStatus orderETC={20}/>}
           <Title text={"Los más pedidos de la semana"} lineBelow={false}/>
           <Carousel shops={shops} timer={3000}/>
 
           <Title text={"Recien añadidos"} lineBelow={true}/>
           {renderShops}
-        </View>
       </ScrollView>
+        </View>
     </SafeAreaView>
   )
 };
