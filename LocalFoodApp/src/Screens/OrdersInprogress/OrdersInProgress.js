@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { Title } from '../../Components/Title/Title';
 import TopBar from '../../Components/TopBar/TopBar'
 import { Icon } from 'react-native-elements'
+import { styles } from './OrdersInProgressStyles'
 
 const ProductoPedido = ({uriImage, productName, amount}) => {
   return(
@@ -14,35 +15,28 @@ const ProductoPedido = ({uriImage, productName, amount}) => {
         }}
       />
       <View style={{width:250}}>
-        <Text>{productName}</Text>
-        <Text>X{amount}</Text>
+        <Text style={{color:'black', fontWeight: 'bold', fontSize:18}}>{productName}</Text>
+        <Text style={{color:'black', fontWeight: 'normal', fontSize:15}}>X{amount}</Text>
       </View>
       <Icon name='checkbox-outline' size={30} type='ionicon' color='green'/>
     </View>
   )
 }
 
-export const OrdersInProgress = () => {
-  return (
-    <View>
-      <TopBar/>
-      <Title
-        lineBelow={true}
-        text={'Pedidos en progreso: ' + 4}
-        textSize={'big'}
-      />
-
-      <View>
-        <Text>
-          Codigo de pedido: <Text>#1680</Text>
+const CardOrder = ({idOrder}) => {
+  return(
+    <View style={styles.containerCard}>
+      <View style={{ marginBottom: 20 }}>
+        <Text style={styles.fontInfoBold}>
+          Codigo de pedido: <Text style={{color:'green'}}>#1680</Text>
         </Text>
 
-        <Text>
-          Cliente: <Text>Mauricio Acevedo</Text>
+        <Text style={styles.fontInfoBold}>
+          Cliente: <Text style={{fontWeight: 'normal'}}>Mauricio Acevedo</Text>
         </Text>
 
-        <Text>
-          Direccion: <Text>Avenida cataluña luña 64 #722</Text>
+        <Text style={styles.fontInfoBold}>
+          Direccion: <Text style={{fontWeight: 'normal'}}>Avenida cataluña luña 64 #722</Text>
         </Text>
       </View>
 
@@ -53,36 +47,43 @@ export const OrdersInProgress = () => {
           amount={3}
         />
 
-        <Text>
-          Total a pagar: <Text style={{color:'green'}}>$325</Text>
+        <Text style={{alignSelf:'flex-end', marginBottom: 10, fontWeight:'bold', fontSize:20}}>
+          Total a pagar: <Text style={{color:'green', fontWeight:'normal'}}>$325</Text>
         </Text>
 
-        <View>
-          <TouchableOpacity>
+        <View style={styles.containerButtons}>
+          <TouchableOpacity style={styles.btnContact}>
             <Text>
-              Contactar cliente <Icon name='call-outline' size={20} type='ionicon' color='green'/>
+              Contactar cliente
             </Text>
+            <Icon name='call-outline' size={20} type='ionicon' color='green'/>
           </TouchableOpacity>
 
-          <TouchableOpacity>
-            <Text>
+          <TouchableOpacity style={styles.btnOptions}>
+            <Text style={{color:'white'}}>
               Opciones de orden
             </Text>
           </TouchableOpacity>
         </View>
       </View>
     </View>
+  )
+}
+
+export const OrdersInProgress = () => {
+  return (
+    <SafeAreaView style={styles.bg}>
+      <ScrollView>
+        <View style={styles.Boundaries}>
+          <TopBar/>
+          <Title
+            lineBelow={true}
+            text={'Pedidos en progreso: ' + 4}
+            textSize={'big'}
+          />
+          <CardOrder idOrder={1}/>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  productImage: {
-    width: 60,
-    height: 60
-  },
-  containerProduct: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
-});
