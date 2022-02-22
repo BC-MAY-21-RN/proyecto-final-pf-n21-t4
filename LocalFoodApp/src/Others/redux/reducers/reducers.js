@@ -6,12 +6,8 @@ const initialState = {
         uid: ''
     },
     cart: new Array(),
-    credentials:{
-        email: '',
-        name: '',
-        password: '',
-        phonenumber: '',
-        direction: '',
+    shop:{
+        
     }
 }
 

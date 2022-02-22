@@ -2,7 +2,8 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
     padding: 25px;
-    background-color: #fff;
+    background-color: #fff;    
+    height: 100%;
 `;
 
 export const BottomText = styled.Text`
@@ -10,7 +11,7 @@ export const BottomText = styled.Text`
     font-weight: 500;
     color: #000;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 20px;    
 `;
 
 export const SignUpText = styled.Text`

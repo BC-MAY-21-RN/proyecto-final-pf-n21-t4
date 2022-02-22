@@ -1,14 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { View, SafeAreaView, ScrollView } from 'react-native';
+import { Title } from '../../Components/Title/Title';
+import TopBar from '../../Components/TopBar/TopBar'
+import { styles } from './OrdersInProgressStyles'
+import { OrderCard } from '../../Components/OrderCard/OrderCard';
+import { useEffect } from 'react';
 
-const OrdersInProgress = () => {
+export const OrdersInProgress = () => {
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <SafeAreaView style={styles.bg}>
+      <ScrollView>
+        <View style={styles.Boundaries}>
+          <TopBar/>
+          <Title
+            lineBelow={true}
+            text={'Pedidos en progreso: ' + 4}
+            textSize={'big'}
+          />
+          <OrderCard idOrder={1}/>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
-
-export default OrdersInProgress;
-
-const styles = StyleSheet.create({});

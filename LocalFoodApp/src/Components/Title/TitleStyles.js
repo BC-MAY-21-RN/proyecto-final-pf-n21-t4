@@ -31,7 +31,8 @@ export const style = StyleSheet.create({
   },
   textBig:{
     color: 'black',
-    fontSize: 30,
+    fontSize: 27,
     fontWeight: 'bold',
+    marginBottom: 3,
     }
 })

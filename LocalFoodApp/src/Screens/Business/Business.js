@@ -1,22 +1,66 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import TopBar from '../../Components/TopBar/TopBar';
-import {styles} from '../BaseStyles';
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Title } from '../../Components/Title/Title';
-import { ShopFilterBar } from '../../Components/ShopFilterBar/ShopFilterBar';
+import { ShopItem } from '../../Components/ShopItem/ShopItem'
+import { styles } from './BusinessStyle';
+import { GetProducts } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { FilterButton } from '../../Components/FilterButton/FilterButton';
+import { Icon } from 'react-native-elements';
 
 export const Business = (props) => {
-  const { route: { params: { shop } } } = props
-  console.log(shop)
-  const { ShopName } = shop
-  return (
-    <SafeAreaView style={styles.bg}>
-      <ScrollView style={styles.Boundaries}>
-        <TopBar />
-        <Title text={ShopName} textSize='big' lineBelow={true}/>
-        <ShopFilterBar />
-      </ScrollView>
-    </SafeAreaView>
-  );
+    const { route: { params: { shop } } } = props
+    const {navigation} = props
+
+    const [products, setProducts] = useState([])
+    const [filteredProducts, setFilteredProducts] = useState([])
+    const [selectedButton, setSelectedButton] = useState('Menú')
+
+
+    useEffect(() => {
+      const getProducts = async () => { 
+        if(shop.ShopId){
+          await GetProducts(shop.ShopId).then(
+              (response) => {
+                  setProducts(response.Products)
+                  setFilteredProducts(response.Products)
+              }
+              )        
+          }
+      }
+
+    getProducts()
+    },[])
+
+    useEffect(() => {
+      if (selectedButton != 'Menú') {
+          console.log(selectedButton)
+          setFilteredProducts(products.filter(posicion => posicion.Tipo == selectedButton))
+        }else{
+          setFilteredProducts(products)
+        }
+    }, [selectedButton])     
+        
+    return (
+        <SafeAreaView style={styles.bg}>
+            <View style={styles.storeHeader}>
+                <TouchableOpacity style={styles.closeButton} onPress={() => navigation.navigate('Home')}>
+                    <Icon name='close-outline' size={40} type='ionicon' color='white'/>
+                </TouchableOpacity>
+                <Text style={styles.storeTitle}>{shop.ShopName}</Text>
+                <Image style={styles.image} source={{ uri: shop.Image }} />
+            </View>
+            <ScrollView style={styles.Boundaries}>
+                {/** hasFunction -> navigate to cart component */}
+                <Title text="Menú" hasIcon={false} cart={true} hasFunction={() => navigation.navigate('Cart')}/>
+                <View style={styles.container}>
+                    <FilterButton selected={selectedButton === "Menú"} text="Menú" setSelectedButton={setSelectedButton} />
+                    <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
+                    <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
+                    <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
+                </View>
+                {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)}
+            </ScrollView>
+        </SafeAreaView>
+    );
 };

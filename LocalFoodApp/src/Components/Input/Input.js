@@ -2,48 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Container, InputContainer, InputHeadText, Inputt } from './InputStyles';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export const InputComponent = ({hasLabel = true, Tipo, inputPlaceHolder = "", action}) => {
-    const [InputIcon, setInputIcon] = useState('md-home-outline')
-    const [IsPassword, setIsPassword] = useState(false)
-    const [TypeInput, setTypeInput] = useState(<Inputt />)
-
-
-    useEffect(()=>{
-        switch(Tipo){
-            case 'Correo':
-                setInputIcon('mail-outline')
-                break;
-            case 'Contraseña':
-                setInputIcon('eye-outline')
-                setIsPassword(true)
-                break;
-            case 'Nombre':
-                setInputIcon('person-outline')
-                break;
-            case 'Teléfono':
-                setInputIcon('call-outline')
-                break;
-            case 'Busqueda':
-                setInputIcon('search')
-                break;
-            default:
-                setInputIcon('eye')
-                break;
-        }
-
-        if(IsPassword==true)
-            setTypeInput(<Inputt secureTextEntry={true} onChangeText={(e)=>{action(e)}}/>)
-        else
-            setTypeInput(<Inputt onChangeText={(e)=>{action(e)}} placeholder={inputPlaceHolder}/>)
-    },[])
-    
-
+export const InputComponent = ({hasLabel = true, Tipo, Icon='search', inputPlaceHolder = "", action}) => {
     return (
         <Container>
-            <InputHeadText> {hasLabel ? (`${Tipo}*`) : ("")}</InputHeadText>
+            <InputHeadText> {Tipo} </InputHeadText>
             <InputContainer>
-                {TypeInput}
-                <Ionicons name={InputIcon} size={20} color={'#198654'}/>
+                { Tipo=='Contraseña'? 
+                    <Inputt secureTextEntry={true} onChangeText={(e)=>{action(e)}} placeholder={inputPlaceHolder}/>
+                    : 
+                    <Inputt onChangeText={(e)=>{action(e)}} placeholder={inputPlaceHolder}/>
+                }
+                <Ionicons name={Icon} size={20} color={'#198654'}/>
             </InputContainer>
         </Container>
     );

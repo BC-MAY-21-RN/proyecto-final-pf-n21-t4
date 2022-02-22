@@ -1,44 +1,55 @@
-import { View, SafeAreaView, ScrollView} from 'react-native';
-import React, { useEffect, useState} from 'react';
-import TopBar from '../../Components/TopBar/TopBar';
+import { View, SafeAreaView, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { TopBar } from '../../Components/TopBar/TopBar';
 import { InputComponent } from '../../Components/Input/Input';
-import {styles} from '../Home/HomeStyle';
+import { styles } from '../Home/HomeStyle';
 import Carousel from '../../Components/Carousel/Carousel';
-import {Title} from '../../Components/Title/Title.js';
+import { Title } from '../../Components/Title/Title.js';
+import { GetShops, signOut } from '../../Others/FirebaseFunctions/FirebaseFunctions'
+import {OrderStatus} from '../../Components/OrderStatus/OrderStatus';
 import ShopCard from '../../Components/ShopCad/ShopCard';
-import { GetShops } from '../../Others/FirebaseFunctions/FirebaseFunctions'
 
-export const Home = ({navigation}) => {
+export const Home = ({ navigation }) => {
   const [shops, setShops] = useState([])
+  //this state getts its value from redux when confirming the order in the cart,
+  const [hasActiveOrder, setHasActiveOrder] = useState(false)
 
+  navigation.addListener('state', (e) => {
+    const { data: { state: { index } } } = e
+    if (index === 0)
+      signOut()
+  })
 
-  useEffect(()=>{
+  useEffect(() => {
     GetShops(setShops)
-  },[])
+  }, [])
 
-  const renderShops = shops?.map((shop, index)=>{
-    return <ShopCard 
+  const renderShops = shops?.map((shop, index) => {
+    return <ShopCard
       key={`Shop${index}`}
       shop={shop}
       nav={navigation}
     />
   })
 
-
   return (
-    <SafeAreaView style={styles.bg}>
-      <ScrollView>
-        <View style={styles.Boundaries}>
-          <TopBar hasIcons={false}/>
-          <InputComponent Tipo={'Busqueda'} inputPlaceHolder='Que se te antoja hoy?' hasLabel={false}/>
-          <Title text={"Los más pedidos de la semana"} lineBelow={false}/>
-          
-          <Carousel shops={shops} timer={3000}/>
+    <SafeAreaView style={styles.bg}>      
+      <View style={styles.Boundaries}>
+        <ScrollView
+          stickyHeaderIndices={hasActiveOrder ? [1] : [0]}
+          showsVerticalScrollIndicator={false}
+        >          
+          <TopBar hasIcons={true} nav={navigation} />
+          {hasActiveOrder && <OrderStatus orderETC={20} />}
+          {/**placeholder not showing up */}
+          <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false}/>                    
+          <Title text={"Los más pedidos de la semana"} lineBelow={false} textSize={'big'}/>
+          <Carousel shops={shops} timer={3000} />
 
-          <Title text={"Recien añadidos"} lineBelow={true}/>
+          <Title text={"Recien añadidos"} lineBelow={true} textSize={'big'}/>
           {renderShops}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   )
 };

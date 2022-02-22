@@ -1,14 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 
-const EditUserSettings = () => {
+export const EditUserSettings = () => {
   return (
     <View>
-      <Text></Text>
+      <Text>Coming soon</Text>
     </View>
   );
 };
-
-export default EditUserSettings;
-
-const styles = StyleSheet.create({});
