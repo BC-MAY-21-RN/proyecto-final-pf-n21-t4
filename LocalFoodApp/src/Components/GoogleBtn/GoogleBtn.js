@@ -7,20 +7,22 @@ import { webClientIdT3 } from '../../Others/AuthKeys/GoogleAuthKeys'
 import { NewUserDoc } from '../../Others/FirebaseFunctions/FirebaseFunctions'
 
 GoogleSignin.configure({
-    webClientId: webClientIdT3,
+  webClientId: webClientIdT3,
 });
 
 export const GoogleBtn = () => {
-    const GoogleLogin = async () => {
-        console.log('Im in')
-        const { idToken } = await GoogleSignin.signIn();
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-        await auth().signInWithCredential(googleCredential).then((e)=>{NewUserDoc(e.user.uid)});
-    }
+  const GoogleLogin = async () => {
+    console.log('Im in')
+    const { idToken } = await GoogleSignin.signIn();
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    await auth().signInWithCredential(googleCredential).then(
+      (e) => { NewUserDoc(e.user.uid) }
+    );    
+  }
 
-    return (
-        <GBtn onPress={()=>{GoogleLogin()}}>
-            <GBtnText>Iniciar sesion con Google <Image source={{uri: "https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png"}} style={{width: 20, height: 20}}/></GBtnText>
-        </GBtn>
+  return (
+    <GBtn onPress={() => { GoogleLogin() }}>
+      <GBtnText>Iniciar sesion con Google <Image source={{ uri: "https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" }} style={{ width: 20, height: 20 }} /></GBtnText>
+    </GBtn>
   );
 };

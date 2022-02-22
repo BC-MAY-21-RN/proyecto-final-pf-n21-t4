@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   image: {
     width: 80,
     height: 80,
-
+    borderRadius: 10,
   },
   containerProductDescription: {
     display: 'flex',
