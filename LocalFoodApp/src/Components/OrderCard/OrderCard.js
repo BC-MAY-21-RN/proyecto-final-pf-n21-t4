@@ -1,12 +1,33 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, FlatList, Linking } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { ProductOrdered } from '../ProductOrdered/ProductOrdered';
 import { styles } from './OrderCardStyles';
 
 export const OrderCard = ({idOrder}) => {
+  const DATA = [
+    {
+      id:1,
+      uriImage: 'https://reactnative.dev/img/tiny_logo.png',
+      productName: 'Pizza grande peperoni',
+      amount: 3
+    },
+    {
+      id:2,
+      uriImage: 'https://reactnative.dev/img/tiny_logo.png',
+      productName: 'Pizza grande peperoni',
+      amount: 3
+    },
+    {
+      id:3,
+      uriImage: 'https://reactnative.dev/img/tiny_logo.png',
+      productName: 'Pizza grande peperoni',
+      amount: 3
+    },
+  ]
   return(
     <View style={styles.containerCard}>
+      {/* Client Data */}
       <View style={{ marginBottom: 20 }}>
         <Text style={styles.fontInfoBold}>
           Codigo de pedido: <Text style={{color:'green'}}>#1680</Text>
@@ -19,18 +40,26 @@ export const OrderCard = ({idOrder}) => {
         </Text>
       </View>
 
+      {/* Products Ordered */}
       <View>
-        <ProductOrdered
-          uriImage={'https://reactnative.dev/img/tiny_logo.png'}
-          productName={'Pizza grande peperoni'}
-          amount={3}
+        <FlatList
+          data={DATA}
+          renderItem={({item}) => (
+            <ProductOrdered
+              uriImage={item.uriImage}
+              productName={item.productName}
+              amount={item.amount}
+            />
+          )}
+          keyExtractor={item => item.id}
         />
         <Text style={{alignSelf:'flex-end', marginBottom: 10, fontWeight:'bold', fontSize:20}}>
           Total a pagar: <Text style={{color:'green', fontWeight:'normal'}}>$325</Text>
         </Text>
 
+        {/* Option Buttons */}
         <View style={styles.containerButtons}>
-          <TouchableOpacity style={styles.btnContact}>
+          <TouchableOpacity style={styles.btnContact} onPress={()=>{Linking.openURL('tel:3121196336');}}>
             <Text>
               Contactar cliente
             </Text>
