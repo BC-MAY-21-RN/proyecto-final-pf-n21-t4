@@ -4,8 +4,17 @@ import { Icon } from 'react-native-elements/dist/icons/Icon';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './TopBarStyles'
 import logoSource from '../../Assets/Images/Logo.png'
+import StoreIcon from '../../Assets/Images/shop.svg'
+import NotificationIcon from '../../Assets/Images/notification.svg'
 
-export const TopBar = ({hasIcons = false, nav=null, change = false, Iconn='menu-outline'}) => {
+export const TopBar = ({
+    hasIcons = false, 
+    nav=null, 
+    change = false, 
+    Iconn='menu-outline', 
+    funcOne = () => console.log('function one'), 
+    funcTwo = () => console.log('function two'), 
+  }) => {
     const [navPage, setNavPage] = useState('');
     const [iconc, setIconc] = useState(Iconn);
 
@@ -33,20 +42,13 @@ export const TopBar = ({hasIcons = false, nav=null, change = false, Iconn='menu-
                     <View style={styles.IconBar}>
                         {hasIcons &&
                             <>
-                                <Icon
-                                style={styles.Icon}
-                                name='fast-food-outline'
-                                size={25}
-                                type='ionicon'
-                                color='#198553'
-                                />
-                                <Icon
-                                    style={styles.Icon}
-                                    name='notifications-outline'
-                                    size={25}
-                                    type='ionicon'
-                                    color='#198553'
-                                />
+                                <TouchableOpacity onPress={funcOne}>                                  
+                                  <View style={styles.Icon}><StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'}/></View>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={funcTwo}>                                  
+                                  <View style={styles.Icon}><NotificationIcon width={27} height={27} stroke={'#198553'} fill={'#198553'}/></View>
+                                  {/**needs a bubble with a number notficitation or animation */}
+                                </TouchableOpacity>                                
                             </>
                         }
                         <TouchableOpacity onPress={()=>{nav.navigate(navPage)}}>

@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator()
 
 const App = () => {
 
-  const screenOptions = {
+  const screenOptions = {  
     headerShown: false,
     headerStyle: {
       elevation: 0,

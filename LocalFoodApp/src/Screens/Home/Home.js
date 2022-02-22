@@ -39,7 +39,7 @@ export const Home = ({ navigation }) => {
           stickyHeaderIndices={hasActiveOrder ? [1] : [0]}
           showsVerticalScrollIndicator={false}
         >          
-          <TopBar hasIcons={false} nav={navigation} />
+          <TopBar hasIcons={true} nav={navigation} />
           {hasActiveOrder && <OrderStatus orderETC={20} />}
           {/**placeholder not showing up */}
           <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false}/>                    
