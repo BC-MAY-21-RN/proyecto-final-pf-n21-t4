@@ -40,12 +40,13 @@ export const styles = StyleSheet.create({
     //Description
     ShopItemDescription:{
         fontSize: 12,
+        color: 'black'
     },
     //Bottoom bar
     shopItemBottomBar:{
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between',        
     },
     Cost:{
         fontSize: 15,

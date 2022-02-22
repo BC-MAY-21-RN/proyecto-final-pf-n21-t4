@@ -15,5 +15,6 @@ export const styles = (selected) => StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    color: 'black',
   },
 })

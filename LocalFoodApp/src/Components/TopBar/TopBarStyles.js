@@ -15,11 +15,12 @@ export const styles = StyleSheet.create({
         padding: 10,
         paddingTop: 20,
         paddingBottom: 0,
+        backgroundColor: 'white',
     },
     BarContainer:{ 
         flexDirection: 'row',
         width: '100%',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between',      
     },
     IconBar:{
         flexDirection: 'row',

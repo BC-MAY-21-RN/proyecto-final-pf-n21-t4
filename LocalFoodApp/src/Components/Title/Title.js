@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { Icon } from 'react-native-elements/dist/icons/Icon'
 import { style } from './TitleStyles'
-
 export const Title = (
   {
     lineBelow = false, 

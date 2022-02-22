@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
 
     storeHeader: {
         zIndex: 1,
-        backgroundColor: 'black',
+        backgroundColor: 'black',      
     },
 
     storeTitle: {

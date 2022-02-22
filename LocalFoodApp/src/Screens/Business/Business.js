@@ -1,6 +1,5 @@
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import { TopBar } from '../../Components/TopBar/TopBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Title } from '../../Components/Title/Title';
 import { ShopItem } from '../../Components/ShopItem/ShopItem'
@@ -17,24 +16,35 @@ export const Business = (props) => {
     const [filteredProducts, setFilteredProducts] = useState([])
     const [selectedButton, setSelectedButton] = useState('Menú')
 
-    const copiaDeProductos = async () => {
-        await GetProducts(shop.ShopId, setProducts)
-        setFilteredProducts(products)
-        console.log(filteredProducts)
-    }
-    useEffect(() => {
-      copiaDeProductos()
-      setFilteredProducts(products)
-    },[])
 
     useEffect(() => {
-      if (selectedButton != 'Menú') {
-          console.log(selectedButton)
-          setFilteredProducts(products.filter(posicion => posicion.Tipo == selectedButton))
-        }else{
-          setFilteredProducts(products)
-        }
-    }, [selectedButton])  
+
+    const getProducts = async () => { 
+
+        if(shop.ShopId){
+
+            await GetProducts(shop.ShopId).then(
+                (response) => {
+                    setProducts(response)
+                    setFilteredProducts(response)        
+                }
+                )        
+            }
+    }
+
+    getProducts()
+    },[])
+
+    // useEffect(() => {
+    //   if (selectedButton != 'Menú') {
+    //       console.log(selectedButton)
+    //       setFilteredProducts(products.filter(posicion => posicion.Tipo == selectedButton))
+    //     }else{
+    //       setFilteredProducts(products)
+    //     }
+    // }, [selectedButton])  
+
+    
 
     /**
       recibo los productos en products con la funcion GetProducts
@@ -47,7 +57,7 @@ export const Business = (props) => {
 
       
     /**
-        const arr = [{name:'y1', tipo:'postre'},{name:'y2', tipo:'comida'},{name:'y3', tipo:'comida'}];
+        const arr = [{name:'y1', tipo:'postre'},{name:'y2', tipo:'comida'},{name:'y3', tipo:'comida'}];}
         const result = arr.filter(propr => propr.tipo == "comida");
         console.log(result);
         // expected output: Array [{name:'y2', tipo:'comida'},{name:'y3', tipo:'comida'}]
@@ -58,7 +68,7 @@ export const Business = (props) => {
         <SafeAreaView style={styles.bg}>
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.navigate('Home')}>
-                    <Icon name='close-outline' size={40} type='ionicon' color='white'/>
+                    <Icon name='close-outline' size={40} type='ionicon' color='white'/>                    
                 </TouchableOpacity>
                 <Text style={styles.storeTitle}>{shop.ShopName}</Text>
                 <Image style={styles.image} source={{ uri: shop.Image }} />
@@ -66,12 +76,12 @@ export const Business = (props) => {
             <ScrollView style={styles.Boundaries}>
                 <Title text="Menú" hasIcon={true} icon='shopping-basket' />
                 <View style={styles.container}>
-                    <FilterButton selected={selectedButton === "Menú"} text="Menú" icon="description" setSelectedButton={setSelectedButton} />
-                    <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="fastfood" setSelectedButton={setSelectedButton} />
-                    <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="icecream" setSelectedButton={setSelectedButton} />
-                    <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="emoji-food-beverage" setSelectedButton={setSelectedButton} />
+                    <FilterButton selected={selectedButton === "Menú"} text="Menú" setSelectedButton={setSelectedButton} />
+                    <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
+                    <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
+                    <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
                 </View>
-                {filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)}
+                {/*filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />) */}
             </ScrollView>
         </SafeAreaView>
     );

@@ -85,23 +85,16 @@ export const GetTopShops = () => {
    */}
 }
 
-export const GetProducts = async (shopId, setProducts) => {
-  let info
-  if (shopId) {
-    try {
-      firestore()
+export const GetProducts = shopId =>  firestore()
       .collection("ShopProducts")
       .where("ShopId", "==", shopId)
       .get()
       .then((e) => {
           info = e._docs[0]._data
-          setProducts(info.Products)
-        });
-    } catch (e) {
-      console.log('Este es un error ' + e)
-    }
-  }
-}
+          return info
+        }).
+
+
 
 /*Funcion para redirijir a cada tienda */
 export const GetShop = async (shopname) => {
