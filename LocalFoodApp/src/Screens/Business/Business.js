@@ -25,8 +25,9 @@ export const Business = (props) => {
 
             await GetProducts(shop.ShopId).then(
                 (response) => {
-                    setProducts(response)
-                    setFilteredProducts(response)        
+                    console.log(response)
+                   
+                    setFilteredProducts(response.Products)
                 }
                 )        
             }
@@ -81,7 +82,7 @@ export const Business = (props) => {
                     <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
                 </View>
-                {/*filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />) */}
+                {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)}
             </ScrollView>
         </SafeAreaView>
     );

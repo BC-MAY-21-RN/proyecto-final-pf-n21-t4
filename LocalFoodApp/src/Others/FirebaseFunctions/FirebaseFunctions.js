@@ -89,10 +89,8 @@ export const GetProducts = shopId =>  firestore()
       .collection("ShopProducts")
       .where("ShopId", "==", shopId)
       .get()
-      .then((e) => {
-          info = e._docs[0]._data
-          return info
-        }).
+      .then((e) =>  e._docs[0]._data
+       ).catch(err => err)
 
 
 
