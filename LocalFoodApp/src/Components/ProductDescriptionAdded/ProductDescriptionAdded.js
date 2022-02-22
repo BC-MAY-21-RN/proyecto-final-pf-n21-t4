@@ -3,6 +3,7 @@ import {View, Image, Text} from 'react-native'
 import { Icon } from 'react-native-elements'
 import { styles } from './ProductDescriptionAddedStyle'
 import { QuantityButtons } from '../QuanriryButtons/QuantityButtons'
+import { Empty } from '../Empty/Empty'
 
 export const ProductDescriptionAdded = (
   {
@@ -18,17 +19,22 @@ export const ProductDescriptionAdded = (
 
   const handleAddMore = () => {
     setprodQuantity(prodQuantity+1)
-    console.log(prodQuantity)
+
   }
 
-  const handleRemove = (amount) => {
+  const handleRemove = () => {
     //if this is less than one remove it
-    setprodQuantity(prodQuantity -1)
-    console.log(prodQuantity)
+    prodQuantity > 0 ? setprodQuantity( prodQuantity -1) : setprodQuantity(0)
   }  
 
+  useEffect(() => {
+    console.log(prodQuantity)    
+  }, [prodQuantity])
+  
+
   return(
-    <View style={ styles.containerAddedPRoducts }>
+    (amount > 0) ? (
+      <View style={ styles.containerAddedPRoducts}>
       <Image style={ styles.image } source={{ uri: uriImage }}/>
 
       <View style={ styles.containerProductDescription }>
@@ -36,10 +42,11 @@ export const ProductDescriptionAdded = (
         <Text style= {{ fontSize: 11, width:250, marginBottom:5}}>{ productDescription }</Text>
 
         <View style={ styles.productOptions }>                    
-          <Text style={{ color: '#479808', fontSize:18, fontWeight:'600', marginRight:20}}>${ price }</Text>
+          {/** */}
+          <Text style={{ color: '#479808', fontSize:18, fontWeight:'600', marginRight:20}}>${ price * prodQuantity }</Text>
           
-          <QuantityButtons func={(amount) => handleRemove()}/>
-          <Text style={{ color: '#198654', fontWeight:'bold', fontSize:18}}> { amount } </Text>
+          <QuantityButtons func={handleRemove}/>
+          <Text style={{ color: '#198654', fontWeight:'bold', fontSize:18}}> { prodQuantity } </Text>
           <QuantityButtons func={handleAddMore} Add={true}/>
 
         </View>
@@ -47,5 +54,8 @@ export const ProductDescriptionAdded = (
       </View>
 
     </View>
+    ) : (
+      <Empty></Empty>
+    )
   )
 }
