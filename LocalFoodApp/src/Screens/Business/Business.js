@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import TopBar from '../../Components/TopBar/TopBar';
+import {TopBar} from '../../Components/TopBar/TopBar';
 import {styles} from '../BaseStyles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Title } from '../../Components/Title/Title';

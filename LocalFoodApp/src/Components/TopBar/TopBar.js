@@ -5,20 +5,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './TopBarStyles'
 import logoSource from '../../Assets/Images/Logo.png'
 
-const TopBar = ({hasIcons = false, nav=null, change = false}) => {
+export const TopBar = ({hasIcons = false, nav=null, change = false, Iconn='menu-outline'}) => {
     const [navPage, setNavPage] = useState('');
-    const [iconc, setIconc] = useState('menu-outline');
+    const [iconc, setIconc] = useState(Iconn);
 
     useEffect(()=>{
         if(change==true)
         {
             setNavPage('Home');
-            setIconc('ios-arrow-back');
+            setIconc(Iconn);
         }
         else
         {
             setNavPage('UserPanel');
-            setIconc('menu-outline');
+            setIconc(Iconn);
         }
     },[])
 
@@ -64,5 +64,3 @@ const TopBar = ({hasIcons = false, nav=null, change = false}) => {
         </SafeAreaView>
   );
 };
-
-export default TopBar;

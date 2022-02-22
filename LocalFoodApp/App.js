@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Confirmation, Home, Login, SignUp, Business, UserPanel, EditUserSettings, SignUpBusinessForm, Cart } from './src/Screens/index.js';
-//import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Stack = createNativeStackNavigator()
 
