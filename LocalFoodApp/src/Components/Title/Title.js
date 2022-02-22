@@ -1,7 +1,9 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements/dist/icons/Icon'
 import { style } from './TitleStyles'
+import BasketSvg from '../../Assets/Images/bag.svg'
+import {Empty} from '../../Components/Empty/Empty.js'
 
 export const Title = (
   {
@@ -10,6 +12,8 @@ export const Title = (
     textSize = 'medium', 
     hasIcon = false,
     icon = 'rowing',
+    cart = false,
+    hasFunction = () => console.log('a function'),
   }
 ) => {
 
@@ -31,7 +35,8 @@ export const Title = (
       <View style={(lineBelow) ? (style.container) : (style.containerNoLine)}>
         {getText(textSize)}
         <View>
-          { hasIcon && <Icon name={icon}/>}
+          <TouchableOpacity onPress={hasFunction}>{(cart) && <BasketSvg width={30} height={30} fill="#1e8651"/>}</TouchableOpacity>
+          { hasIcon ? <Icon name={icon}/> : <Empty />}
         </View>
       </View>   
     </>
