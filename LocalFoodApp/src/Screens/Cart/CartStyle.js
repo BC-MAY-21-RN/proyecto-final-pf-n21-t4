@@ -5,15 +5,16 @@ export const styles = StyleSheet.create({
     paddingLeft: '6%',
     paddingRight: '6%',
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: 'white',    
   },
   bg:{
     backgroundColor: 'white',
+    height: '100%',
   },
   title: {
     color: 'black',
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: '600',
     marginBottom: 10,
 
   },
@@ -33,9 +34,9 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
   total: {
-    color: 'green',
+    color: '#479808',
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: '600',
 
   }
 

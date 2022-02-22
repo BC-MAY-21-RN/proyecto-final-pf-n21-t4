@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, StyleSheet } from 'react';
 import { Image, ScrollView, View } from 'react-native';
 import { Container, SignUpText, BottomText, ClickHere } from './SignUpStlyes';
 import { InputComponent } from '../../Components/Input/Input';

@@ -68,7 +68,7 @@ export const GetShops = async (accion) => {
     firestore()
       .collection("Shops")
       .orderBy("Fecha", "desc")
-      .limit(3)
+      .limit(4)
       .get().then((e) => {
         e.forEach((element) => {
             info.push({...element.data(), ShopId: element.id})   
@@ -79,6 +79,7 @@ export const GetShops = async (accion) => {
     console.log('Este es un error ' + e)
   }
 }
+
 
 export const GetTopShops = () => {
   {/*
@@ -94,11 +95,11 @@ export const GetTopShops = () => {
 }
 
 export const GetProducts = shopId =>  firestore()
-      .collection("ShopProducts")
-      .where("ShopId", "==", shopId)
-      .get()
-      .then((e) =>  e._docs[0]._data
-       ).catch(err => err)
+  .collection("ShopProducts")
+  .where("ShopId", "==", shopId)
+  .get()
+  .then((e) =>  e._docs[0]._data
+    ).catch(err => err)
 
 
 
@@ -113,6 +114,7 @@ export const GetShop = async (shopname) =>{
         console.log('Este es un error '+ e)
     }
 }
+
 
 export const UserGeneralInfo = async (setUserIsOwner) =>{
     let x = false;

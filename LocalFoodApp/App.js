@@ -5,10 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { OrdersInProgress } from './src/Screens/OrdersInprogress/OrdersInProgress.js';
 //import { createDrawerNavigator } from '@react-navigation/drawer';
-import { Confirmation, Home, Login, SignUp, Business, UserPanel, EditUserSettings, SignUpBusinessForm, OrdersInProgress } from './src/Screens/index.js';
-import {Cart} from './src/Screens/Cart/Cart.js'
-
-
+import { Cart, Confirmation, Home, Login, SignUp, Business, UserPanel, EditUserSettings, SignUpBusinessForm, OrdersInProgress } from './src/Screens/index.js';
+//import {Cart} from './src/Screens/Cart/Cart.js'
 const Stack = createNativeStackNavigator()
 
 const App = () => {
@@ -26,7 +24,7 @@ const App = () => {
   return (
       <Provider store={Store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Login">
+          <Stack.Navigator initialRouteName="Cart">
             <Stack.Screen name="Home" component={Home} options={screenOptions}/>
             <Stack.Screen name="SignUp" component={SignUp} options={screenOptions}/>
             <Stack.Screen name="Confirmation" component={Confirmation} options={screenOptions}/>  
