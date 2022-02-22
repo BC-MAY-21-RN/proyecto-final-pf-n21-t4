@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements'
 import Food from '../../Assets/Images/utensils.svg'
 import Desserts from '../../Assets/Images/ice-cream.svg'
 import Drinks from '../../Assets/Images/drinks.svg'
+import Menu from '../../Assets/Images/menu.svg'
 
 export const FilterButton = ({ text, icon, selected = false, setSelectedButton }) => {
 
@@ -13,17 +14,17 @@ export const FilterButton = ({ text, icon, selected = false, setSelectedButton }
   const iconSelector = (icon) => {
     switch (icon) {
       case 'Food':
-        return <Food width={size} height={size}/>
+        return <Food width={size} height={size} stroke="#1e8651"/>
         break;
       case 'Desserts':
-        return <Desserts width={size} height={size}/>
+        return <Desserts width={size} height={size} stroke="#1e8651"/>
         break;
       case 'Drinks':
         return <Drinks width={size} height={size} stroke="#1e8651"/>
         break;    
       default:
-        //Menu icon
-        return <Icon name='description' size={40} color="#1e8651"/>
+        //Menu icon 1e8651
+        return <Menu width={45} height={45} stroke="#1e8651"/>
         break;
     }
   }
