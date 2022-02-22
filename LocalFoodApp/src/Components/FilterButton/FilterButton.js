@@ -1,12 +1,13 @@
-import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
+import React from 'react'
 import { styles } from './FilterButtonStyle'
+import { Icon } from 'react-native-elements'
 import Food from '../../Assets/Images/utensils.svg'
 import Desserts from '../../Assets/Images/ice-cream.svg'
 import Drinks from '../../Assets/Images/drinks.svg'
 import Menu from '../../Assets/Images/menu.svg'
 
-export const FilterButton = ({ text="some", icon, selected = false, setSelectedButton }) => {
+export const FilterButton = ({ text, icon, selected = false, setSelectedButton }) => {
 
   const size = 40
 
