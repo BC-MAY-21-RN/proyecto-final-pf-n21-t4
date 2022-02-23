@@ -1,16 +1,24 @@
-import { View, SafeAreaView, ScrollView } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { TopBar } from '../../Components/TopBar/TopBar';
 import { InputComponent } from '../../Components/Input/Input';
 import { styles } from '../Home/HomeStyle';
 import Carousel from '../../Components/Carousel/Carousel';
 import { Title } from '../../Components/Title/Title.js';
-import { GetShops, signOut } from '../../Others/FirebaseFunctions/FirebaseFunctions'
+import { GetShops, signOut, GetCart } from '../../Others/FirebaseFunctions/FirebaseFunctions'
 import {OrderStatus} from '../../Components/OrderStatus/OrderStatus';
 import ShopCard from '../../Components/ShopCad/ShopCard';
+import { useSelector, useDispatch } from 'react-redux'
+import { loadCart} from '../../Others/redux/actions/actions';
+import auth from '@react-native-firebase/auth';
 
 export const Home = ({ navigation }) => {
+  const { cart, uid } = useSelector(state => state.LocalFoodReducer)
+  console.log("uid "+uid);
+
+  const dispatch = useDispatch();
   const [shops, setShops] = useState([])
+  const [TempCart, setTempCart] = useState([])
   //this state getts its value from redux when confirming the order in the cart,
   const [hasActiveOrder, setHasActiveOrder] = useState(false)
 
@@ -19,6 +27,15 @@ export const Home = ({ navigation }) => {
     if (index === 0)
       signOut()
   })
+
+  useEffect(()=>{
+    const suscriber = GetCart(auth().currentUser.uid, setTempCart);
+    dispatch(loadCart(TempCart))
+    console.log(cart)
+
+    return () => suscriber();
+  },[cart])
+
 
   useEffect(() => {
     GetShops(setShops)

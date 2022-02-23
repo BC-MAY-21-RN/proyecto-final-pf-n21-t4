@@ -7,16 +7,22 @@ import { ScrollView, Text, View } from 'react-native';
 import {styles} from '../SharedScreenStyle';
 import { login } from '../../Others/FirebaseFunctions/FirebaseFunctions';
 import auth from '@react-native-firebase/auth'
+import { useDispatch } from 'react-redux'
+import { loaduid } from '../../Others/redux/actions/actions';
 
 export const Login = (Props) => {
   const { navigation } = Props
   const [email, setEmail] = useState('')
   const [pwd, setPwd] = useState('')
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     //Si ya se encuentra un usuario logeado, lo dirijá automaticamente a la pantalla de home
     if(auth().currentUser!=null)
+    {
+      dispatch(loaduid(auth().currentUser.uid))
       navigation.navigate('Home')
+    }
     else
       console.log('nothing')
   },[])
@@ -33,7 +39,7 @@ export const Login = (Props) => {
           <InputComponent Tipo={'Contraseña'} action={setPwd} Icon={"eye-outline"}/>
         </View>
         
-        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd, navigation)}} color={true}/>
+        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd, navigation, dispatch)}} color={true}/>
 
         <GoogleBtn />
 

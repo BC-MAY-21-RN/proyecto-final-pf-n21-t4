@@ -1,5 +1,5 @@
-export const LOGIN = 'LOGIN'
-export const LOGOUT = 'LOGOUT'
+export const LOAD_UID = 'LOAD_UID'
+export const LOAD_CART = 'LOAD_CART'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-export const CREDENTIALS = 'CREDENTIALS'
+export const CLEAR_CART = 'CLEAR_CART'

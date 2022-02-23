@@ -15,7 +15,14 @@ export const GoogleBtn = () => {
         console.log('Im in')
         const { idToken } = await GoogleSignin.signIn();
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-        await auth().signInWithCredential(googleCredential).then((e)=>{NewUserDoc(e.user.uid)});
+        await auth().signInWithCredential(googleCredential).then((e)=>{
+            if(e.additionalUserInfo.isNewUser) {
+                NewUserDoc(e)
+                navigation.navigate('Home');
+            }else {
+                navigation.navigate('Home');
+            }
+        });
     }
 
     return (

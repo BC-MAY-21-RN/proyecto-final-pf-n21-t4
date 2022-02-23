@@ -2,7 +2,7 @@ import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { ToastAndroid } from 'react-native';
 import storage from '@react-native-firebase/storage';
-import { utils } from '@react-native-firebase/app';
+import { loaduid } from '../redux/actions/actions';
 
 export const registrarse = (email, pwd) => {
   if (email != '' || pwd != '')
@@ -28,11 +28,12 @@ export const registrarse = (email, pwd) => {
 }
 
 
-export const login = (email, pwd, nav) => {
+export const login = (email, pwd, nav, dispatch) => {
   if (email != '' || pwd != '')
     auth()
       .signInWithEmailAndPassword(email, pwd)
       .then((e) => {
+        (auth().currentUser!=null) ? dispatch(loaduid(auth().currentUser.uid)) : console.log() 
         ToastAndroid.show('Welcome', ToastAndroid.SHORT)
         nav.navigate('Home');
       })
@@ -68,7 +69,7 @@ export const GetShops = async (accion) => {
     firestore()
       .collection("Shops")
       .orderBy("Fecha", "desc")
-      .limit(4)
+      .limit(3)
       .get().then((e) => {
         e.forEach((element) => {
             info.push({...element.data(), ShopId: element.id})   
@@ -80,6 +81,13 @@ export const GetShops = async (accion) => {
   }
 }
 
+export const GetCart = (userid, setTempCart) => firestore()
+  .collection('Users')
+  .doc(userid)
+  .onSnapshot(info=> {
+    info.data()
+    setTempCart(info._data.Cart)
+  })
 
 export const GetTopShops = () => {
   {/*

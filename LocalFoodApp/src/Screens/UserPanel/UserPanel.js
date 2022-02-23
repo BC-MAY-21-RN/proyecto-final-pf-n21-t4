@@ -10,7 +10,6 @@ import { UserGeneralInfo } from '../../Others/FirebaseFunctions/FirebaseFunction
 
 export const UserPanel = ({navigation}) => {
   const [userIsOwner, setUserIsOwner] = useState(null);
-
   useEffect(()=>{
     UserGeneralInfo(setUserIsOwner);
   },[])
@@ -43,7 +42,7 @@ export const UserPanel = ({navigation}) => {
 
           <View style={styles.BottomButtons}>
             {userIsOwner ?
-              <MainBtn type={'Administrar negocio'} Action={()=>{navigation.navigate('Bussines')}} color={true}/> 
+              <MainBtn type={'Administrar negocio'} Action={()=>{navigation.navigate('Business', auth().currentUser.uid)}} color={true}/> 
               :
               <MainBtn type={'Registrar negocio'} Action={()=>{navigation.navigate('SignUpBusinessForm')}} color={true}/> 
             }
