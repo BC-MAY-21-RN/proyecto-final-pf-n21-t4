@@ -1,16 +1,16 @@
-import { LOGIN, LOGOUT, ADD_TO_CART, REMOVE_FROM_CART, CREDENTIALS } from './types';
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID } from './types';
 
-export const login = (login) =>{
+export const loadCart = (Item) =>{
     return{
-        type: LOGIN,
-        payload: login
+        type: LOAD_CART,
+        payload: Item
     }
 };
 
-export const logout = () =>{
+export const loaduid = (Item) =>{
     return{
-        type: LOGOUT,
-        payload: ""
+        type: LOAD_UID,
+        payload: Item
     }
 };
 
@@ -28,9 +28,9 @@ export const removeFromCart = (Item) =>{
     }
 };
 
-export const addCredentials = (email, name, password, phonenumber, direction) =>{
+export const clearCart = () =>{
     return{
-        type: CREDENTIALS,
-        payload: {email, name, password, phonenumber, direction}
+        type: REMOVE_FROM_CART,
+        payload: []
     }
 };
