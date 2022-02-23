@@ -5,7 +5,7 @@ const initialState = {
         userName: '',
         uid: ''
     },
-    cart: new Array(),
+    cart: [],
     shop:{
         
     }

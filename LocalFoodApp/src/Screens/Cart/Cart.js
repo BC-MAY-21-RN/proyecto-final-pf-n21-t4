@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, ScrollView, Text, View} from 'react-native';
+import { FlatList, SafeAreaView, ScrollView, Text, View, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import { TopBar } from '../../Components/TopBar/TopBar';
 import { styles } from './CartStyle'
@@ -6,6 +6,8 @@ import { Title } from '../../Components/Title/Title';
 import { MainBtn } from '../../Components/MainBtn/MainBtn'
 import { ProductDescriptionAdded } from '../../Components/ProductDescriptionAdded/ProductDescriptionAdded';
 import { useSelector } from 'react-redux'
+import { Icon } from 'react-native-elements';
+import { Empty } from '../../Components/Empty/Empty';
 
 export const Cart = ({ navigation }) => {
   const [ total, setTotal ] = useState(0)
@@ -52,8 +54,10 @@ export const Cart = ({ navigation }) => {
           <View style={styles.Boundaries}>
             <TopBar hasIcons={false} nav={navigation}/>
 
-            <View style={ styles.titleContainer }>
-              <Text style={ styles.title }>Tu pedido</Text>
+            <View style={ styles.titleContainer }>              
+              <Icon name='close-outline' size={40} type='ionicon' color='white'/>
+              <Text style={ styles.title }>Tu pedido</Text>              
+              <TouchableOpacity onPress={navigation.goBack}><Icon name='close-outline' size={40} type='ionicon' color='black'/></TouchableOpacity>
             </View>
 
             <Title text={'Dominos Pizza'}/>
