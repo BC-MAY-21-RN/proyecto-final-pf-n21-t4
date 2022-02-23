@@ -8,27 +8,27 @@ import { ProductDescriptionAdded } from '../../Components/ProductDescriptionAdde
 import { useSelector } from 'react-redux'
 
 export const Cart = ({ navigation }) => {
-  const [ total, setTotal ] = useState(300)
+  const [ total, setTotal ] = useState(0)
   const Products = useSelector(state => state.cart)
 
   const Product = [
     {
       id:1,
-      uriImage:'https://reactnative.dev/img/tiny_logo.png',
+      uriImage:'https://www.saborusa.com/wp-content/uploads/2019/12/origen-de-la-pizza-1.jpg',
       productName:'Pizza doble',
       productDescription:'Aqui debe de ir un chingo de descripcion pero en variables optenidas de la base de datos',
       price: 100,      
     },
     {
       id:2,
-      uriImage:'https://reactnative.dev/img/tiny_logo.png',
+      uriImage:'https://w6h5a5r4.rocketcdn.me/wp-content/uploads/2019/06/pizza-con-chorizo-jamon-y-queso-1080x671.jpg',
       productName:'Pizza',
       productDescription:'Aqui debe de ir un chingo de descripcion pero en variables optenidas de la base de datos',
       price: 100,      
     },
     {
       id:3,
-      uriImage:'https://reactnative.dev/img/tiny_logo.png',
+      uriImage:'http://www.diarioelnorte.com.ar/wp-content/uploads/2021/11/queso.jpg',
       productName:'queso',
       productDescription:'Aqui debe de ir un chingo de descripcion pero en variables optenidas de la base de datos',
       price: 100,      
