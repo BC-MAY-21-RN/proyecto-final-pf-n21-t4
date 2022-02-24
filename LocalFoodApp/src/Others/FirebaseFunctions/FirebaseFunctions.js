@@ -121,8 +121,21 @@ export const GetShop = async (shopname) =>{
     } catch(e){
         console.log('Este es un error '+ e)
     }
-}
 
+  }
+
+export const GetAllShops = (setShops2) =>{ 
+  let shops = []
+  firestore()
+  .collection('Shops')
+  .get()
+  .then((e)=>{
+    e._docs.map((valor, index)=>{
+      shops.push(valor._data)
+    })
+    setShops2(shops);
+  });
+}
 
 export const UserGeneralInfo = async (setUserIsOwner) =>{
     let x = false;
@@ -178,3 +191,13 @@ export const RegisterShop = async (name, number, street,img) =>{
         console.log('Este es un error '+ e)
     }
 }
+
+/*
+export const GetProducts = shopId =>  firestore()
+  .collection("ShopProducts")
+  .where("ShopId", "==", shopId)
+  .get()
+  .then((e) =>  e._docs[0]._data
+    ).catch(err => err)
+
+*/
