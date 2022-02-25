@@ -4,11 +4,14 @@ import { ToastAndroid } from 'react-native';
 import storage from '@react-native-firebase/storage';
 import { loaduid } from '../redux/actions/actions';
 
-export const registrarse = (email, pwd) => {
+export const registrarse = (email, pwd, name, phonenumber, nav) => {
   if (email != '' || pwd != '')
     auth()
       .createUserWithEmailAndPassword(email, pwd)
       .then((e) => {
+        auth().currentUser.updateProfile({displayName: name})
+        auth().currentUser.updatePhoneNumber()
+        // auth().currentUser.updatePhoneNumber(phonenumber)
         ToastAndroid.show('Welcome', ToastAndroid.SHORT)
         NewUserDoc(e.user.uid)
         nav.navigate('Home');
@@ -70,12 +73,13 @@ export const GetShops = async (accion) => {
       .collection("Shops")
       .orderBy("Fecha", "desc")
       .limit(3)
-      .get().then((e) => {
+      .onSnapshot(e=>{
         e.forEach((element) => {
-            info.push({...element.data(), ShopId: element.id})   
+          info.push({...element.data(), ShopId: element.id})   
         })
         accion(info)
-      });
+        info=[];
+      })
   } catch (e) {
     console.log('Este es un error ' + e)
   }
@@ -192,12 +196,34 @@ export const RegisterShop = async (name, number, street,img) =>{
     }
 }
 
-/*
-export const GetProducts = shopId =>  firestore()
-  .collection("ShopProducts")
-  .where("ShopId", "==", shopId)
-  .get()
-  .then((e) =>  e._docs[0]._data
-    ).catch(err => err)
+export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) =>{
 
-*/
+  if(name!=''){
+    auth().currentUser.updateProfile({displayName: name}).catch(e=>console.log(e))
+    ToastAndroid.show('Se ha actualizado con exito', ToastAndroid.LONG)
+  }
+  if(email!=''){
+    auth().currentUser.updateEmail(email).catch(e=>console.log(e))
+    ToastAndroid.show('Se ha actualizado con exito, favor de volvér a iniciar sesión', ToastAndroid.LONG)
+  }
+  if(pwd!=''){
+    auth().currentUser.updatePassword(pwd)
+    ToastAndroid.show('Se ha actualizado con exito, favor de volvér a iniciar sesión', ToastAndroid.LONG)
+  }
+
+  // if(number!=''){
+  //   try{
+  //     const snapshot = await auth().verifyPhoneNumber(number)
+
+  //     const credential = firebase.auth.PhoneAuthProvider.credential(snapshot.verificationId, snapshot.code);
+
+  //     // Update user with new verified phone number
+  //     await firebase.auth().currentUser.updatePhoneNumber(credential)
+  //   } catch(e) {
+  //     console.log(e)
+  //   }
+  // }
+
+  auth().signOut()
+  nav.navigate('Login');
+}
