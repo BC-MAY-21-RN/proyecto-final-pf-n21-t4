@@ -35,8 +35,8 @@ export const Login = (Props) => {
         <LoginText>Login</LoginText>
 
         <View style={{borderTopWidth: 2, borderTopColor: '#B0B0B0'}}>
-          <InputComponent Tipo={'Correo'} action={setEmail} Icon={"mail-outline"}/>
-          <InputComponent Tipo={'Contraseña'} action={setPwd} Icon={"eye-outline"}/>
+          <InputComponent Tipo={'Correo'} action={setEmail} Icon={"mail-outline"} value={email} />
+          <InputComponent Tipo={'Contraseña'} action={setPwd} Icon={"eye-outline"} value={pwd}/>
         </View>
         
         <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd, navigation, dispatch)}} color={true}/>

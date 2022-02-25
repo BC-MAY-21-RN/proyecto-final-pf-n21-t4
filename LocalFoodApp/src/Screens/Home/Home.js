@@ -11,6 +11,7 @@ import ShopCard from '../../Components/ShopCad/ShopCard';
 import { GetShops, signOut, GetCart, GetAllShops } from '../../Others/FirebaseFunctions/FirebaseFunctions'
 import { useSelector, useDispatch } from 'react-redux'
 import { loadCart} from '../../Others/redux/actions/actions';
+import auth from '@react-native-firebase/auth'
 
 export const Home = ({ navigation }) => {
   const { cart, uid } = useSelector(state => state.LocalFoodReducer)
@@ -22,6 +23,7 @@ export const Home = ({ navigation }) => {
   //this state getts its value from redux when confirming the order in the cart,
   const [hasActiveOrder, setHasActiveOrder] = useState(false)
   
+  const [recentShops, setRecentShops] = useState([])
   const [shops2, setShops2] = useState([])
   const [newCards, setNewCards] = useState([])
 
@@ -31,12 +33,15 @@ export const Home = ({ navigation }) => {
       signOut()
   })
 
-  useEffect(()=>{
-    const suscriber = GetCart(uid, setTempCart);
-    dispatch(loadCart(TempCart))
-
-    return () => suscriber();
-  },[cart])
+  if(auth().currentUser!=null)
+  {
+    useEffect(()=>{
+      const suscriber = GetCart(uid, setTempCart);
+      dispatch(loadCart(TempCart))
+  
+      return () => suscriber();
+    },[cart])
+  }
 
   useEffect(() => {
     GetShops(setShops)
@@ -59,13 +64,18 @@ export const Home = ({ navigation }) => {
     setNewCards(x)
   }, [search])
 
-  const renderShops = shops?.map((shop, index) => {
-    return <ShopCard
-      key={`Shop${index}`}
-      shop={shop}
-      nav={navigation}
-    />
-  })
+  /*Funcion que actualiza las tiendas recientes */
+  useEffect(()=>{
+    let x = []
+    shops.map((valor, index)=>{
+      x.push(<ShopCard
+        key={`Shop${index}`}
+        shop={valor}
+        nav={navigation}
+      />)
+    })
+    setRecentShops(x)
+  },[shops])
 
   return (
     <SafeAreaView style={styles.bg}>      
@@ -77,7 +87,7 @@ export const Home = ({ navigation }) => {
           <TopBar hasIcons={true} nav={navigation} />
           {hasActiveOrder && <OrderStatus orderETC={20} />}
           {/**placeholder not showing up */}
-          <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false} action={setSearch}/>                    
+          <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false} action={setSearch} value={search}/>                    
           {
             (search.length >= 1) ?
               <>
@@ -89,7 +99,7 @@ export const Home = ({ navigation }) => {
                 <Carousel shops={shops} timer={3000} />
       
                 <Title text={"Recien añadidos"} lineBelow={true} textSize={'big'}/>
-                {renderShops}
+                {recentShops}
               </>
           }
         </ScrollView>

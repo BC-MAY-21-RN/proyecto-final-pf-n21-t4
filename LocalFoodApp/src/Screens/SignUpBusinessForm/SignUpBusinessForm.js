@@ -22,9 +22,9 @@ export const SignUpBusinessForm = ({navigation}) => {
         <View style={styles.formContainer}>
           <Text style={{paddingLeft: 10}}>Portada de tu negocio</Text>
           <ImagePicker filePath={filePath} setFilePath={setFilePath}/>
-          <InputComponent Tipo={'Nombre de tu negocio'}  action={setBname} Icon={'pricetag-outline'}/>
-          <InputComponent Tipo={'Dirección'}  action={setLocation} Icon={'location-outline'}/>
-          <InputComponent Tipo={'Telefono de contacto'}  action={setBnumber} Icon={'call-outline'}/>
+          <InputComponent Tipo={'Nombre de tu negocio'}  action={setBname} Icon={'pricetag-outline'} value={Bname}/>
+          <InputComponent Tipo={'Dirección'}  action={setLocation} Icon={'location-outline'} value={location}/>
+          <InputComponent Tipo={'Telefono de contacto'}  action={setBnumber} Icon={'call-outline'} value={Bnumber}/>
         </View>
         <MainBtn type={'Continuar'} color={true} Action={()=>{
           RegisterShop(Bname, Bnumber, location, filePath)
