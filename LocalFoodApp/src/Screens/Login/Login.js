@@ -24,7 +24,7 @@ export const Login = (Props) => {
       navigation.navigate('Home')
     }
     else
-      console.log('nothing')
+      console.log('Login error')
   },[])
 
   return (

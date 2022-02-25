@@ -19,7 +19,7 @@ export const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const [shops, setShops] = useState([])
   const [TempCart, setTempCart] = useState([])
-  //this state getts its value from redux when confirming the order in the cart,
+  //this state getts its value from redux when confirming the order in the cart, maybe check if the cart is
   const [hasActiveOrder, setHasActiveOrder] = useState(false)
 
   navigation.addListener('state', (e) => {
@@ -28,13 +28,13 @@ export const Home = ({ navigation }) => {
       signOut()
   })
 
-  useEffect(()=>{
-    const suscriber = GetCart(auth().currentUser.uid, setTempCart);
-    dispatch(loadCart(TempCart))
-    console.log(cart)
+  // useEffect(()=>{
+  //   const suscriber = GetCart(auth().currentUser.uid, setTempCart);
+  //   dispatch(loadCart(TempCart))
+  //   console.log(cart)
 
-    return () => suscriber();
-  },[cart])
+  //   return () => suscriber();
+  // },[cart])
 
 
   useEffect(() => {

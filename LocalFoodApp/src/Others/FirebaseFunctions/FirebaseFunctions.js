@@ -2,7 +2,7 @@ import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { ToastAndroid } from 'react-native';
 import storage from '@react-native-firebase/storage';
-import { loaduid } from '../redux/actions/actions';
+import { utils } from '@react-native-firebase/app';
 
 export const registrarse = (email, pwd) => {
   if (email != '' || pwd != '')
@@ -28,12 +28,11 @@ export const registrarse = (email, pwd) => {
 }
 
 
-export const login = (email, pwd, nav, dispatch) => {
+export const login = (email, pwd, nav) => {
   if (email != '' || pwd != '')
     auth()
       .signInWithEmailAndPassword(email, pwd)
       .then((e) => {
-        (auth().currentUser!=null) ? dispatch(loaduid(auth().currentUser.uid)) : console.log() 
         ToastAndroid.show('Welcome', ToastAndroid.SHORT)
         nav.navigate('Home');
       })
@@ -46,11 +45,10 @@ export const login = (email, pwd, nav, dispatch) => {
     ToastAndroid.show('Please, fill up all the fields.', ToastAndroid.SHORT)
 }
 
-export const signOut = async () =>{
-    if(auth().currentUser!=null)
-    {
-        await auth().signOut();
-    }
+export const signOut = async () => {
+  if (auth().currentUser != null) {
+    await auth().signOut();
+  }
 }
 
 export const NewUserDoc = (uid) => {
@@ -69,10 +67,10 @@ export const GetShops = async (accion) => {
     firestore()
       .collection("Shops")
       .orderBy("Fecha", "desc")
-      .limit(3)
+      .limit(4)
       .get().then((e) => {
         e.forEach((element) => {
-            info.push({...element.data(), ShopId: element.id})   
+          info.push({ ...element.data(), ShopId: element.id })
         })
         accion(info)
       });
@@ -81,13 +79,9 @@ export const GetShops = async (accion) => {
   }
 }
 
-export const GetCart = (userid, setTempCart) => firestore()
-  .collection('Users')
-  .doc(userid)
-  .onSnapshot(info=> {
-    info.data()
-    setTempCart(info._data.Cart)
-  })
+export const GetShop = shopId => firestore()
+  .collection("Shops").doc(shopId).get()
+
 
 export const GetTopShops = () => {
   {/*
@@ -102,79 +96,65 @@ export const GetTopShops = () => {
    */}
 }
 
-export const GetProducts = shopId =>  firestore()
+export const GetProducts = shopId => firestore()
   .collection("ShopProducts")
   .where("ShopId", "==", shopId)
   .get()
-  .then((e) =>  e._docs[0]._data
-    ).catch(err => err)
+  .then((e) => e._docs[0]._data
+  ).catch(err => err)
 
 
-
-/*Funcion para redirijir a cada tienda */
-export const GetShop = async (shopname) =>{
-    try{
-        firestore()
-        .collection('Shops')
-        .doc(shopname)
-        .get();
-    } catch(e){
-        console.log('Este es un error '+ e)
-    }
+export const UserGeneralInfo = async (setUserIsOwner) => {
+  let x = false;
+  try {
+    firestore()
+      .collection('Users')
+      .doc(auth().currentUser.uid)
+      .get()
+      .then((e) => {
+        x = e.data()
+        setUserIsOwner(x.ShopOwner);
+      });
+    console.log(x.ShopOwner)
+  } catch (e) {
+    console.log('Este es un error ' + e)
+  }
 }
 
+export const RegisterShop = async (name, number, street, img) => {
+  const folder = 'images';
 
-export const UserGeneralInfo = async (setUserIsOwner) =>{
-    let x = false;
-    try{
+  try {
+    let uploadUri = img.uri;
+    let filename = img.fileName;
+
+    //ref es el folder donde se va a subir, child es el nombre del archivo y putFile es la función que sube la imagen.
+    await storage().ref(folder).child(filename).putFile(uploadUri);
+
+    //recupera el URL de la imagen.
+    const url = await storage().ref(folder).child(filename).getDownloadURL();
+
+    firestore()
+      .collection('Shops')
+      .doc('shop-' + auth().currentUser.uid)
+      .set({
+        Fecha: firestore.Timestamp.now().toDate(),
+        Image: url,
+        Orders: [],
+        Owner: auth().currentUser.displayName,
+        PhoneNumber: number,
+        ShopName: name,
+        Street: street,
+      })
+      .then(() => {
         firestore()
-        .collection('Users')
-        .doc(auth().currentUser.uid)
-        .get()
-        .then((e)=>{
-            x = e.data()
-            setUserIsOwner(x.ShopOwner);
-        });
-        console.log(x.ShopOwner)
-    } catch(e){
-        console.log('Este es un error '+ e)
-    }
-}
-
-export const RegisterShop = async (name, number, street,img) =>{
-    const folder = 'images';
-    
-    try{
-        let uploadUri = img.uri;
-        let filename = img.fileName;
-        
-        //ref es el folder donde se va a subir, child es el nombre del archivo y putFile es la función que sube la imagen.
-        await storage().ref(folder).child(filename).putFile(uploadUri);
-
-        //recupera el URL de la imagen.
-        const url = await storage().ref(folder).child(filename).getDownloadURL();
-
-        firestore() 
-        .collection('Shops')
-        .doc('shop-'+auth().currentUser.uid)
-        .set({
-            Fecha: firestore.Timestamp.now().toDate(),
-            Image: url,
-            Orders: [],
-            Owner: auth().currentUser.displayName,
-            PhoneNumber: number,
-            ShopName: name,
-            Street: street, 
-        })
-        .then(() => {
-          firestore()
           .collection('Users')
           .doc(auth().currentUser.uid)
           .update({
-                ShopOwner: true
+            ShopOwner: true
           })
-        });
-    } catch(e){
-        console.log('Este es un error '+ e)
-    }
+      });
+  } catch (e) {
+    console.log('Este es un error ' + e)
+  }
 }
