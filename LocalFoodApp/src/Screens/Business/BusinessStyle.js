@@ -66,5 +66,16 @@ export const styles = StyleSheet.create({
       color: 'black',
       fontSize: 20,
       opacity: 0.5,      
-    }
+    },
+    storeTitleEdit: {
+      position: 'absolute',
+      color: 'white',
+      fontSize: 35,
+      fontWeight: 'bold',
+      zIndex: 10,
+      bottom: 0,
+      paddingLeft: 20,
+      paddingBottom: 20,
+      width: '93%'
+  },
 });

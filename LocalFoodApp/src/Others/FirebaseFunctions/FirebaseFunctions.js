@@ -89,7 +89,7 @@ export const GetTopShops = () => {
     get the shops as we ussually do but soort them by orders number
     shpo1: orders.length = 4
     shpo3: orders.length = 2
-    shpo9: orders.length = 10  
+    shpo9: orders.length = 10
     sort them, store them in an object and send it to the carousel
 
     maybe get only a sample of 20 shops and sort them by adding their orders number and id into a 2d array
@@ -104,6 +104,18 @@ export const GetProducts = shopId => firestore()
   ).catch(err => err)
 
 
+
+export const EditShopName = (shopId, newValue) => firestore()
+  .collection('Shops')
+  .doc(shopId)
+  .update({
+    ShopName: newValue,
+  })
+  .then(() => {
+    console.log('ShopName Updated');
+  });
+
+
 export const UserGeneralInfo = async (setUserIsOwner) => {
   let x = false;
   try {
@@ -115,7 +127,6 @@ export const UserGeneralInfo = async (setUserIsOwner) => {
         x = e.data()
         setUserIsOwner(x.ShopOwner);
       });
-    console.log(x.ShopOwner)
   } catch (e) {
     console.log('Este es un error ' + e)
   }

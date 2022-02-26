@@ -56,7 +56,7 @@ export const Business = (props) => {
             </View>
             <ScrollView style={styles.Boundaries}>
                 {/** hasFunction -> navigate to cart component */}
-                <Title text="Menú" hasIcon={false} cart={true} hasFunction={() => navigation.navigate('Cart')}/>
+                <Title text="Menú" clickableIcon={'cart'} hasFunction={() => navigation.navigate('Cart')}/>
                 <View style={styles.container}>
                     <FilterButton selected={selectedButton === "Menú"} text="Menú" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
