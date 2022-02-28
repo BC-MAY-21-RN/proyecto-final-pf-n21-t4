@@ -5,15 +5,18 @@ import storage from '@react-native-firebase/storage';
 import { loaduid } from '../redux/actions/actions';
 
 export const registrarse = (email, pwd, name, phonenumber, nav) => {
-  if (email != '' || pwd != '')
-    auth()
+  if (phonenumber === '' || name === '') {
+    ToastAndroid.show('Please enter your name and phone number.', ToastAndroid.SHORT);
+    return;
+  }else{
+    email !== '' && pwd !== '' ?
+      auth()
       .createUserWithEmailAndPassword(email, pwd)
       .then((e) => {
         auth().currentUser.updateProfile({displayName: name})
-        auth().currentUser.updatePhoneNumber()
-        // auth().currentUser.updatePhoneNumber(phonenumber)
         ToastAndroid.show('Welcome', ToastAndroid.SHORT)
-        NewUserDoc(e.user.uid)
+        NewUserDoc(e.user.uid, phonenumber)
+        console.log(auth().currentUser.displayName);
         nav.navigate('Home');
       })
       .catch(error => {
@@ -25,9 +28,10 @@ export const registrarse = (email, pwd, name, phonenumber, nav) => {
           ToastAndroid.show('That email address is invalid!', ToastAndroid.SHORT)
         }
         console.log(error)
-      });
-  else
-    ToastAndroid.show('Please, fill up all the fields.', ToastAndroid.SHORT)
+      })
+    :
+      ToastAndroid.show('Please, fill up all the fields.', ToastAndroid.SHORT)
+  }
 }
 
 
@@ -56,13 +60,14 @@ export const signOut = async () =>{
     }
 }
 
-export const NewUserDoc = (uid) => {
+export const NewUserDoc = (uid,phonenumber) => {
   firestore()
     .collection('Users')
     .doc(uid)
     .set({
       Cart: [],
       ShopOwner: false,
+      PhoneNumber: phonenumber
     })
 }
 
