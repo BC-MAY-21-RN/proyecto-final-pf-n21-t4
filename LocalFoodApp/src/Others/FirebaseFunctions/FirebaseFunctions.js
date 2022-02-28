@@ -2,7 +2,7 @@ import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { ToastAndroid } from 'react-native';
 import storage from '@react-native-firebase/storage';
-import { utils } from '@react-native-firebase/app';
+import { loaduid } from '../redux/actions/actions';
 
 export const registrarse = (email, pwd, name, phonenumber, nav) => {
   if (phonenumber === '' || name === '') {
@@ -35,11 +35,12 @@ export const registrarse = (email, pwd, name, phonenumber, nav) => {
 }
 
 
-export const login = (email, pwd, nav) => {
+export const login = (email, pwd, nav, dispatch) => {
   if (email != '' || pwd != '')
     auth()
       .signInWithEmailAndPassword(email, pwd)
       .then((e) => {
+        (auth().currentUser!=null) ? dispatch(loaduid(auth().currentUser.uid)) : console.log() 
         ToastAndroid.show('Welcome', ToastAndroid.SHORT)
         nav.navigate('Home');
       })
@@ -76,18 +77,26 @@ export const GetShops = async (accion) => {
     firestore()
       .collection("Shops")
       .orderBy("Fecha", "desc")
-      .limit(4)
-      .get().then((e) => {
+      .limit(3)
+      .onSnapshot(e=>{
         e.forEach((element) => {
-            info.push({...element.data(), ShopId: element.id})   
+          info.push({...element.data(), ShopId: element.id})   
         })
         accion(info)
-      });
+        info=[];
+      })
   } catch (e) {
     console.log('Este es un error ' + e)
   }
 }
 
+export const GetCart = (userid, setTempCart) => firestore()
+  .collection('Users')
+  .doc(userid)
+  .onSnapshot(info=> {
+    info.data()
+    setTempCart(info._data.Cart)
+  })
 
 export const GetTopShops = () => {
   {/*
@@ -121,8 +130,21 @@ export const GetShop = async (shopname) =>{
     } catch(e){
         console.log('Este es un error '+ e)
     }
-}
 
+  }
+
+export const GetAllShops = (setShops2) =>{ 
+  let shops = []
+  firestore()
+  .collection('Shops')
+  .get()
+  .then((e)=>{
+    e._docs.map((valor, index)=>{
+      shops.push(valor._data)
+    })
+    setShops2(shops);
+  });
+}
 
 export const UserGeneralInfo = async (setUserIsOwner) =>{
     let x = false;
@@ -177,4 +199,36 @@ export const RegisterShop = async (name, number, street,img) =>{
     } catch(e){
         console.log('Este es un error '+ e)
     }
+}
+
+export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) =>{
+
+  if(name!=''){
+    auth().currentUser.updateProfile({displayName: name}).catch(e=>console.log(e))
+    ToastAndroid.show('Se ha actualizado con exito', ToastAndroid.LONG)
+  }
+  if(email!=''){
+    auth().currentUser.updateEmail(email).catch(e=>console.log(e))
+    ToastAndroid.show('Se ha actualizado con exito, favor de volvér a iniciar sesión', ToastAndroid.LONG)
+  }
+  if(pwd!=''){
+    auth().currentUser.updatePassword(pwd)
+    ToastAndroid.show('Se ha actualizado con exito, favor de volvér a iniciar sesión', ToastAndroid.LONG)
+  }
+
+  // if(number!=''){
+  //   try{
+  //     const snapshot = await auth().verifyPhoneNumber(number)
+
+  //     const credential = firebase.auth.PhoneAuthProvider.credential(snapshot.verificationId, snapshot.code);
+
+  //     // Update user with new verified phone number
+  //     await firebase.auth().currentUser.updatePhoneNumber(credential)
+  //   } catch(e) {
+  //     console.log(e)
+  //   }
+  // }
+
+  auth().signOut()
+  nav.navigate('Login');
 }

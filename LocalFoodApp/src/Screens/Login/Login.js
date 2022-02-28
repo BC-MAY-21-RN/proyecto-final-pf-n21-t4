@@ -7,16 +7,22 @@ import { ScrollView, Text, View } from 'react-native';
 import {styles} from '../SharedScreenStyle';
 import { login } from '../../Others/FirebaseFunctions/FirebaseFunctions';
 import auth from '@react-native-firebase/auth'
+import { useDispatch } from 'react-redux'
+import { loaduid } from '../../Others/redux/actions/actions';
 
 export const Login = (Props) => {
   const { navigation } = Props
   const [email, setEmail] = useState('')
   const [pwd, setPwd] = useState('')
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     //Si ya se encuentra un usuario logeado, lo dirijá automaticamente a la pantalla de home
     if(auth().currentUser!=null)
+    {
+      dispatch(loaduid(auth().currentUser.uid))
       navigation.navigate('Home')
+    }
     else
       console.log('nothing')
   },[])
@@ -29,17 +35,17 @@ export const Login = (Props) => {
         <LoginText>Login</LoginText>
 
         <View style={{borderTopWidth: 2, borderTopColor: '#B0B0B0'}}>
-          <InputComponent Tipo={'Correo'} action={setEmail} Icon={"mail-outline"}/>
-          <InputComponent Tipo={'Contraseña'} action={setPwd} Icon={"eye-outline"}/>
+          <InputComponent Tipo={'Correo'} action={setEmail} Icon={"mail-outline"} value={email} />
+          <InputComponent Tipo={'Contraseña'} action={setPwd} Icon={"eye-outline"} value={pwd}/>
         </View>
         
-        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd, navigation)}} color={true}/>
+        <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd, navigation, dispatch)}} color={true}/>
 
         <GoogleBtn />
 
         <BottomText>No tienes cuenta? <ClickHere onPress={()=>{navigation.navigate("SignUp")}}>registrate aquí</ClickHere> </BottomText>
 
-        <EndText onPress={()=>{navigation.navigate("Home")}}>Ingresar sin cuenta</EndText>
+        <EndText onPress={()=>{navigation.navigate("Home"), dispatch(loaduid('')) }}>Ingresar sin cuenta</EndText>
       </Container>
     </ScrollView>
   );
