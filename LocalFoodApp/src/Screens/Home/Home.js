@@ -26,7 +26,6 @@ export const Home = ({ navigation }) => {
   const [recentShops, setRecentShops] = useState([])
   const [shops2, setShops2] = useState([])
   const [newCards, setNewCards] = useState([])
-  //this state getts its value from redux when confirming the order in the cart, maybe check if the cart is
 
   navigation.addListener('state', (e) => {
     const { data: { state: { index } } } = e
@@ -41,20 +40,13 @@ export const Home = ({ navigation }) => {
       dispatch(loadCart(TempCart))
   
       return () => suscriber();
-    },[cart])
+    },[])
   }
 
   useEffect(() => {
     GetShops(setShops)
     GetAllShops(setShops2)
-    return () => suscriber();
   },[cart])
-
-
-  useEffect(() => {
-    GetShops(setShops)
-    console.log(cart)
-  }, [])
 
   /*Funcion search bar*/
   useEffect(()=>{

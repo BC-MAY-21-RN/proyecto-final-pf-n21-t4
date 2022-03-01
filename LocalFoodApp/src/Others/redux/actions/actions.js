@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP } from './types';
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, TOTAL_PRICE_OF_PRODUCT } from './types';
 
 export const loadCart = (Item) =>{
     return{
@@ -40,4 +40,11 @@ export const addIdShop = (id) => {
         type: ADD_ID_SHOP,
         payload: id
     }   
+}
+
+export const IPPIC = (productName, quantity) =>{
+    return {
+        type: TOTAL_PRICE_OF_PRODUCT,
+        payload: {productName: productName, quantity: quantity}
+    }
 }

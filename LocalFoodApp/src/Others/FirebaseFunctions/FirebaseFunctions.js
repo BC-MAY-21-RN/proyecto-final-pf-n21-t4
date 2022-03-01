@@ -83,6 +83,14 @@ export const GetShops = async (accion) => {
   }
 }
 
+export const GetCart = (userid, setTempCart) => firestore()
+  .collection('Users')
+  .doc(userid)
+  .onSnapshot(info=> {
+    info.data()
+    setTempCart(info._data.Cart)
+  })
+  
 export const GetShop = shopId => firestore()
   .collection("Shops").doc(shopId).get()
 
@@ -109,16 +117,6 @@ export const GetProducts = shopId => firestore()
 
 
 
-/*Funcion para redirijir a cada tienda */
-export const GetShop = async (shopname) =>{
-    try{
-        firestore()
-        .collection('Shops')
-        .doc(shopname)
-        .get();
-    } catch(e){
-        console.log('Este es un error '+ e)
-    }
   
 export const EditShopName = (shopId, newValue) => firestore()
   .collection('Shops')
@@ -130,7 +128,6 @@ export const EditShopName = (shopId, newValue) => firestore()
     console.log('ShopName Updated');
   });
 
-  }
 
 export const GetAllShops = (setShops2) =>{ 
   let shops = []

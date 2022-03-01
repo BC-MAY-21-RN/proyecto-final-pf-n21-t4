@@ -14,10 +14,9 @@ export const ShopItem = ({ product }) => {
   const dispatch = useDispatch()
  
   const sendToCart = (producto) => {
-    console.log(idShop)
     producto.idShop = idShop
+    producto.quantity = 1;
     dispatch(addToCart(producto))    
-    console.log(cart)
   }
 
   const ShowToast = (message="You must be logged in to place an order") => {
@@ -29,7 +28,7 @@ export const ShopItem = ({ product }) => {
   }
 
   const hasActiveSession = (isLoggedIn) => {
-    if (!isLoggedIn){
+    if (isLoggedIn){
       sendToCart(product)
       ShowToast('Añadido al Carrito!')
     }else

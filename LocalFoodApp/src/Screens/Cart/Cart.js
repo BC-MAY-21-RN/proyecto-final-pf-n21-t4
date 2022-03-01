@@ -13,10 +13,10 @@ import auth from '@react-native-firebase/auth'
 
 export const Cart = ({ navigation }) => {
   const [ total, setTotal ] = useState(0)
-
   const [shop, setShop] = useState()
-  const {cart} = useSelector(state => state.LocalFoodReducer)
 
+  const {cart} = useSelector(state => state.LocalFoodReducer)
+  
   useEffect(() => {
     console.log('el carrito antes de hacer las sumas', cart)
     cart.forEach(element => {
@@ -33,6 +33,7 @@ export const Cart = ({ navigation }) => {
         productName={item.Name}
         productDescription={item.Description.substring(0, 75)}
         price={item.Cost}
+        amount={item.quantity}
       />
     )
   }
