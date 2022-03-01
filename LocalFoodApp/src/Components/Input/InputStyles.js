@@ -10,6 +10,7 @@ export const InputContainer = styled.View`
     border-radius: 10px;
     align-items: center;
     padding-left: 10px;
+
 `;
 
 export const InputHeadText = styled.Text`

@@ -26,6 +26,7 @@ export const Home = ({ navigation }) => {
   const [recentShops, setRecentShops] = useState([])
   const [shops2, setShops2] = useState([])
   const [newCards, setNewCards] = useState([])
+  //this state getts its value from redux when confirming the order in the cart, maybe check if the cart is
 
   navigation.addListener('state', (e) => {
     const { data: { state: { index } } } = e
@@ -46,6 +47,13 @@ export const Home = ({ navigation }) => {
   useEffect(() => {
     GetShops(setShops)
     GetAllShops(setShops2)
+    return () => suscriber();
+  },[cart])
+
+
+  useEffect(() => {
+    GetShops(setShops)
+    console.log(cart)
   }, [])
 
   /*Funcion search bar*/
@@ -80,12 +88,12 @@ export const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.bg}>      
       <View style={styles.Boundaries}>
-      <ScrollView
-          stickyHeaderIndices={hasActiveOrder ? [1] : [0]}
+        <ScrollView
+          stickyHeaderIndices={cart.length >= 1 ? [1] : [0]}
           showsVerticalScrollIndicator={false}
         >          
           <TopBar hasIcons={true} nav={navigation} />
-          {hasActiveOrder && <OrderStatus orderETC={20} />}
+          {cart.length >= 1 && <OrderStatus ordersETC={cart} nav={navigation}/>}
           {/**placeholder not showing up */}
           <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false} action={setSearch} value={search}/>                    
           {

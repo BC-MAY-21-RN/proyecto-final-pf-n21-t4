@@ -1,44 +1,26 @@
 import { View, Text, Image } from 'react-native'
 import React, {useEffect} from 'react'
-import { styles } from './ShopItemStyle'
+import { styles } from './ShopItemEditStyle'
 import Button from '../Button/Button'
 import { Title } from '../Title/Title'
-
 import {useDispatch, useSelector} from 'react-redux'
 import { addToCart } from '../../Others/redux/actions/actions'
-import { ToastAndroid } from 'react-native'
-import auth from '@react-native-firebase/auth'
 
-export const ShopItem = ({ product }) => {
-  const {idShop, cart} = useSelector(state => state.LocalFoodReducer)
-  const dispatch = useDispatch()
- 
-  const sendToCart = (producto) => {
-    console.log(idShop)
-    producto.idShop = idShop
-    dispatch(addToCart(producto))    
-    console.log(cart)
-  }
+export const ShopItemEdit = ({ product }) => {
 
-  const ShowToast = (message="You must be logged in to place an order") => {
-    ToastAndroid.show(
-      message,
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-    )
-  }
+  const dispatch = useDispatch
+  const {cart} = useSelector(state => state.LocalFoodReducer)
 
-  const hasActiveSession = (isLoggedIn) => {
-    if (!isLoggedIn){
-      sendToCart(product)
-      ShowToast('Añadido al Carrito!')
-    }else
-      ShowToast()
+  //replace this with redux
+
+  const EditProduct = (prod) => {    
+    console.log(prod)
+    //reddux code to send the product to the cart
   }
 
   return (
     <View>
-      <View style={styles.container}>        
+      <View style={styles.container}>
 
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: product.ImgURL }} />
@@ -53,7 +35,7 @@ export const ShopItem = ({ product }) => {
 
           <View style={styles.shopItemBottomBar}>
             <Text style={styles.Cost}>${product.Cost}.00</Text>
-            <Button text={"Agregar"} whenPressed={() => hasActiveSession(auth().currentUser)}/>
+            <Button text={"Editar"} whenPressed={() => EditProduct(product)}/>
           </View>
         </View>
 

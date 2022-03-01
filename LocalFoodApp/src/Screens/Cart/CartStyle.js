@@ -24,10 +24,9 @@ export const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     paddingTop: 10,
     paddingLeft: 0,
-
   },
   shopsAddress: {
     color: 'gray',
@@ -37,7 +36,6 @@ export const styles = StyleSheet.create({
     color: '#479808',
     fontSize: 30,
     fontWeight: '600',
-
   }
 
 });
