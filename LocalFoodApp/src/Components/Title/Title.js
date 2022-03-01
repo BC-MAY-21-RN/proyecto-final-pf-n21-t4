@@ -40,8 +40,7 @@ export const Title = (
       <View style={(lineBelow) ? (style.container) : (style.containerNoLine)}>
         {getText(textSize)}
         <View>
-        {/* { (clickableIcon && auth().currentUser != null) &&  */}
-          {clickableIcon &&
+        { (clickableIcon && auth().currentUser != null) &&        
               <TouchableOpacity onPress={hasFunction}>
                 {(clickableIcon == 'cart') ? <BasketSvg width={30} height={30} fill="#1e8651"/> : (<EditIcon width={30} height={30} fill='#000' />)}
               </TouchableOpacity>

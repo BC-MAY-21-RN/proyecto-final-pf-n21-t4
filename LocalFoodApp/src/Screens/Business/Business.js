@@ -58,7 +58,7 @@ export const Business = (props) => {
                 </TouchableOpacity>
                 <Text style={styles.storeTitle}>{shop.ShopName}</Text>                
                 <Image style={styles.image} source={{ uri: shop.Image }} />
-            </View>
+            </View>            
             <ScrollView style={styles.Boundaries}>
                 {/** hasFunction -> navigate to cart component */}
                 <Title text="Menú" clickableIcon={'cart'} hasFunction={() => navigation.navigate('Cart')}/>
@@ -67,8 +67,7 @@ export const Business = (props) => {
                     <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
-                </View>                     
-                
+                </View>                                 
                 {placeholderVisible && placeholderCount?.map((product, index) => <ShopItemPlaceholder key={index}/>)}
                 {/* {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)} */}
 
@@ -78,7 +77,8 @@ export const Business = (props) => {
                 {(filteredProducts.length == 0) && 
                   <View style={styles.noItems}>
                     <Text style={styles.text}>There are no Items in this category</Text>
-                  </View>}
+                  </View>
+                }
                 
             </ScrollView>
         </SafeAreaView>

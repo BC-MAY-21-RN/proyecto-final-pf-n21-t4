@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     },
     storeHeader: {
         zIndex: 1,
-        backgroundColor: 'black',      
+        backgroundColor: 'black',        
     },
     storeTitle: {
         position: 'absolute',
@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
         position: 'relative',        
         width: '100%',
         height: 180,
-        zIndex: -1,
+        zIndex: -2,
         opacity: .5,
     },
     noItems: {
