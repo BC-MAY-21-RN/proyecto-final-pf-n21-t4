@@ -5,6 +5,7 @@ import { style } from './TitleStyles'
 import BasketSvg from '../../Assets/Images/bag.svg'
 import EditIcon from '../../Assets/Images/edit-2.svg'
 import {Empty} from '../../Components/Empty/Empty.js'
+import auth from '@react-native-firebase/auth'
 
 export const Title = (
   {
@@ -39,7 +40,8 @@ export const Title = (
       <View style={(lineBelow) ? (style.container) : (style.containerNoLine)}>
         {getText(textSize)}
         <View>
-          { clickableIcon && 
+        {/* { (clickableIcon && auth().currentUser != null) &&  */}
+          {clickableIcon &&
               <TouchableOpacity onPress={hasFunction}>
                 {(clickableIcon == 'cart') ? <BasketSvg width={30} height={30} fill="#1e8651"/> : (<EditIcon width={30} height={30} fill='#000' />)}
               </TouchableOpacity>

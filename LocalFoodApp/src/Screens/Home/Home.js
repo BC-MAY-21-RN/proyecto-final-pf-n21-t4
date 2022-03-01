@@ -10,6 +10,7 @@ import {OrderStatus} from '../../Components/OrderStatus/OrderStatus';
 import ShopCard from '../../Components/ShopCad/ShopCard';
 import { useSelector, useDispatch } from 'react-redux'
 import { loadCart} from '../../Others/redux/actions/actions';
+
 import auth from '@react-native-firebase/auth';
 
 export const Home = ({ navigation }) => {
@@ -20,14 +21,12 @@ export const Home = ({ navigation }) => {
   const [shops, setShops] = useState([])
   const [TempCart, setTempCart] = useState([])
   //this state getts its value from redux when confirming the order in the cart, maybe check if the cart is
-  const [hasActiveOrder, setHasActiveOrder] = useState(false)
 
   navigation.addListener('state', (e) => {
     const { data: { state: { index } } } = e
     if (index === 0)
       signOut()
   })
-
   // useEffect(()=>{
   //   const suscriber = GetCart(auth().currentUser.uid, setTempCart);
   //   dispatch(loadCart(TempCart))
@@ -39,6 +38,7 @@ export const Home = ({ navigation }) => {
 
   useEffect(() => {
     GetShops(setShops)
+    console.log(cart)
   }, [])
 
   const renderShops = shops?.map((shop, index) => {
@@ -53,11 +53,11 @@ export const Home = ({ navigation }) => {
     <SafeAreaView style={styles.bg}>      
       <View style={styles.Boundaries}>
         <ScrollView
-          stickyHeaderIndices={hasActiveOrder ? [1] : [0]}
+          stickyHeaderIndices={cart.length >= 1 ? [1] : [0]}
           showsVerticalScrollIndicator={false}
         >          
           <TopBar hasIcons={true} nav={navigation} />
-          {hasActiveOrder && <OrderStatus orderETC={20} />}
+          {cart.length >= 1 && <OrderStatus ordersETC={cart} nav={navigation}/>}
           {/**placeholder not showing up */}
           <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false}/>                    
           <Title text={"Los más pedidos de la semana"} lineBelow={false} textSize={'big'}/>

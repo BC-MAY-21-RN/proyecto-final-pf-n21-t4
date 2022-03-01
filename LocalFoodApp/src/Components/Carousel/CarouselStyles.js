@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
     carousel:{
         borderRadius: 10,
         backgroundColor: 'black',
+        // backgroundColor: '#d2e7dc',
         margin: 15,
         marginLeft: 0,
         marginRight: 0,
@@ -23,6 +24,6 @@ export const styles = StyleSheet.create({
         width: '100%', 
         height: 180,
         borderRadius: 10,
-        opacity: 0.65,
+        opacity: .75,
     }
 });

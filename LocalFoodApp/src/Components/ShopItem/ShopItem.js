@@ -6,6 +6,8 @@ import { Title } from '../Title/Title'
 
 import {useDispatch, useSelector} from 'react-redux'
 import { addToCart } from '../../Others/redux/actions/actions'
+import { ToastAndroid } from 'react-native'
+import auth from '@react-native-firebase/auth'
 
 export const ShopItem = ({ product }) => {
   const {idShop, cart} = useSelector(state => state.LocalFoodReducer)
@@ -18,6 +20,21 @@ export const ShopItem = ({ product }) => {
     console.log(cart)
   }
 
+  const ShowToast = (message="You must be logged in to place an order") => {
+    ToastAndroid.show(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+    )
+  }
+
+  const hasActiveSession = (isLoggedIn) => {
+    if (!isLoggedIn){
+      sendToCart(product)
+      ShowToast('Añadido al Carrito!')
+    }else
+      ShowToast()
+  }
 
   return (
     <View>
@@ -36,7 +53,7 @@ export const ShopItem = ({ product }) => {
 
           <View style={styles.shopItemBottomBar}>
             <Text style={styles.Cost}>${product.Cost}.00</Text>
-            <Button text={"Agregar"} whenPressed={() => sendToCart(product)}/>
+            <Button text={"Agregar"} whenPressed={() => hasActiveSession(auth().currentUser)}/>
           </View>
         </View>
 

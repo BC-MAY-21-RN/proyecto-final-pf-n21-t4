@@ -10,6 +10,8 @@ import NotificationSvg from '../../Assets/Images/notification.svg'
 import BasketSvg from '../../Assets/Images/bag.svg'
 import LogoSvg from '../../Assets/Images/LogoSvg.svg'
 
+import auth from '@react-native-firebase/auth'
+
 export const TopBar = ({
   hasIcons = false,
   nav = null,
@@ -39,28 +41,28 @@ export const TopBar = ({
             <LogoSvg width={60} height={60} />
           </TouchableOpacity>
           <View style={styles.IconBar}>
-            <>            
-              {hasIcons && 
-              <>
-                <TouchableOpacity onPress={funcTest}>
-                  <View style={styles.Icon}>
-                    <StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'} />
-                  </View>
-                </TouchableOpacity>              
-                <TouchableOpacity onPress={funcTest}>
-                  <View style={styles.Icon}>
-                    <NotificationSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />
-                  </View>
-                </TouchableOpacity>
-              </>
-              }              
+            {(auth().currentUser != null) && <>
+              {hasIcons &&
+                <>
+                  <TouchableOpacity onPress={funcTest}>
+                    <View style={styles.Icon}>
+                      <StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'} />
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={funcTest}>
+                    <View style={styles.Icon}>
+                      <NotificationSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />
+                    </View>
+                  </TouchableOpacity>
+                </>
+              }
               <TouchableOpacity onPress={() => nav.navigate('Cart')}>
                 <View style={styles.Icon}>
                   <BasketSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />
                 </View>
                 {/**needs a bubble with a number notficitation or animation */}
               </TouchableOpacity>
-            </>
+            </>}
             <TouchableOpacity onPress={() => { nav.navigate(navPage) }}>
               <Icon
                 style={styles.IconBurger}
