@@ -8,6 +8,8 @@ import { FilterButton } from '../../Components/FilterButton/FilterButton';
 import { Icon } from 'react-native-elements';
 import { ShopItem } from '../../Components/ShopItem/ShopItem'
 import { ShopItemPlaceholder } from '../../Components/ShopItem/ShopItemPlaceholder'
+import { useDispatch } from 'react-redux'
+import { addIdShop } from '../../Others/redux/actions/actions';
 
 export const Business = (props) => {
     const { route: { params: { shop } } } = props
@@ -19,6 +21,7 @@ export const Business = (props) => {
     const [placeholderVisible, setPlaceholderVisible] = useState(true)
 
     const placeholderCount = [{}, {}, {}, {}]
+    const dispatch = useDispatch()
 
     useEffect(() => {
       const getProducts = async () => { 
@@ -28,8 +31,10 @@ export const Business = (props) => {
                   setProducts(response.Products)
                   setFilteredProducts(response.Products)
                   setPlaceholderVisible(false)
+                  //enviar a redux
+                  dispatch(addIdShop(shop.ShopId))
               }
-              )        
+              )              
           }
       }
 

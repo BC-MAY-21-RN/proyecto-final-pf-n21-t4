@@ -1,8 +1,9 @@
-import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID} from '../actions/types'
+import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP} from '../actions/types'
 
 const initialState = {
     uid: '',
-    cart: ['a'],
+    cart: [],
+    idShop: ''
 }
 
 const LocalFoodReducer = (state = initialState, action) => {
@@ -12,11 +13,14 @@ const LocalFoodReducer = (state = initialState, action) => {
         case LOAD_CART:
             return {...state, cart: action.payload}
         case ADD_TO_CART:
-            return {...state, cart: state.cart.push(action.payload)};
+            console.log(action.payload)
+            return {...state, cart: [...state.cart, action.payload]};            
         case REMOVE_FROM_CART:
             return {...state, cart: state.cart.pop()};
         case CLEAR_CART:
             return {...state, cart: action.payload}
+        case ADD_ID_SHOP:
+            return {...state, idShop: action.payload}
         default:
             return state
     }

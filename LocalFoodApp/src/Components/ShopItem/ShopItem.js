@@ -3,23 +3,25 @@ import React, {useEffect} from 'react'
 import { styles } from './ShopItemStyle'
 import Button from '../Button/Button'
 import { Title } from '../Title/Title'
+
 import {useDispatch, useSelector} from 'react-redux'
 import { addToCart } from '../../Others/redux/actions/actions'
 
 export const ShopItem = ({ product }) => {
-
-  const dispatch = useDispatch
-  const {cart} = useSelector(state => state.LocalFoodReducer)
-
+  const {idShop, cart} = useSelector(state => state.LocalFoodReducer)
+  const dispatch = useDispatch()
  
-  //reddux code to send the 'product' to the cart
-  
-
+  const sendToCart = (producto) => {
+    console.log(idShop)
+    producto.idShop = idShop
+    dispatch(addToCart(producto))    
+    console.log(cart)
+  }
 
 
   return (
     <View>
-      <View style={styles.container}>
+      <View style={styles.container}>        
 
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: product.ImgURL }} />
@@ -34,7 +36,7 @@ export const ShopItem = ({ product }) => {
 
           <View style={styles.shopItemBottomBar}>
             <Text style={styles.Cost}>${product.Cost}.00</Text>
-            <Button text={"Agregar"} whenPressed={() => console.log(product)}/>
+            <Button text={"Agregar"} whenPressed={() => sendToCart(product)}/>
           </View>
         </View>
 

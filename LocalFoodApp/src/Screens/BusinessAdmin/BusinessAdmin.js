@@ -66,4 +66,3 @@ export const BusinessAdmin = ({navigation}) => {
       <Text>Store not found</Text>
   )
 }
-
