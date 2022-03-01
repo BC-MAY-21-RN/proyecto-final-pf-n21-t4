@@ -227,3 +227,26 @@ export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) 
   auth().signOut()
   nav.navigate('Login');
 }
+
+export const AddProduct = (shopId, product) =>{
+  let x, id;
+  firestore()
+  .collection('ShopProducts')
+  .where('ShopId','==',shopId)
+  .get()
+  .then((e)=>{
+    e.docs.map((valor,index)=>{
+      id=valor.id
+      x = valor._data
+    })
+    
+    x.Products.push(product)
+
+    firestore()
+    .collection('ShopProducts')
+    .doc(id)
+    .update({
+      Products: x.Products
+    })
+  })
+}

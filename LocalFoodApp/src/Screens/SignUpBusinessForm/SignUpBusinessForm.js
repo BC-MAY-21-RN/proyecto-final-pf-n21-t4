@@ -14,6 +14,7 @@ export const SignUpBusinessForm = ({navigation}) => {
   const [filePath, setFilePath] = useState({uri: 'https://assets.dominos.com.mx/dev/webOptimized/especialidad/CF/CF.png'});
 
   return (
+  <SafeAreaView>
     <ScrollView style={styles.Boundaries}>
       <View style={styles.bg}>
         <TopBar hasIcons={false} change={true} nav={navigation} Iconn={'close-outline'}/>
@@ -27,10 +28,11 @@ export const SignUpBusinessForm = ({navigation}) => {
           <InputComponent Tipo={'Telefono de contacto'}  action={setBnumber} Icon={'call-outline'} value={Bnumber}/>
         </View>
         <MainBtn type={'Continuar'} color={true} Action={()=>{
-          RegisterShop(Bname, Bnumber, location, filePath)
-          navigation.navigate('Home')}}/>
+          // RegisterShop(Bname, Bnumber, location, filePath)
+          navigation.navigate('AddProductForm', {type: 'agregar'})}}/>
       </View>
     </ScrollView>
+  </SafeAreaView>
   );
 };
 
