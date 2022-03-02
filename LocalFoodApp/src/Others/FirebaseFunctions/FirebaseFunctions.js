@@ -163,46 +163,60 @@ export const UserGeneralInfo = async (setUserIsOwner) => {
   }
 }
 
-export const RegisterShop = async (name, number, street, img) => {
-  const folder = 'images';
+export const RegisterShop = async (shop, product) =>{
+    const { name, number, street, img } = shop
 
-  try {
-    let uploadUri = img.uri;
-    let filename = img.fileName;
+    const folder = 'images';
 
-    //ref es el folder donde se va a subir, child es el nombre del archivo y putFile es la función que sube la imagen.
-    await storage().ref(folder).child(filename).putFile(uploadUri);
+    try{
+        let uploadUri = img.uri;
+        let filename = img.fileName;
+        
+        //ref es el folder donde se va a subir, child es el nombre del archivo y putFile es la función que sube la imagen.
+        await storage().ref(folder).child(filename).putFile(uploadUri);
 
-    //recupera el URL de la imagen.
-    const url = await storage().ref(folder).child(filename).getDownloadURL();
+        //recupera el URL de la imagen.
+        const url = await storage().ref(folder).child(filename).getDownloadURL();
 
-    firestore()
-      .collection('Shops')
-      .doc('shop-' + auth().currentUser.uid)
-      .set({
-        Fecha: firestore.Timestamp.now().toDate(),
-        Image: url,
-        Orders: [],
-        Owner: auth().currentUser.displayName,
-        PhoneNumber: number,
-        ShopName: name,
-        Street: street,
-      })
-      .then(() => {
+        firestore() 
+        .collection('Shops')
+        .doc('shop-'+auth().currentUser.uid)
+        .set({
+            Fecha: firestore.Timestamp.now().toDate(),
+            Image: url,
+            Orders: [],
+            Owner: auth().currentUser.displayName,
+            PhoneNumber: number,
+            ShopName: name,
+            Street: street, 
+        })
+
+        /*Asigna que el usuario ya es dueño de una tienda */
         firestore()
-          .collection('Users')
-          .doc(auth().currentUser.uid)
-          .update({
-            ShopOwner: true
-          })
-        });
+        .collection('Users')
+        .doc(auth().currentUser.uid)
+        .update({
+              ShopOwner: true
+        })
+
+        firestore()
+        .collection('ShopProducts')
+        .doc()
+        .set({
+          Products: [],
+          ShopId: `shop-${auth().currentUser.uid}`
+        })
+
+        /*Agrega el producto*/
+        AddProduct(`shop-${auth().currentUser.uid}`, product);
+  
     } catch(e){
         console.log('Este es un error '+ e)
     }
 }
 
-export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) =>{
 
+export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) =>{
   if(name!=''){
     auth().currentUser.updateProfile({displayName: name}).catch(e=>console.log(e))
     ToastAndroid.show('Se ha actualizado con exito', ToastAndroid.LONG)
@@ -231,4 +245,40 @@ export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) 
 
   auth().signOut()
   nav.navigate('Login');
+}
+
+
+export const AddProduct = async (shopId, product) =>{
+  let x, id;
+  const { ImgURL } = product
+  let folder = 'products'
+  let uploadUri = ImgURL.uri;
+  let filename = ImgURL.fileName;
+        
+    //ref es el folder donde se va a subir, child es el nombre del archivo y putFile es la función que sube la imagen.
+    await storage().ref(folder).child(filename).putFile(uploadUri);
+
+    //recupera el URL de la imagen.
+    const url = await storage().ref(folder).child(filename).getDownloadURL();
+
+    firestore()
+    .collection('ShopProducts')
+    .where('ShopId','==',shopId)
+    .get()
+    .then((e)=>{
+      e.docs.map((valor,index)=>{
+        id=valor.id
+        x = valor._data
+      })
+      
+      product.ImgURL = url
+      x.Products.push(product)
+
+      firestore()
+      .collection('ShopProducts')
+      .doc(id)
+      .update({
+        Products: x.Products
+      })
+    })
 }

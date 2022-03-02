@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Store } from './src/Others/redux/store.js';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Cart, Confirmation, Home, Login, SignUp, Business, UserPanel, EditUserSettings, SignUpBusinessForm, OrdersInProgress, BusinessAdmin } from './src/Screens/index.js';
+import { Cart, Confirmation, Home, Login, SignUp, Business, UserPanel, EditUserSettings, SignUpBusinessForm, OrdersInProgress, BusinessAdmin, AddProductForm } from './src/Screens/index.js';
 //import {Cart} from './src/Screens/Cart/Cart.js'
 
 const Stack = createNativeStackNavigator()
@@ -35,6 +35,7 @@ const App = () => {
             <Stack.Screen name="SignUpBusinessForm" component={SignUpBusinessForm} options={screenOptions}/>
             <Stack.Screen name="Cart" component={Cart} options={screenOptions}/>
             <Stack.Screen name="OrdenInProgress" component={OrdersInProgress} options={screenOptions}/>
+            <Stack.Screen name="AddProductForm" component={AddProductForm} options={screenOptions}/>
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
