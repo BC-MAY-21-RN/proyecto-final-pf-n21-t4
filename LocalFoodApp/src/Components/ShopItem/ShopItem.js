@@ -47,7 +47,7 @@ export const ShopItem = ({ product }) => {
 
           <Text style={styles.shopItemTitle}>{product.Name}</Text>
           <View>
-            <Text style={styles.ShopItemDescription}>{(product.Description.length > 60) && product.Description.substring(0, 60)}</Text>
+            <Text style={styles.ShopItemDescription}>{(product.Description.length > 1) && product.Description.substring(0, 60)}</Text>
           </View>
 
           <View style={styles.shopItemBottomBar}>

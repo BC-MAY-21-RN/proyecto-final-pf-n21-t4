@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-between',      
+        zIndex: 100,
     },
     IconBar:{
         flexDirection: 'row',

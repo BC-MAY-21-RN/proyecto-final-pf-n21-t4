@@ -10,7 +10,7 @@ export const style = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 10,
     paddingLeft: 0,
-    zIndex: 10,
+    zIndex: 5,
   },
   containerNoLine: {
     display: 'flex',

@@ -39,6 +39,8 @@ export const Business = (props) => {
       }
 
     getProducts()
+
+    console.log(shop)
     },[])
 
     useEffect(() => {

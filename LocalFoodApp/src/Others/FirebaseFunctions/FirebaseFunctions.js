@@ -70,7 +70,7 @@ export const GetShops = async (accion) => {
     firestore()
       .collection("Shops")
       .orderBy("Fecha", "desc")
-      .limit(3)
+      .limit(5)
       .onSnapshot(e=>{
         e.forEach((element) => {
           info.push({...element.data(), ShopId: element.id})   
