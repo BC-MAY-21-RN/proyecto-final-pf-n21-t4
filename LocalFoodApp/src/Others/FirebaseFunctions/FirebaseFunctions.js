@@ -147,7 +147,7 @@ export const GetAllShops = (setShops2) =>{
   });
 }
 
-export const UserGeneralInfo = async (setUserIsOwner) => {
+export const UserOwnerInfo = async (setUserIsOwner) => {
   let x = false;
   try {
     firestore()
@@ -217,34 +217,53 @@ export const RegisterShop = async (shop, product) =>{
 
 
 export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) =>{
+  let modificacion = false;
+
   if(name!=''){
     auth().currentUser.updateProfile({displayName: name}).catch(e=>console.log(e))
     ToastAndroid.show('Se ha actualizado con exito', ToastAndroid.LONG)
+    modificacion = true;
   }
   if(email!=''){
     auth().currentUser.updateEmail(email).catch(e=>console.log(e))
     ToastAndroid.show('Se ha actualizado con exito, favor de volvér a iniciar sesión', ToastAndroid.LONG)
+    modificacion = true;
   }
   if(pwd!=''){
-    auth().currentUser.updatePassword(pwd)
-    ToastAndroid.show('Se ha actualizado con exito, favor de volvér a iniciar sesión', ToastAndroid.LONG)
+    if(pwd.length<8)
+    {
+      ToastAndroid.show('Favor de ingresar una contraseña mayor a 8 caracteres.', ToastAndroid.LONG)
+    }
+    else
+    {
+      auth().currentUser.updatePassword(pwd)
+      ToastAndroid.show('Se ha actualizado con exito, favor de volvér a iniciar sesión', ToastAndroid.LONG)
+      modificacion = true;
+    }
   }
 
-  // if(number!=''){
-  //   try{
-  //     const snapshot = await auth().verifyPhoneNumber(number)
+  if(number!=''){
+    if(number.length!=10)
+    {
+      ToastAndroid.show('Por favor asegurese de ingresar un numero no mayor a 10 digitos', ToastAndroid.LONG)
+    }
+    else
+    {
+      firestore()
+      .collection('Users')
+      .doc(auth().currentUser.uid)
+      .update({
+        PhoneNumber: number
+      })
+      modificacion = true;
+    }
+  }
 
-  //     const credential = firebase.auth.PhoneAuthProvider.credential(snapshot.verificationId, snapshot.code);
-
-  //     // Update user with new verified phone number
-  //     await firebase.auth().currentUser.updatePhoneNumber(credential)
-  //   } catch(e) {
-  //     console.log(e)
-  //   }
-  // }
-
-  auth().signOut()
-  nav.navigate('Login');
+  if(modificacion==true)
+  {
+    auth().signOut()
+    nav.navigate('Login');
+  }
 }
 
 
@@ -283,3 +302,9 @@ export const AddProduct = async (shopId, product) =>{
       })
     })
 }
+
+export const UserPhonenumber = () => firestore()
+  .collection('Users')
+  .doc(auth().currentUser.uid)
+  .get()
+  .then((e)=>e.data())
