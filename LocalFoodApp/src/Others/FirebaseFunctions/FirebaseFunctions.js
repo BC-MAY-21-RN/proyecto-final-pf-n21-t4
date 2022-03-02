@@ -251,6 +251,7 @@ export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) 
 export const AddProduct = async (shopId, product) =>{
   let x, id;
   const { ImgURL } = product
+  console.log(product)
   let folder = 'products'
   let uploadUri = ImgURL.uri;
   let filename = ImgURL.fileName;

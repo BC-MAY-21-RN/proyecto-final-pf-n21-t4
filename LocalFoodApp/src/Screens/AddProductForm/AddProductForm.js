@@ -36,10 +36,16 @@ export const AddProductForm = (props) => {
         Tipo: categoria,
         tmPreparacion: parseInt(time),
       }
-      RegisterShop(shop, object)
+      if (shop != undefined) {
+        RegisterShop(shop, object)
+      }else{
+        AddProduct(`shop-${auth().currentUser.uid}`,object)        
+      }
       navigation.navigate("Home");
     }
   }
+
+  console.log(shop)
 
   return (
     <SafeAreaView style={styles.bg}>
@@ -62,7 +68,7 @@ export const AddProductForm = (props) => {
             (type=='registro') ? 
               <MainBtn type={'Finalizar'} Action={()=>{CreateObject(Pname, Pdsc, Pprecio, Ptime, selectedValue, filePath)}} color={true}/>
             :
-              <MainBtn type={'Agregar'} Action={()=>{AddProduct(`shop-${auth().currentUser.uid}`,{test: 'si'})}} color={true}/>
+              <MainBtn type={'Agregar'} Action={()=>{CreateObject(Pname, Pdsc, Pprecio, Ptime, selectedValue, filePath)}} color={true}/>
           }
         </View>
       </ScrollView>

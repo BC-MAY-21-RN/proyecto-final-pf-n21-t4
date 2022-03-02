@@ -39,6 +39,11 @@ export const BusinessAdmin = ({navigation}) => {
     getShop()    
   }, [])  
 
+  
+  const addProduct = () => {
+    navigation.navigate('AddProductForm',{type:'a'})
+  }
+
   return (
     shop ? <>
         <SafeAreaView style={styles.bg}>
@@ -60,7 +65,7 @@ export const BusinessAdmin = ({navigation}) => {
                     <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
                 </View>                
-                <AddProduct />                
+                <AddProduct func={() => addProduct()}/>                
     
             </ScrollView>
         </SafeAreaView>
