@@ -24,34 +24,26 @@ export const Business = (props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-      const getProducts = async () => { 
-        if(shop.ShopId){
-          await GetProducts(shop.ShopId).then(
-              (response) => {
-                  setProducts(response.Products)
-                  setFilteredProducts(response.Products)
-                  setPlaceholderVisible(false)
-                  //enviar a redux
-                  dispatch(addIdShop(shop.ShopId))
-              }
-              )              
-          }
-      }
-
-    getProducts()
-
-    console.log(shop)
+      const suscriber = GetProducts(shop.ShopId, setProducts);
+      dispatch(addIdShop(shop.ShopId))
+      setPlaceholderVisible(false)
+      return () => suscriber();
     },[])
-
+    
+    useEffect(()=>{
+      setFilteredProducts(products);
+      setSelectedButton('Menú');
+    },[products])
+    
     useEffect(() => {
       if (selectedButton != 'Menú') {
-          console.log(selectedButton)
-          setFilteredProducts(products.filter(posicion => posicion.Tipo == selectedButton))
-        }else{
-          setFilteredProducts(products)
-        }
+        setFilteredProducts(products.filter(posicion => posicion.Tipo == selectedButton))
+      }else{
+        setFilteredProducts(products)
+      }
     }, [selectedButton])     
-        
+    
+
     return (      
         <SafeAreaView style={styles.bg}>
             <View style={styles.storeHeader}>
@@ -74,7 +66,6 @@ export const Business = (props) => {
                 {/* {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)} */}
 
                 {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)}
-
 
                 {(filteredProducts.length == 0) && 
                   <View style={styles.noItems}>

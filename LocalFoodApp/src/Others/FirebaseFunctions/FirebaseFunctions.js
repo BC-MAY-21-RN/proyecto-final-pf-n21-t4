@@ -113,12 +113,12 @@ export const GetTopShops = () => {
    */}
 }
 
-export const GetProducts = shopId => firestore()
+export const GetProducts = (shopId, setProducts) => firestore()
   .collection("ShopProducts")
   .where("ShopId", "==", shopId)
-  .get()
-  .then((e) => e._docs[0]._data
-  ).catch(err => err)
+  .onSnapshot((products)=>{
+    setProducts(products._docs[0]._data.Products)
+  })
 
 
 
