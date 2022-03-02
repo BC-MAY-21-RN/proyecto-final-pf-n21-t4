@@ -40,13 +40,13 @@ export const Home = ({ navigation }) => {
       dispatch(loadCart(TempCart))
   
       return () => suscriber();
-    },[cart])
+    },[])
   }
 
   useEffect(() => {
     GetShops(setShops)
     GetAllShops(setShops2)
-  }, [])
+  },[cart])
 
   /*Funcion search bar*/
   useEffect(()=>{
@@ -80,12 +80,12 @@ export const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.bg}>      
       <View style={styles.Boundaries}>
-      <ScrollView
-          stickyHeaderIndices={hasActiveOrder ? [1] : [0]}
+        <ScrollView
+          stickyHeaderIndices={cart.length >= 1 ? [1] : [0]}
           showsVerticalScrollIndicator={false}
         >          
           <TopBar hasIcons={true} nav={navigation} />
-          {hasActiveOrder && <OrderStatus orderETC={20} />}
+          {cart.length >= 1 && <OrderStatus ordersETC={cart} nav={navigation}/>}
           {/**placeholder not showing up */}
           <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false} action={setSearch} value={search}/>                    
           {

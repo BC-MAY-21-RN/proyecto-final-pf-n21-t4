@@ -32,7 +32,8 @@ export const UserPanel = ({navigation}) => {
       <SafeAreaView style={styles.bg}>
         <View style={styles.Boundaries}>
           <TopBar hasIcons={false} nav={navigation} change={true} Iconn={'arrow-back-outline'}/>
-          <Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>
+          {/* {<Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>} */}
+          <Title text={'yeah'} />
           
           <UserInfo label={"Nombre"} info={auth().currentUser.displayName} />
           <UserInfo label={"Correo"} info={auth().currentUser.email} />
@@ -42,7 +43,7 @@ export const UserPanel = ({navigation}) => {
 
           <View style={styles.BottomButtons}>
             {userIsOwner ?
-              <MainBtn type={'Administrar negocio'} Action={()=>{navigation.navigate('Business', auth().currentUser.uid)}} color={true}/> 
+              <MainBtn type={'Administrar negocio'} Action={()=>{navigation.navigate('BusinessAdmin')}} color={true}/> 
               :
               <MainBtn type={'Registrar negocio'} Action={()=>{navigation.navigate('SignUpBusinessForm')}} color={true}/> 
             }

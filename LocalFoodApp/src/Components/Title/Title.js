@@ -3,7 +3,9 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements/dist/icons/Icon'
 import { style } from './TitleStyles'
 import BasketSvg from '../../Assets/Images/bag.svg'
+import EditIcon from '../../Assets/Images/edit-2.svg'
 import {Empty} from '../../Components/Empty/Empty.js'
+import auth from '@react-native-firebase/auth'
 
 export const Title = (
   {
@@ -12,8 +14,9 @@ export const Title = (
     textSize = 'medium', 
     hasIcon = false,
     icon = 'rowing',
-    cart = false,
+    clickableIcon,
     hasFunction = () => console.log('a function'),
+    textColor = 'black'
   }
 ) => {
 
@@ -24,7 +27,7 @@ export const Title = (
         case 'medium':
             return <Text style={style.textMedium}>{text}</Text>
         case 'big':
-            return <Text style={style.textBig}>{text}</Text>
+            return <Text style={[style.textBig, {color: textColor}]}>{text}</Text>
         case 'line':
             return <></>
         default: 
@@ -37,7 +40,11 @@ export const Title = (
       <View style={(lineBelow) ? (style.container) : (style.containerNoLine)}>
         {getText(textSize)}
         <View>
-          <TouchableOpacity onPress={hasFunction}>{(cart) && <BasketSvg width={30} height={30} fill="#1e8651"/>}</TouchableOpacity>
+        { (clickableIcon && auth().currentUser != null) &&        
+              <TouchableOpacity onPress={hasFunction}>
+                {(clickableIcon == 'cart') ? <BasketSvg width={30} height={30} fill="#1e8651"/> : (<EditIcon width={30} height={30} fill='#fff' />)}
+              </TouchableOpacity>
+          }
           { hasIcon ? <Icon name={icon}/> : <Empty />}
         </View>
       </View>   
