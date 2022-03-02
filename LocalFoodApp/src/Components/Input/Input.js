@@ -8,7 +8,7 @@ export const InputComponent = ({hasLabel = true, Tipo, Icon='search', inputPlace
             <InputHeadText> {Tipo} </InputHeadText>
             <InputContainer>
                 { Tipo=='Contraseña'? 
-                    <Inputt secureTextEntry={true} onChangeText={(e)=>{action(e)}} placeholder={inputPlaceHolder}/>
+                    <Inputt secureTextEntry={true} onChangeText={(e)=>{action(e)}} placeholder={inputPlaceHolder} value={value}/>
                     : 
                     <Inputt onChangeText={(e)=>{action(e)}} value={value} placeholder={inputPlaceHolder}/>
                 }
