@@ -6,12 +6,12 @@ import { styles } from './UserPStyles';
 import auth from '@react-native-firebase/auth'
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { UserInfo } from '../../Components/UserInfo/UserInfo';
-import { UserGeneralInfo } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { UserOwnerInfo } from '../../Others/FirebaseFunctions/FirebaseFunctions';
 
 export const UserPanel = ({navigation}) => {
   const [userIsOwner, setUserIsOwner] = useState(null);
   useEffect(()=>{
-    UserGeneralInfo(setUserIsOwner);
+    UserOwnerInfo(setUserIsOwner);
   },[])
 
   if(auth().currentUser==null)
