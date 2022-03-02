@@ -9,7 +9,7 @@ export const Empty = () => {
 
 const styles = StyleSheet.create({
   Empty:{
-    position: 'absolute',        
-  }
+    position: 'absolute',
+  },
 })
 

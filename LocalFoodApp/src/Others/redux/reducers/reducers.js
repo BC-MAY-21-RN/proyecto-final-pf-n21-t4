@@ -1,28 +1,27 @@
-import { LOGIN, LOGOUT, ADD_TO_CART, REMOVE_FROM_CART, CREDENTIALS } from '../actions/types'
+import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, TOTAL_PRICE_OF_PRODUCT} from '../actions/types'
 
 const initialState = {
-    userInfo: {
-        userName: '',
-        uid: ''
-    },
-    cart: new Array(),
-    shop:{
-        
-    }
+    uid: '',
+    cart: [],
+    idShop: ''
 }
 
 const LocalFoodReducer = (state = initialState, action) => {
     switch(action.type){
-        case LOGIN:
-            return {...state, user: action.payload};
-        case LOGOUT:
-            return {...state, user: action.payload};
+        case LOAD_UID:
+            return {...state, uid: action.payload}
+        case LOAD_CART:
+            return {...state, cart: action.payload}
         case ADD_TO_CART:
-            return {...state, cart: state.cart.push(action.payload)};
+            return {...state, cart: [...state.cart, action.payload]};            
         case REMOVE_FROM_CART:
             return {...state, cart: state.cart.pop()};
-        case CREDENTIALS:
-            return {...state, credentials: action.payload}
+        case CLEAR_CART:
+            return {...state, cart: action.payload}
+        case ADD_ID_SHOP:
+            return {...state, idShop: action.payload}
+        case TOTAL_PRICE_OF_PRODUCT:
+            return {...state, cart: [...state.cart, action.payload]} 
         default:
             return state
     }

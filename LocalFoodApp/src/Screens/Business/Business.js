@@ -2,11 +2,14 @@ import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'rea
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Title } from '../../Components/Title/Title';
-import { ShopItem } from '../../Components/ShopItem/ShopItem'
 import { styles } from './BusinessStyle';
 import { GetProducts } from '../../Others/FirebaseFunctions/FirebaseFunctions';
 import { FilterButton } from '../../Components/FilterButton/FilterButton';
 import { Icon } from 'react-native-elements';
+import { ShopItem } from '../../Components/ShopItem/ShopItem'
+import { ShopItemPlaceholder } from '../../Components/ShopItem/ShopItemPlaceholder'
+import { useDispatch } from 'react-redux'
+import { addIdShop } from '../../Others/redux/actions/actions';
 
 export const Business = (props) => {
     const { route: { params: { shop } } } = props
@@ -15,7 +18,10 @@ export const Business = (props) => {
     const [products, setProducts] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [selectedButton, setSelectedButton] = useState('Menú')
+    const [placeholderVisible, setPlaceholderVisible] = useState(true)
 
+    const placeholderCount = [{}, {}, {}, {}]
+    const dispatch = useDispatch()
 
     useEffect(() => {
       const getProducts = async () => { 
@@ -24,12 +30,17 @@ export const Business = (props) => {
               (response) => {
                   setProducts(response.Products)
                   setFilteredProducts(response.Products)
+                  setPlaceholderVisible(false)
+                  //enviar a redux
+                  dispatch(addIdShop(shop.ShopId))
               }
-              )        
+              )              
           }
       }
 
     getProducts()
+
+    console.log(shop)
     },[])
 
     useEffect(() => {
@@ -41,25 +52,36 @@ export const Business = (props) => {
         }
     }, [selectedButton])     
         
-    return (
+    return (      
         <SafeAreaView style={styles.bg}>
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.navigate('Home')}>
                     <Icon name='close-outline' size={40} type='ionicon' color='white'/>
                 </TouchableOpacity>
-                <Text style={styles.storeTitle}>{shop.ShopName}</Text>
+                <Text style={styles.storeTitle}>{shop.ShopName}</Text>                
                 <Image style={styles.image} source={{ uri: shop.Image }} />
-            </View>
+            </View>            
             <ScrollView style={styles.Boundaries}>
                 {/** hasFunction -> navigate to cart component */}
-                <Title text="Menú" hasIcon={false} cart={true} hasFunction={() => navigation.navigate('Cart')}/>
+                <Title text="Menú" clickableIcon={'cart'} hasFunction={() => navigation.navigate('Cart')}/>
                 <View style={styles.container}>
                     <FilterButton selected={selectedButton === "Menú"} text="Menú" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
-                </View>
+                </View>                                 
+                {placeholderVisible && placeholderCount?.map((product, index) => <ShopItemPlaceholder key={index}/>)}
+                {/* {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)} */}
+
                 {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)}
+
+
+                {(filteredProducts.length == 0) && 
+                  <View style={styles.noItems}>
+                    <Text style={styles.text}>There are no Items in this category</Text>
+                  </View>
+                }
+                
             </ScrollView>
         </SafeAreaView>
     );

@@ -6,13 +6,12 @@ import { styles } from './UserPStyles';
 import auth from '@react-native-firebase/auth'
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { UserInfo } from '../../Components/UserInfo/UserInfo';
-import { UserGeneralInfo } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { UserOwnerInfo } from '../../Others/FirebaseFunctions/FirebaseFunctions';
 
 export const UserPanel = ({navigation}) => {
   const [userIsOwner, setUserIsOwner] = useState(null);
-
   useEffect(()=>{
-    UserGeneralInfo(setUserIsOwner);
+    UserOwnerInfo(setUserIsOwner);
   },[])
 
   if(auth().currentUser==null)
@@ -33,7 +32,8 @@ export const UserPanel = ({navigation}) => {
       <SafeAreaView style={styles.bg}>
         <View style={styles.Boundaries}>
           <TopBar hasIcons={false} nav={navigation} change={true} Iconn={'arrow-back-outline'}/>
-          <Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>
+          {/* {<Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>} */}
+          <Title text={'yeah'} />
           
           <UserInfo label={"Nombre"} info={auth().currentUser.displayName} />
           <UserInfo label={"Correo"} info={auth().currentUser.email} />
@@ -43,7 +43,7 @@ export const UserPanel = ({navigation}) => {
 
           <View style={styles.BottomButtons}>
             {userIsOwner ?
-              <MainBtn type={'Administrar negocio'} Action={()=>{navigation.navigate('Bussines')}} color={true}/> 
+              <MainBtn type={'Administrar negocio'} Action={()=>{navigation.navigate('BusinessAdmin')}} color={true}/> 
               :
               <MainBtn type={'Registrar negocio'} Action={()=>{navigation.navigate('SignUpBusinessForm')}} color={true}/> 
             }
