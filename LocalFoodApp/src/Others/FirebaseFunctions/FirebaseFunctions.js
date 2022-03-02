@@ -158,9 +158,11 @@ export const UserGeneralInfo = async (setUserIsOwner) =>{
     }
 }
 
-export const RegisterShop = async (name, number, street,img) =>{
+export const RegisterShop = async (shop, product) =>{
+    const { name, number, street, img } = shop
+
     const folder = 'images';
-    
+
     try{
         let uploadUri = img.uri;
         let filename = img.fileName;
@@ -183,21 +185,33 @@ export const RegisterShop = async (name, number, street,img) =>{
             ShopName: name,
             Street: street, 
         })
-        .then(() => {
-          firestore()
-          .collection('Users')
-          .doc(auth().currentUser.uid)
-          .update({
-                ShopOwner: true
-          })
-        });
+
+        /*Asigna que el usuario ya es dueño de una tienda */
+        firestore()
+        .collection('Users')
+        .doc(auth().currentUser.uid)
+        .update({
+              ShopOwner: true
+        })
+
+        firestore()
+        .collection('ShopProducts')
+        .doc()
+        .set({
+          Products: [],
+          ShopId: `shop-${auth().currentUser.uid}`
+        })
+
+        /*Agrega el producto*/
+        AddProduct(`shop-${auth().currentUser.uid}`, product);
+  
     } catch(e){
         console.log('Este es un error '+ e)
     }
 }
 
-export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) =>{
 
+export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) =>{
   if(name!=''){
     auth().currentUser.updateProfile({displayName: name}).catch(e=>console.log(e))
     ToastAndroid.show('Se ha actualizado con exito', ToastAndroid.LONG)
@@ -228,25 +242,38 @@ export const ChangeUserInfo = async (name="", email="", number="", pwd="", nav) 
   nav.navigate('Login');
 }
 
-export const AddProduct = (shopId, product) =>{
+
+export const AddProduct = async (shopId, product) =>{
   let x, id;
-  firestore()
-  .collection('ShopProducts')
-  .where('ShopId','==',shopId)
-  .get()
-  .then((e)=>{
-    e.docs.map((valor,index)=>{
-      id=valor.id
-      x = valor._data
-    })
-    
-    x.Products.push(product)
+  const { ImgURL } = product
+  let folder = 'products'
+  let uploadUri = ImgURL.uri;
+  let filename = ImgURL.fileName;
+        
+    //ref es el folder donde se va a subir, child es el nombre del archivo y putFile es la función que sube la imagen.
+    await storage().ref(folder).child(filename).putFile(uploadUri);
+
+    //recupera el URL de la imagen.
+    const url = await storage().ref(folder).child(filename).getDownloadURL();
 
     firestore()
     .collection('ShopProducts')
-    .doc(id)
-    .update({
-      Products: x.Products
+    .where('ShopId','==',shopId)
+    .get()
+    .then((e)=>{
+      e.docs.map((valor,index)=>{
+        id=valor.id
+        x = valor._data
+      })
+      
+      product.ImgURL = url
+      x.Products.push(product)
+
+      firestore()
+      .collection('ShopProducts')
+      .doc(id)
+      .update({
+        Products: x.Products
+      })
     })
-  })
 }

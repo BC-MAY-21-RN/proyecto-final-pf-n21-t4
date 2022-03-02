@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { ImagePicker } from '../../Components/SignUpBFComponents/ImagePicker';
 import {Title} from '../../Components/Title/Title.js';
 import { InputComponent } from '../../Components/Input/Input';
@@ -12,6 +12,23 @@ export const SignUpBusinessForm = ({navigation}) => {
   const [location, setLocation] = useState('')
   const [Bnumber, setBnumber] = useState('')
   const [filePath, setFilePath] = useState({uri: 'https://assets.dominos.com.mx/dev/webOptimized/especialidad/CF/CF.png'});
+
+  const CreateObject = (name, number, location, img) => {
+    if(name==''||number==''||location==''||img.fileName=='https://assets.dominos.com.mx/dev/webOptimized/especialidad/CF/CF.png')
+    {
+      ToastAndroid.show("Favor asegurese de llenar todos los campos y seleccionar una imagen", ToastAndroid.LONG);
+    }
+    else
+    {
+      const object = {
+        name: name,
+        number: number,
+        street: location,
+        img: img
+      }
+      navigation.navigate('AddProductForm',{type:'registro',shop:object})
+    }
+  }
 
   return (
   <SafeAreaView>
@@ -28,8 +45,8 @@ export const SignUpBusinessForm = ({navigation}) => {
           <InputComponent Tipo={'Telefono de contacto'}  action={setBnumber} Icon={'call-outline'} value={Bnumber}/>
         </View>
         <MainBtn type={'Continuar'} color={true} Action={()=>{
-          // RegisterShop(Bname, Bnumber, location, filePath)
-          navigation.navigate('AddProductForm', {type: 'agregar'})}}/>
+          CreateObject(Bname, Bnumber, location, filePath)
+          }}/>
       </View>
     </ScrollView>
   </SafeAreaView>
