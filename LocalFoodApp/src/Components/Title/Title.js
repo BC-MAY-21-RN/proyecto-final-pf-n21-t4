@@ -42,7 +42,7 @@ export const Title = (
         <View>
         { (clickableIcon && auth().currentUser != null) &&        
               <TouchableOpacity onPress={hasFunction}>
-                {(clickableIcon == 'cart') ? <BasketSvg width={30} height={30} fill="#1e8651"/> : (<EditIcon width={30} height={30} fill='#000' />)}
+                {(clickableIcon == 'cart') ? <BasketSvg width={30} height={30} fill="#1e8651"/> : (<EditIcon width={30} height={30} fill='#fff' />)}
               </TouchableOpacity>
           }
           { hasIcon ? <Icon name={icon}/> : <Empty />}

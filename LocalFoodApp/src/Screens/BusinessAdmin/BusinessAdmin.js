@@ -6,6 +6,7 @@ import {styles} from '../Business/BusinessStyle'
 import { FilterButton } from '../../Components/FilterButton/FilterButton';
 import { Icon } from 'react-native-elements';
 import { Title } from '../../Components/Title/Title';
+import {AddProduct} from '../../Components/AddProduct/AddProduct';
 
 
 
@@ -46,7 +47,7 @@ export const BusinessAdmin = ({navigation}) => {
                     <Icon name='close-outline' size={40} type='ionicon' color='white'/>
                 </TouchableOpacity>                
                 <View style={styles.storeTitleEdit}>
-                  <Title text={shop.ShopName} hasIcon={false} clickableIcon={'cart'} textSize={'big'} textColor={'white'} hasFunction={() => EditShopName(`shop-${auth().currentUser.uid}`, 'nuevo valor')}/>                      
+                  <Title text={shop.ShopName} hasIcon={false} clickableIcon={'edit'} textSize={'big'} textColor={'white'} hasFunction={() => EditShopName(`shop-${auth().currentUser.uid}`, 'nuevo valor')}/>                      
                 </View>                
                 <Image style={styles.image} source={{ uri: shop.Image }} />
             </View>
@@ -58,7 +59,8 @@ export const BusinessAdmin = ({navigation}) => {
                     <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
-                </View>
+                </View>                
+                <AddProduct />                
     
             </ScrollView>
         </SafeAreaView>
