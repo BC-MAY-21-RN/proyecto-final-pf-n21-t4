@@ -10,6 +10,7 @@ import { ShopItem } from '../../Components/ShopItem/ShopItem'
 import { ShopItemPlaceholder } from '../../Components/ShopItem/ShopItemPlaceholder'
 import { useDispatch } from 'react-redux'
 import { addIdShop } from '../../Others/redux/actions/actions';
+import { InputModal } from '../../Components/InputModal/InputModal';
 
 export const Business = (props) => {
     const { route: { params: { shop } } } = props
@@ -30,17 +31,15 @@ export const Business = (props) => {
               (response) => {
                   setProducts(response.Products)
                   setFilteredProducts(response.Products)
-                  setPlaceholderVisible(false)
+                  setPlaceholderVisible(false)                  
                   //enviar a redux
                   dispatch(addIdShop(shop.ShopId))
+                  console.log(response.Products)
               }
               )              
           }
       }
-
-    getProducts()
-
-    console.log(shop)
+    getProducts()    
     },[])
 
     useEffect(() => {
@@ -73,10 +72,10 @@ export const Business = (props) => {
                 {placeholderVisible && placeholderCount?.map((product, index) => <ShopItemPlaceholder key={index}/>)}
                 {/* {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)} */}
 
-                {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)}
+                {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} btnFunction={'addToCart'}/>)}
 
 
-                {(filteredProducts.length == 0) && 
+                {(filteredProducts.length < 0) && 
                   <View style={styles.noItems}>
                     <Text style={styles.text}>There are no Items in this category</Text>
                   </View>

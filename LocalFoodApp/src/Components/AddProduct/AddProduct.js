@@ -7,9 +7,8 @@ export const AddProduct = ({}) => {
   return (
     <View style={styles.fill}>
       <View style={styles.container}>
-        <Button text={"Nuevo Producto"} whenPressed={() => navigation.navigate('Home')}/>
+        <Button text={"Agregar Producto"} textColor={styles.White} size={styles.ButtonLong}whenPressed={() => navigation.navigate('Home')}/>
       </View>
-      <Title textSize='line' lineBelow={true} />
     </View>
   )
 }
@@ -22,8 +21,24 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',    
     marginTop: 15,
+    zIndex: 120,    
   },
   fill:{
     width: '100%',
   },
+  ButtonLong:{
+    width: '100%',
+    height: '65%',
+    justifyContent: 'center',
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: '#1e8651',
+    backgroundColor: '#1e8651',    
+  },   
+  White:{
+      alignSelf: 'center',
+      borderWidth: 0,
+      color: 'white',
+      fontWeight: 'bold',
+  }
 })
