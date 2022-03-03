@@ -72,6 +72,7 @@ export const BusinessAdmin = ({navigation}) => {
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
                 </View>
                 <AddProduct />
+                                                                                                              {/**change this function to the show / hide modal */}
                 {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => console.log('yes Function')} />)}
     
             </ScrollView>
