@@ -30,7 +30,7 @@ export const removeFromCart = (Item) =>{
 
 export const clearCart = () =>{
     return{
-        type: REMOVE_FROM_CART,
+        type: CLEAR_CART,
         payload: []
     }
 };

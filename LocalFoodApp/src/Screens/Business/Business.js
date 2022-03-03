@@ -32,7 +32,6 @@ export const Business = (props) => {
     
     useEffect(()=>{
       setFilteredProducts(products);
-      setSelectedButton('Menú');
     },[products])
     
     useEffect(() => {

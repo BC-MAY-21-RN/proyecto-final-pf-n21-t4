@@ -33,6 +33,11 @@ export const Home = ({ navigation }) => {
       signOut()
   })
 
+  useEffect(()=>{
+    GetShops(setShops)
+    GetAllShops(setShops2)
+  },[])
+
   if(auth().currentUser!=null)
   {
     useEffect(()=>{
@@ -42,11 +47,6 @@ export const Home = ({ navigation }) => {
       return () => suscriber();
     },[])
   }
-
-  useEffect(() => {
-    GetShops(setShops)
-    GetAllShops(setShops2)
-  },[cart])
 
   /*Funcion search bar*/
   useEffect(()=>{

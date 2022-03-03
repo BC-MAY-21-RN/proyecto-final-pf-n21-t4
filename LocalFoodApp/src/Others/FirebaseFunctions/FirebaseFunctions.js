@@ -2,7 +2,7 @@ import auth from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { ToastAndroid } from 'react-native';
 import storage from '@react-native-firebase/storage';
-import { utils } from '@react-native-firebase/app';
+import { clearCart } from '../redux/actions/actions';
 
 export const registrarse = (email, pwd, name, phonenumber, nav) => {
   if (phonenumber === '' || name === '') {
@@ -14,9 +14,8 @@ export const registrarse = (email, pwd, name, phonenumber, nav) => {
       .createUserWithEmailAndPassword(email, pwd)
       .then((e) => {
         auth().currentUser.updateProfile({displayName: name})
-        ToastAndroid.show('Welcome', ToastAndroid.SHORT)
         NewUserDoc(e.user.uid, phonenumber)
-        console.log(auth().currentUser.displayName);
+        ToastAndroid.show('Welcome', ToastAndroid.SHORT)
         nav.navigate('Home');
       })
       .catch(error => {
@@ -119,9 +118,6 @@ export const GetProducts = (shopId, setProducts) => firestore()
   .onSnapshot((products)=>{
     setProducts(products._docs[0]._data.Products)
   })
-
-
-
   
 export const EditShopName = (shopId, newValue) => firestore()
   .collection('Shops')
@@ -138,8 +134,7 @@ export const GetAllShops = (setShops2) =>{
   let shops = []
   firestore()
   .collection('Shops')
-  .get()
-  .then((e)=>{
+  .onSnapshot((e)=>{
     e._docs.map((valor, index)=>{
       shops.push(valor._data)
     })
@@ -308,3 +303,39 @@ export const UserPhonenumber = () => firestore()
   .doc(auth().currentUser.uid)
   .get()
   .then((e)=>e.data())
+
+export const MakeOrder = (cart, dispatch, nav) => {
+  let productosTienda = []
+  let id = ''
+  let hash = Math.floor(Math.random()*2000);
+
+  cart.map((product,index)=>{
+    productosTienda.push(product)
+    id=product.idShop
+  })
+
+  let object = {
+    hash: hash,
+    order: productosTienda,
+    client: auth().currentUser.displayName
+  }
+
+  firestore()
+  .collection('Shops')
+  .doc(id)
+  .get()
+  .then((e)=>{
+    let temp = e.data()
+
+    temp.Orders.push(object)
+    firestore()
+      .collection('Shops')
+      .doc(id)
+      .update({
+        Orders: temp.Orders
+      })
+      .then(()=> dispatch(clearCart()))
+  })
+
+  nav.navigate('Home');
+}
