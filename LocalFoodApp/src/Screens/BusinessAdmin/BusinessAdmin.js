@@ -31,19 +31,10 @@ export const BusinessAdmin = ({navigation}) => {
   }, [])
 
   useEffect(() => {
-    const getProducts = async () => {
-      if(shopId){
-        await GetProducts(shopId).then(
-            (response) => {                
-                console.log(response.Products)
-                setProducts(response.Products)
-                console.log(response.Products.ImgURL)
-            }
-            )
-        }
+    if(shopId){
+      GetProducts(shopId, setProducts)
+      console.log(products)
     }
-
-  getProducts()    
   },[])
 
   
@@ -54,7 +45,7 @@ export const BusinessAdmin = ({navigation}) => {
   return (
     shop ? <>
         <SafeAreaView style={styles.bg}>
-            <InputModal visible={false}/>
+            {/* <InputModal visible={false}/> */}
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
                     <Icon name='close-outline' size={40} type='ionicon' color='white'/>

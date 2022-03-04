@@ -3,13 +3,14 @@ import React from 'react'
 import Button from '../Button/Button'
 import { Title } from '../Title/Title'
 
-export const AddProduct = ({func = () => console.log('yeah')}) => {
+export const AddProduct = ({navigation,func = () => console.log('yeah')}) => {
   return (
     <View style={styles.fill}>
       <View style={styles.container}>
-        <Button text={"Agregar Producto"} textColor={styles.White} size={styles.ButtonLong}whenPressed={() => navigation.navigate('Home')}/>
+        <Button text={"Agregar Producto"} textColor={styles.White} size={styles.ButtonLong} whenPressed={() => navigation.navigate('Home')}/>
       </View>
     </View>
+    
   )
 }
 
