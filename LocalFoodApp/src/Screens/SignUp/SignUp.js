@@ -20,10 +20,10 @@ export const SignUp = (Props) => {
         <SignUpText>Sign up</SignUpText>
 
         <View style={{borderTopWidth: 2, borderTopColor: "#B0B0B0"}}>
-          <InputComponent Tipo={'Correo'} action={setEmail} Icon={'mail-outline'}/>
-          <InputComponent Tipo={'Contraseña'} action={setPwd} Icon={'eye-outline'}/>
-          <InputComponent Tipo={'Nombre'} action={setName} Icon={'person-outline'}/>
-          <InputComponent Tipo={'Teléfono'} action={setPhonenumber} Icon={'call-outline'}/>
+          <InputComponent Tipo={'Correo'} action={setEmail} Icon={'mail-outline'} value={email}/>
+          <InputComponent Tipo={'Contraseña'} action={setPwd} Icon={'eye-outline'} value={pwd}/>
+          <InputComponent Tipo={'Nombre'} action={setName} Icon={'person-outline'} value={name}/>
+          <InputComponent Tipo={'Teléfono'} action={setPhonenumber} Icon={'call-outline'} value={phonenumber}/>
         </View>
 
         <MainBtn type={'Sign up'} Action={()=>{registrarse(email, pwd, name, phonenumber, navigation)}} color={true}/>
