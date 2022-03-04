@@ -46,6 +46,11 @@ export const BusinessAdmin = ({navigation}) => {
   getProducts()    
   },[])
 
+  
+  const addProduct = () => {
+    navigation.navigate('AddProductForm',{type:'a'})
+  }
+
   return (
     shop ? <>
         <SafeAreaView style={styles.bg}>

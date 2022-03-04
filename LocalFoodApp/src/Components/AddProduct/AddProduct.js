@@ -3,7 +3,7 @@ import React from 'react'
 import Button from '../Button/Button'
 import { Title } from '../Title/Title'
 
-export const AddProduct = ({}) => {
+export const AddProduct = ({func = () => console.log('yeah')}) => {
   return (
     <View style={styles.fill}>
       <View style={styles.container}>

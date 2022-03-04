@@ -23,6 +23,10 @@ export const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
 
+    formContainer:{
+        marginTop: '5%',
+    },
+
     BottomButtons:{
         position: 'absolute',
         bottom: 20,

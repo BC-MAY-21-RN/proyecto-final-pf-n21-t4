@@ -1,29 +1,29 @@
-import { FlatList, SafeAreaView, ScrollView, Text, View, TouchableOpacity} from 'react-native';
+import { FlatList, SafeAreaView, ScrollView, Text, View, TouchableOpacity, ToastAndroid} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { TopBar } from '../../Components/TopBar/TopBar';
 import { styles } from './CartStyle'
 import { Title } from '../../Components/Title/Title';
 import { MainBtn } from '../../Components/MainBtn/MainBtn'
 import { ProductDescriptionAdded } from '../../Components/ProductDescriptionAdded/ProductDescriptionAdded';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Icon } from 'react-native-elements';
 import { Empty } from '../../Components/Empty/Empty';
-import { GetShop } from '../../Others/FirebaseFunctions/FirebaseFunctions';
-import auth from '@react-native-firebase/auth'
+import { MakeOrder } from '../../Others/FirebaseFunctions/FirebaseFunctions';
 
 export const Cart = ({ navigation }) => {
   const [ total, setTotal ] = useState(0)
   const [shop, setShop] = useState()
 
   const {cart} = useSelector(state => state.LocalFoodReducer)
-  
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    console.log('el carrito antes de hacer las sumas', cart)
-    cart.forEach(element => {
-      console.log(element.Cost)
-      setTotal(element.Cost + total)
-    });
-    console.log('total', total)
+    if(cart.length!=0)
+    {
+      cart.forEach(element => {
+        setTotal(element.Cost + total)
+      });
+    }
   }, [cart]) 
 
   const ProductItem = ({item}) => {
@@ -36,6 +36,13 @@ export const Cart = ({ navigation }) => {
         amount={item.quantity}
       />
     )
+  }
+
+  const makeOrder = (cart, dispatch, navigation)=>{
+    if(cart.length==0)
+      ToastAndroid.show('No hay productos en el carrito, no se puede realizar el pedido', ToastAndroid.LONG)
+    else
+      MakeOrder(cart, dispatch, navigation)
   }
 
   return(
@@ -65,7 +72,7 @@ export const Cart = ({ navigation }) => {
 
             <Title text='Total a pagar' textSize='big'/>
             <Text style={styles.total}>${total},00</Text>
-              <MainBtn type={'Confirmar pedido'}/>
+              <MainBtn type={'Confirmar pedido'} Action={()=>makeOrder(cart, dispatch, navigation)}/>
           </View>
         </ScrollView>
       </SafeAreaView>

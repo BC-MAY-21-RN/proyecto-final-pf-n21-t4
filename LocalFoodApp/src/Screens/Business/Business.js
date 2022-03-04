@@ -25,32 +25,25 @@ export const Business = (props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-      const getProducts = async () => { 
-        if(shop.ShopId){
-          await GetProducts(shop.ShopId).then(
-              (response) => {
-                  setProducts(response.Products)
-                  setFilteredProducts(response.Products)
-                  setPlaceholderVisible(false)                  
-                  //enviar a redux
-                  dispatch(addIdShop(shop.ShopId))
-                  console.log(response.Products)
-              }
-              )              
-          }
-      }
-    getProducts()    
+      const suscriber = GetProducts(shop.ShopId, setProducts);
+      dispatch(addIdShop(shop.ShopId))
+      setPlaceholderVisible(false)
+      return () => suscriber();
     },[])
-
+    
+    useEffect(()=>{
+      setFilteredProducts(products);
+    },[products])
+    
     useEffect(() => {
       if (selectedButton != 'Menú') {
-          console.log(selectedButton)
-          setFilteredProducts(products.filter(posicion => posicion.Tipo == selectedButton))
-        }else{
-          setFilteredProducts(products)
-        }
+        setFilteredProducts(products.filter(posicion => posicion.Tipo == selectedButton))
+      }else{
+        setFilteredProducts(products)
+      }
     }, [selectedButton])     
-        
+    
+
     return (      
         <SafeAreaView style={styles.bg}>
             <View style={styles.storeHeader}>
@@ -74,8 +67,7 @@ export const Business = (props) => {
 
                 {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} btnFunction={'addToCart'}/>)}
 
-
-                {(filteredProducts.length < 0) && 
+                {(filteredProducts.length == 0) && 
                   <View style={styles.noItems}>
                     <Text style={styles.text}>There are no Items in this category</Text>
                   </View>
