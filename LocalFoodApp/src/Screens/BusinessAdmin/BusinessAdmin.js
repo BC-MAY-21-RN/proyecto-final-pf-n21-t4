@@ -9,7 +9,7 @@ import { Title } from '../../Components/Title/Title';
 import {AddProduct} from '../../Components/AddProduct/AddProduct';
 import { ShopItem } from '../../Components/ShopItem/ShopItem';
 
-import {InputModal} from '../../Components/InputModal/InputModal';
+import {ProductEditModal} from '../../Components/ProductEditModal/ProductEditModal';
 
 export const BusinessAdmin = ({navigation}) => {
 
@@ -17,6 +17,7 @@ export const BusinessAdmin = ({navigation}) => {
   const [shop, setShop] = useState()
   const shopId = `shop-${auth().currentUser.uid}`
   const [products, setProducts] = useState()
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const getShop = async () => {
@@ -45,10 +46,10 @@ export const BusinessAdmin = ({navigation}) => {
   return (
     shop ? <>
         <SafeAreaView style={styles.bg}>
-            {/* <InputModal visible={false}/> */}
+            <ProductEditModal openModal={visible}/>
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
-                    <Icon name='close-outline' size={40} type='ionicon' color='white'/>
+                    <Icon name='close-outline' size={40} type='ionicon' color='white'/>    
                 </TouchableOpacity>
                 <View style={styles.storeTitleEdit}>
                   <Title text={shop.ShopName} hasIcon={false} clickableIcon={'edit'} textSize={'big'} textColor={'white'} hasFunction={() => EditShopName(`shop-${auth().currentUser.uid}`, 'nuevo valor')}/>
@@ -68,8 +69,8 @@ export const BusinessAdmin = ({navigation}) => {
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
                 </View>
                 <AddProduct />
-                                                                                                              {/**change this function to the show / hide modal */}
-                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => console.log('yes Function')} />)}
+                                                                                                              {/** change visible to !visible to make it work right*/}
+                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => {setVisible(!visible), console.log('yeah')}} />)}
     
             </ScrollView>
         </SafeAreaView>

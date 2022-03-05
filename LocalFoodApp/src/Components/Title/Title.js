@@ -41,8 +41,14 @@ export const Title = (
         {getText(textSize)}
         <View>
         { (clickableIcon && auth().currentUser != null) &&        
-              <TouchableOpacity onPress={hasFunction}>
-                {(clickableIcon == 'cart') ? <BasketSvg width={30} height={30} fill="#1e8651"/> : (<EditIcon width={30} height={30} fill='#fff' />)}
+              <TouchableOpacity onPress={hasFunction}>                
+                {(() => {
+                  switch (clickableIcon) {
+                    case "cart":   return <BasketSvg width={30} height={30} fill="#1e8651"/>
+                    case "close": return <Icon name='close-outline' size={40} type='ionicon' color='black'/>
+                    default:      return <EditIcon width={30} height={30} fill='#fff' />
+                  }
+                })()}
               </TouchableOpacity>
           }
           { hasIcon ? <Icon name={icon}/> : <Empty />}
