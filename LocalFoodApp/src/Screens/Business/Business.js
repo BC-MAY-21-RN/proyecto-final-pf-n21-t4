@@ -10,7 +10,6 @@ import { ShopItem } from '../../Components/ShopItem/ShopItem'
 import { ShopItemPlaceholder } from '../../Components/ShopItem/ShopItemPlaceholder'
 import { useDispatch } from 'react-redux'
 import { addIdShop } from '../../Others/redux/actions/actions';
-import { InputModal } from '../../Components/InputModal/InputModal';
 
 export const Business = (props) => {
     const { route: { params: { shop } } } = props

@@ -32,8 +32,7 @@ export const UserPanel = ({navigation}) => {
       <SafeAreaView style={styles.bg}>
         <View style={styles.Boundaries}>
           <TopBar hasIcons={false} nav={navigation} change={true} Iconn={'arrow-back-outline'}/>
-          {/* {<Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>} */}
-          <Title text={'yeah'} />
+          {<Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>}
           
           <UserInfo label={"Nombre"} info={auth().currentUser.displayName} />
           <UserInfo label={"Correo"} info={auth().currentUser.email} />

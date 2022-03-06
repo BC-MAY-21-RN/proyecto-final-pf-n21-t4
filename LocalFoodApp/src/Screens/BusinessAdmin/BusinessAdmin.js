@@ -18,6 +18,7 @@ export const BusinessAdmin = ({navigation}) => {
   const shopId = `shop-${auth().currentUser.uid}`
   const [products, setProducts] = useState()
   const [visible, setVisible] = useState(false)
+  const [productId, setProductId] = useState(null)
 
   useEffect(() => {
     const getShop = async () => {
@@ -38,6 +39,11 @@ export const BusinessAdmin = ({navigation}) => {
     }
   },[])
 
+
+  const editableProduct = (prod) => {
+    setProductId(prod)
+  }
+
   
   const addProduct = () => {
     navigation.navigate('AddProductForm',{type:'a'})
@@ -46,7 +52,9 @@ export const BusinessAdmin = ({navigation}) => {
   return (
     shop ? <>
         <SafeAreaView style={styles.bg}>
-            <ProductEditModal openModal={visible}/>
+
+            <ProductEditModal openModal={visible} product={productId} productId={productId}/>
+
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
                     <Icon name='close-outline' size={40} type='ionicon' color='white'/>    
@@ -70,7 +78,7 @@ export const BusinessAdmin = ({navigation}) => {
                 </View>
                 <AddProduct />
                                                                                                               {/** change visible to !visible to make it work right*/}
-                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => {setVisible(!visible), console.log('yeah')}} />)}
+                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => {setVisible(!visible), editableProduct(product) }} />)}
     
             </ScrollView>
         </SafeAreaView>
