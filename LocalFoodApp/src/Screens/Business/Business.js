@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Title } from '../../Components/Title/Title';
 import { styles } from './BusinessStyle';
-import { GetProducts } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { GetProducts } from '../../Others/FirebaseFunctions/PrductFunctions';
 import { FilterButton } from '../../Components/FilterButton/FilterButton';
 import { Icon } from 'react-native-elements';
 import { ShopItem } from '../../Components/ShopItem/ShopItem'

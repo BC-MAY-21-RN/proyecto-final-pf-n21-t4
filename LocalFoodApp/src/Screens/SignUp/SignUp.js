@@ -3,7 +3,7 @@ import { Image, ScrollView, View } from 'react-native';
 import { Container, SignUpText, BottomText, ClickHere } from './SignUpStlyes';
 import { InputComponent } from '../../Components/Input/Input';
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
-import { registrarse } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { registrarse } from '../../Others/FirebaseFunctions/UserFunctions';
 
 export const SignUp = (Props) => {
   const { navigation } = Props
