@@ -90,10 +90,7 @@ export const GetShops = async (accion) => {
 export const GetCart = (userid, setTempCart) => firestore()
   .collection('Users')
   .doc(userid)
-  .onSnapshot(info=> {
-    info.data()
-    setTempCart(info._data.Cart)
-  })
+  .onSnapshot(info=> info._data.Cart)
   
 export const GetShop = shopId => firestore()
   .collection("Shops").doc(shopId).get()
@@ -338,4 +335,23 @@ export const MakeOrder = (cart, dispatch, nav) => {
   })
 
   nav.navigate('Home');
+}
+
+export const UploadProductsCart = (object) =>{
+  let id = auth().currentUser.uid
+  firestore()
+  .collection('Users')
+  .doc(id)
+  .get()
+  .then((e)=>{
+    let temp = e.data()
+
+    temp.Cart.push(object)
+    firestore()
+      .collection('Users')
+      .doc(id)
+      .update({
+        Cart: temp.Cart
+      })
+  })
 }

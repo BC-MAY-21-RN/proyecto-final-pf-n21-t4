@@ -12,6 +12,7 @@ import { GetShops, signOut, GetCart, GetAllShops } from '../../Others/FirebaseFu
 import { useSelector, useDispatch } from 'react-redux'
 import { loadCart} from '../../Others/redux/actions/actions';
 import auth from '@react-native-firebase/auth'
+import { Store } from '../../Others/redux/store';
 
 export const Home = ({ navigation }) => {
   const { cart, uid } = useSelector(state => state.LocalFoodReducer)
@@ -33,6 +34,10 @@ export const Home = ({ navigation }) => {
       signOut()
   })
 
+  Store.subscribe(()=>{
+    console.log(Store.getState().LocalFoodReducer.cart)
+  })
+
   useEffect(()=>{
     GetShops(setShops)
     GetAllShops(setShops2)
@@ -41,12 +46,15 @@ export const Home = ({ navigation }) => {
   if(auth().currentUser!=null)
   {
     useEffect(()=>{
-      const suscriber = GetCart(uid, setTempCart);
+      const getCart = await() => {
+
+      }
+
+      GetCart(uid, setTempCart);
       dispatch(loadCart(TempCart))
-  
-      return () => suscriber();
     },[])
   }
+
 
   /*Funcion search bar*/
   useEffect(()=>{
