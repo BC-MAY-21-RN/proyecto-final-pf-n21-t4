@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const MBtn = styled.TouchableOpacity`
     width: 100%;
-    height: 8.5%;
     margin-top: 20px;
     padding: 7px;
     background-color: ${props => props.color};

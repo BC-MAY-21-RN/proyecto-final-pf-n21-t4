@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, TOTAL_PRICE_OF_PRODUCT } from './types';
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, TOTAL_PRICE_OF_PRODUCT, SET_EDITABLE_PRODUCT } from './types';
 
 export const loadCart = (Item) =>{
     return{
@@ -39,6 +39,13 @@ export const addIdShop = (id) => {
     return {
         type: ADD_ID_SHOP,
         payload: id
+    }   
+}
+
+export const setEditableProduct = (prod) => {
+    return {
+        type: SET_EDITABLE_PRODUCT,
+        payload: prod
     }   
 }
 

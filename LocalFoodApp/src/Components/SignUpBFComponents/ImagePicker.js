@@ -4,7 +4,7 @@ import { chooseFile, requestCameraPermission } from '../../Others/ImagePicker/Im
 
 
 export const ImagePicker = ({filePath, setFilePath}) => {
-    const [opc, setOpc] = useState(0.2);
+    const [opc, setOpc] = useState(1);
     return (
         <View style={styles.ViewStyle}>
             <TouchableOpacity onPress={()=>{
@@ -17,10 +17,11 @@ export const ImagePicker = ({filePath, setFilePath}) => {
                 source={{uri: filePath.uri}}
                 style={{
                     width: '100%',
-                    height: '100%',
+                    height: '90%',
                     margin: 5,
                     borderRadius: 20,
                     opacity: opc,
+                    backgroundColor: '#f5faf7'
                 }}
                 />
                 <Text style={styles.Text}>

@@ -24,7 +24,7 @@ export const AddProductForm = (props) => {
   const CreateObject = (name, dsc, precio, time, categoria, img) => {
     if(name==''||dsc==''||precio==''||time==''||categoria==''||img.fileName=='https://assets.dominos.com.mx/dev/webOptimized/especialidad/CF/CF.png')
     {
-      ToastAndroid.show("Favor asegurese de llenar todos los campos y seleccionar una imagen", ToastAndroid.LONG);
+      ToastAndroid.show("Asegurese de llenar todos los campos y seleccionar una imagen", ToastAndroid.LONG);
     }
     else
     {
@@ -40,7 +40,8 @@ export const AddProductForm = (props) => {
         RegisterShop(shop, object)
         navigation.navigate("Home");
       }else{
-        AddProduct(`shop-${auth().currentUser.uid}`,object)        
+        AddProduct(`shop-${auth().currentUser.uid}`,object)   
+        console.log('adds the product?')     
         navigation.navigate("BusinessAdmin");
       }
     }

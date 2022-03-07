@@ -1,9 +1,10 @@
-import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, TOTAL_PRICE_OF_PRODUCT} from '../actions/types'
+import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, TOTAL_PRICE_OF_PRODUCT, SET_EDITABLE_PRODUCT} from '../actions/types'
 
 const initialState = {
     uid: '',
     cart: [],
-    idShop: ''
+    idShop: '',
+    editableProduct: ''
 }
 
 const LocalFoodReducer = (state = initialState, action) => {
@@ -22,8 +23,10 @@ const LocalFoodReducer = (state = initialState, action) => {
             return {...state, idShop: action.payload}
         case TOTAL_PRICE_OF_PRODUCT:
             return {...state, cart: [...state.cart, action.payload]} 
+        case SET_EDITABLE_PRODUCT:
+            return {...state, editableProduct: action.payload} 
         default:
-            return state
+        return state
     }
 }
 

@@ -112,22 +112,40 @@ export const GetTopShops = () => {
    */}
 }
 
+
 export const GetProducts = (shopId, setProducts) => firestore()
-  .collection("ShopProducts")
-  .where("ShopId", "==", shopId)
-  .onSnapshot((products)=>{
-    setProducts(products._docs[0]._data.Products)
-  })
-  
-export const EditShopName = (shopId, newValue) => firestore()
-  .collection('Shops')
+.collection("ShopProducts")
+.where("ShopId", "==", shopId)
+.onSnapshot((products)=>{
+  setProducts(products._docs[0]._data.Products)
+})
+
+
+//not working
+export const editShopValues = (shopId, newValues) => firestore()
+.collection('Shops')
+.doc(shopId)
+.update({
+  imager: newValues.image,
+  ShopName: newValues.name,
+  Description: newValues.description,
+  number: newValues.number,
+})
+.then(() => {
+  console.log('ShopName Updated');
+});
+
+/**
+ * i must get the whole array, update the product i want and then reupload the whole arrayç
+ * 
+ * what if i get the array from the modal, then modify it there, and when saving i just reupload the whole arrayt with the mdified data
+ */
+export const updateProduct = (prodList, shopId) => firestore()
+  .collection('ShopProducts')
   .doc(shopId)
   .update({
-    ShopName: newValue,
+    Products: prodList
   })
-  .then(() => {
-    console.log('ShopName Updated');
-  });
 
 
 export const GetAllShops = (setShops2) =>{ 

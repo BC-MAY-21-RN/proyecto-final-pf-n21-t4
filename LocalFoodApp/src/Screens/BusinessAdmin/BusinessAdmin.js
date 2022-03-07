@@ -10,6 +10,8 @@ import {AddProduct} from '../../Components/AddProduct/AddProduct';
 import { ShopItem } from '../../Components/ShopItem/ShopItem';
 
 import {ProductEditModal} from '../../Components/ProductEditModal/ProductEditModal';
+import {useDispatch, useSelector} from 'react-redux'
+import { setEditableProduct } from '../../Others/redux/actions/actions';
 
 export const BusinessAdmin = ({navigation}) => {
 
@@ -18,7 +20,10 @@ export const BusinessAdmin = ({navigation}) => {
   const shopId = `shop-${auth().currentUser.uid}`
   const [products, setProducts] = useState()
   const [visible, setVisible] = useState(false)
+  const [product, setProduct] = useState(null)
   const [productId, setProductId] = useState(null)
+  const [modalType, setModalType] = useState(false)
+
 
   useEffect(() => {
     const getShop = async () => {
@@ -36,31 +41,32 @@ export const BusinessAdmin = ({navigation}) => {
     if(shopId){
       GetProducts(shopId, setProducts)
       console.log(products)
+      console.log(modalType)
     }
   },[])
 
-
-  const editableProduct = (prod) => {
-    setProductId(prod)
-  }
-
-  
-  const addProduct = () => {
-    navigation.navigate('AddProductForm',{type:'a'})
+  /**
+   * here i need to send the product to redux to compare it later with the new information
+   * upong touching the save button i will compare the new data with the previous data, in a good
+   * case scenatio i would be able to upload to firestore only the changed data else...
+   * but for time sake i will just reupoload the data with the changed values
+   */
+  const sendProductData = (prod) => {
+    setProduct(prod)
   }
 
   return (
     shop ? <>
         <SafeAreaView style={styles.bg}>
 
-            <ProductEditModal openModal={visible} product={productId} productId={productId}/>
+            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={modalType} func={() => setModalType(false)}/>
 
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
                     <Icon name='close-outline' size={40} type='ionicon' color='white'/>    
                 </TouchableOpacity>
                 <View style={styles.storeTitleEdit}>
-                  <Title text={shop.ShopName} hasIcon={false} clickableIcon={'edit'} textSize={'big'} textColor={'white'} hasFunction={() => EditShopName(`shop-${auth().currentUser.uid}`, 'nuevo valor')}/>
+                  <Title text={shop.ShopName} hasIcon={false} clickableIcon={'edit'} textSize={'big'} textColor={'white'} hasFunction={() => {EditShopName(`shop-${auth().currentUser.uid}`, 'nuevo valor'), setModalType(true), setVisible(!visible)}}/>
                 </View>
                 <Image style={styles.image} source={{ uri: shop.Image }} />
             </View>
@@ -73,16 +79,16 @@ export const BusinessAdmin = ({navigation}) => {
                 <View style={styles.container}>
                     <FilterButton selected={selectedButton === "Menú"} text="Menú" setSelectedButton={setSelectedButton} />
                     <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
-                    <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
+                    <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />   
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
                 </View>
-                <AddProduct />
+                <AddProduct nav={navigation} shopId={shopId}/>
                                                                                                               {/** change visible to !visible to make it work right*/}
-                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => {setVisible(!visible), editableProduct(product) }} />)}
+                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => {setVisible(!visible), sendProductData(product), setProductId(index)}} />)}
     
             </ScrollView>
         </SafeAreaView>
       </> : 
-      <Text>Store not found</Text>
+      <Text>Loading store</Text>
   )
 }

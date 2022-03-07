@@ -3,11 +3,16 @@ import React from 'react'
 import Button from '../Button/Button'
 import { Title } from '../Title/Title'
 
-export const AddProduct = ({navigation,func = () => console.log('yeah')}) => {
+/**
+ * no estoy seguro como funciona el subir productos con el addproduct form pero por lo que entiendo se manda el tipo de accion y la tienda, la tienda no tengo la menor idea
+ * porque la ocupa. tenia la idea de mandar el id de la tienda para solo tomar eso como referencia y subir el nuevo producto
+ */
+
+export const AddProduct = ({nav,func = () => console.log('yeah')}) => {
   return (
     <View style={styles.fill}>
       <View style={styles.container}>
-        <Button text={"Agregar Producto"} textColor={styles.White} size={styles.ButtonLong} whenPressed={() => navigation.navigate('Home')}/>
+        <Button text={"Agregar Producto"} textColor={styles.White} size={styles.ButtonLong} whenPressed={() => nav.navigate('AddProductForm',{type:'',shop:'undefined'})}/>
       </View>
     </View>
     

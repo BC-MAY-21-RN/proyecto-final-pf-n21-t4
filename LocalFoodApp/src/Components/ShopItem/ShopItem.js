@@ -10,7 +10,7 @@ import { ToastAndroid } from 'react-native'
 import auth from '@react-native-firebase/auth'
 
 export const ShopItem = ({ product, btnText = 'Agregar', btnFunction = () => console.log('no function')}) => {
-  const {idShop, cart} = useSelector(state => state.LocalFoodReducer)
+  const {idShop, cart, editableProduct} = useSelector(state => state.LocalFoodReducer)
   const dispatch = useDispatch()
  
   const sendToCart = (producto) => {
