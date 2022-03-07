@@ -8,7 +8,10 @@ import { Title } from '../../Components/Title/Title.js';
 import {OrderStatus} from '../../Components/OrderStatus/OrderStatus';
 import ShopCard from '../../Components/ShopCad/ShopCard';
 
-import { GetShops, signOut, GetCart, GetAllShops } from '../../Others/FirebaseFunctions/FirebaseFunctions'
+import { GetShops, GetAllShops } from '../../Others/FirebaseFunctions/ShopFunctions';
+import { signOut } from '../../Others/FirebaseFunctions/UserFunctions';
+import { GetCart } from '../../Others/FirebaseFunctions/CartFunctions';
+
 import { useSelector, useDispatch } from 'react-redux'
 import { loadCart} from '../../Others/redux/actions/actions';
 import auth from '@react-native-firebase/auth'
@@ -35,7 +38,6 @@ export const Home = ({ navigation }) => {
   })
 
   Store.subscribe(()=>{
-    console.log(Store.getState().LocalFoodReducer.cart)
   })
 
   useEffect(()=>{
@@ -97,7 +99,7 @@ export const Home = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >          
           <TopBar hasIcons={true} nav={navigation} />
-          {cart.length >= 1 && <OrderStatus ordersETC={cart} nav={navigation}/>}
+          {/* {cart.length >= 1 && <OrderStatus ordersETC={cart} nav={navigation}/>} */}
           {/**placeholder not showing up */}
           <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false} action={setSearch} value={search}/>                    
           {

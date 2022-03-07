@@ -7,7 +7,8 @@ import { Title } from '../../Components/Title/Title';
 import { InputComponent } from '../../Components/Input/Input';
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { Pick } from '../../Components/Picker/Pick';
-import { AddProduct, RegisterShop } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { AddProduct } from '../../Others/FirebaseFunctions/PrductFunctions';
+import { RegisterShop } from '../../Others/FirebaseFunctions/ShopFunctions';
 import auth from '@react-native-firebase/auth'
 
 export const AddProductForm = (props) => {

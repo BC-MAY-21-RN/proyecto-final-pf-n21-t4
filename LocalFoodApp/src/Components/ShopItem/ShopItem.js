@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { addToCart } from '../../Others/redux/actions/actions'
 import { ToastAndroid } from 'react-native'
 import auth from '@react-native-firebase/auth'
-import { UploadProductsCart } from '../../Others/FirebaseFunctions/FirebaseFunctions'
+import { UploadProductsCart } from '../../Others/FirebaseFunctions/CartFunctions'
 
 export const ShopItem = ({ product }) => {
   const {idShop, cart} = useSelector(state => state.LocalFoodReducer)

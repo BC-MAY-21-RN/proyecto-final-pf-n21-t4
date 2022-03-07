@@ -8,7 +8,7 @@ import { ProductDescriptionAdded } from '../../Components/ProductDescriptionAdde
 import { useSelector, useDispatch } from 'react-redux'
 import { Icon } from 'react-native-elements';
 import { Empty } from '../../Components/Empty/Empty';
-import { MakeOrder } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { MakeOrder } from '../../Others/FirebaseFunctions/ShopFunctions';
 import { Store } from '../../Others/redux/store';
 
 export const Cart = ({ navigation }) => {
@@ -21,7 +21,6 @@ export const Cart = ({ navigation }) => {
   const [renderCart, setRenderCart] = useState([]);
   
   useEffect(()=>{
-    console.log(cart)
       if(cart.length!=0)
       {
         let x = []
@@ -49,25 +48,27 @@ export const Cart = ({ navigation }) => {
 
   Store.subscribe(()=>{
     let x = []
-        cart.map((item, index)=>{
-          x.push(<ProductDescriptionAdded
-            key={`cartItem-${index}`}
-            uriImage={item.ImgURL}
-            productName={item.Name}
-            productDescription={item.Description.substring(0, 75)}
-            price={item.Cost}
-            amount={item.quantity}
-            dispatch={dispatch}
-          />)
-        })
-        setRenderCart(x);
-        let tempTotal = 0
-        cart.map((item)=>{
-          let x = item.Cost * item.quantity
-          tempTotal+=x;
-          setTotal(tempTotal)
-          }
-        )
+    cart.map((item, index)=>{
+      x.push(<ProductDescriptionAdded
+        key={`cartItem-${index}`}
+        uriImage={item.ImgURL}
+        productName={item.Name}
+        productDescription={item.Description.substring(0, 75)}
+        price={item.Cost}
+        amount={item.quantity}
+        dispatch={dispatch}
+      />)
+    })
+
+    setRenderCart(x);
+
+    let tempTotal = 0
+    cart.map((item)=>{
+      let x = item.Cost * item.quantity
+      tempTotal+=x;
+      setTotal(tempTotal)
+      }
+    )
   })
 
   const makeOrder = (cart, dispatch, navigation)=>{
