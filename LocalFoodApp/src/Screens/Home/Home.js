@@ -46,15 +46,19 @@ export const Home = ({ navigation }) => {
   if(auth().currentUser!=null)
   {
     useEffect(()=>{
-      const getCart = await() => {
-
+      const getCart = async () => {
+        await GetCart(uid).then((response)=>{
+          setTempCart(response)
+        })
       }
-
-      GetCart(uid, setTempCart);
-      dispatch(loadCart(TempCart))
+      getCart()
     },[])
   }
 
+
+  useEffect(()=>{
+    dispatch(loadCart(TempCart))
+  },[TempCart])
 
   /*Funcion search bar*/
   useEffect(()=>{

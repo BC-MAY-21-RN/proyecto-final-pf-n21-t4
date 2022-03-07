@@ -87,10 +87,12 @@ export const GetShops = async (accion) => {
   }
 }
 
-export const GetCart = (userid, setTempCart) => firestore()
+export const GetCart = userid => firestore()
   .collection('Users')
   .doc(userid)
-  .onSnapshot(info=> info._data.Cart)
+  .get()
+  .then((e) => e._data.Cart
+  ).catch(err => err)
   
 export const GetShop = shopId => firestore()
   .collection("Shops").doc(shopId).get()
