@@ -10,15 +10,14 @@ GoogleSignin.configure({
   webClientId: webClientIdT3,
 });
 
-export const GoogleBtn = () => {
+export const GoogleBtn = ({navigation}) => {
     const GoogleLogin = async () => {
         console.log('Im in')
         const { idToken } = await GoogleSignin.signIn();
         const googleCredential = auth.GoogleAuthProvider.credential(idToken);
         await auth().signInWithCredential(googleCredential).then((e)=>{
             if(e.additionalUserInfo.isNewUser) {
-                // NewUserDoc(e)
-                console.log(e)
+                NewUserDoc(e.user.uid, "no apply")
                 navigation.navigate('Home');
             }else {
                 navigation.navigate('Home');
