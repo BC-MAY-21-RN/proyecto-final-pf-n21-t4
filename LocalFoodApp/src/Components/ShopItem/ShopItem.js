@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { addToCart } from '../../Others/redux/actions/actions'
 import { ToastAndroid } from 'react-native'
 import auth from '@react-native-firebase/auth'
+import { UploadProductsCart } from '../../Others/FirebaseFunctions/CartFunctions'
 
 export const ShopItem = ({ product, btnText = 'Agregar', btnFunction = () => console.log('no function')}) => {
   const {idShop, cart, editableProduct} = useSelector(state => state.LocalFoodReducer)
@@ -31,6 +32,7 @@ export const ShopItem = ({ product, btnText = 'Agregar', btnFunction = () => con
     if (isLoggedIn){
       sendToCart(product)
       ShowToast('Añadido al Carrito!')
+      UploadProductsCart(product)
     }else
       ShowToast()
   }

@@ -19,7 +19,6 @@ const App = () => {
     headerTintColor: '#5974f5',
     title: '',
   }
-
   return (
       <Provider store={Store}>
         <NavigationContainer>

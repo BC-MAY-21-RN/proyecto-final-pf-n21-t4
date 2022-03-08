@@ -4,6 +4,7 @@ import { Icon } from 'react-native-elements'
 import { styles } from './ProductDescriptionAddedStyle'
 import { QuantityButtons } from '../QuanriryButtons/QuantityButtons'
 import { Empty } from '../Empty/Empty'
+import { ProductQuantity } from '../../Others/redux/actions/actions'
 
 export const ProductDescriptionAdded = (
   {
@@ -11,7 +12,8 @@ export const ProductDescriptionAdded = (
     productName, 
     productDescription, 
     price, 
-    amount = 1
+    amount = 1,
+    dispatch
   }
   ) => {
 
@@ -19,12 +21,13 @@ export const ProductDescriptionAdded = (
 
   const handleAddMore = () => {
     setprodQuantity(prodQuantity+1)
-
+    dispatch(ProductQuantity(productName,'+'))
   }
-
+  
   const handleRemove = () => {
     //if this is less than one remove it
     prodQuantity > 0 ? setprodQuantity( prodQuantity -1) : setprodQuantity(0)
+    dispatch(ProductQuantity(productName,'-'))
   }  
 
   useEffect(() => {

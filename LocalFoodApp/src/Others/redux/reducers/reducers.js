@@ -1,4 +1,4 @@
-import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, TOTAL_PRICE_OF_PRODUCT, SET_EDITABLE_PRODUCT} from '../actions/types'
+import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, PODUCT_QUANTITY} from '../actions/types'
 
 const initialState = {
     uid: '',
@@ -21,10 +21,20 @@ const LocalFoodReducer = (state = initialState, action) => {
             return {...state, cart: action.payload}
         case ADD_ID_SHOP:
             return {...state, idShop: action.payload}
-        case TOTAL_PRICE_OF_PRODUCT:
-            return {...state, cart: [...state.cart, action.payload]} 
-        case SET_EDITABLE_PRODUCT:
-            return {...state, editableProduct: action.payload} 
+        case PODUCT_QUANTITY:
+            const newState = state
+            newState.cart.map(item => {
+                if(item.Name == action.payload.name)
+                {
+                    if(action.payload.type=='+')
+                        item.quantity++;
+                    else
+                        if(item.quantity>0)
+                            item.quantity--;
+                            
+                }
+            })
+            return newState
         default:
         return state
     }

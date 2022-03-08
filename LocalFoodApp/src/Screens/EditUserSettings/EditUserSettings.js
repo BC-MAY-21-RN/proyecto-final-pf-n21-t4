@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { SafeAreaView, ScrollView, ToastAndroid, View } from 'react-native';
 import { styles } from './EditUserSettStyles'
 import { Title } from '../../Components/Title/Title';
 import { TopBar } from '../../Components/TopBar/TopBar';
 import { InputComponent } from '../../Components/Input/Input'
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import auth from '@react-native-firebase/auth'
-import { ChangeUserInfo, UserPhonenumber } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { ChangeUserInfo, UserPhonenumber } from '../../Others/FirebaseFunctions/UserFunctions';
 
 export const EditUserSettings = ({navigation}) => {
   const { goBack } = navigation
@@ -41,19 +41,16 @@ export const EditUserSettings = ({navigation}) => {
           <InputComponent hasLabel={true} Tipo={'Nombre'} Icon={'person-outline'} action={setName} value={name} />
           <InputComponent hasLabel={true} Tipo={'Correo'} Icon={'mail-outline'} action={setEmail} value={email} />
           <InputComponent hasLabel={true} Tipo={'Telefono'} Icon={'call-outline'} action={setPhone} value={phone} />
-          <InputComponent hasLabel={true} Tipo={'Contraseña'} Icon={'eye-outline'} action={setPwd} />
+          <InputComponent hasLabel={true} Tipo={'Contraseña'} Icon={'eye-outline'} action={setPwd} value={pwd}/>
 
           <MainBtn type={'Guardar'} Action={()=>{
-            if(name!=auth().currentUser.displayName||email!=auth().currentUser.email||oldPhone!=phone)
+            if(name!=auth().currentUser.displayName||email!=auth().currentUser.email||oldPhone!=phone||pwd!='')
             {
-              console.log('Name:', name, ',', auth().currentUser.displayName)
-              console.log('Email:', email, ',', auth().currentUser.email)
-              console.log('phone:', phone, ',', oldPhone)
-              ChangeUserInfo(name,email,phone,pwd,navigation)
+              ChangeUserInfo(name, email, phone, oldPhone, pwd, navigation)
             }
             else
             {
-              goBack()
+              ToastAndroid.show("No se detectaron cambios", ToastAndroid.SHORT)
             }
           }} color={true}/>
         </ScrollView>

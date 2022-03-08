@@ -1,17 +1,18 @@
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth'
-import { GetShop, GetProducts, EditShopName } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { GetProducts } from '../../Others/FirebaseFunctions/PrductFunctions';
+import { GetShop, EditShopName } from '../../Others/FirebaseFunctions/ShopFunctions';
 import {styles} from '../Business/BusinessStyle'
 import { FilterButton } from '../../Components/FilterButton/FilterButton';
 import { Icon } from 'react-native-elements';
 import { Title } from '../../Components/Title/Title';
-import {AddProduct} from '../../Components/AddProduct/AddProduct';
-import { ShopItem } from '../../Components/ShopItem/ShopItem';
 
+import { ShopItem } from '../../Components/ShopItem/ShopItem';
 import {ProductEditModal} from '../../Components/ProductEditModal/ProductEditModal';
 import {useDispatch, useSelector} from 'react-redux'
 import { setEditableProduct } from '../../Others/redux/actions/actions';
+import { AddProduct } from '../../Components/AddProduct/AddProduct';
 
 export const BusinessAdmin = ({navigation}) => {
 
