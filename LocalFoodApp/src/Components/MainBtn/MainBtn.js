@@ -16,7 +16,7 @@ export const MainBtn = ({type, Action, color}) => {
     }
 
     return (
-        <MBtn color={backColor} onPress={()=>{ Action() }}>
+        <MBtn color={backColor} onPress={()=>Action()}>
             <MBtnText color={TextColor}>{type}</MBtnText>
         </MBtn>
   );
