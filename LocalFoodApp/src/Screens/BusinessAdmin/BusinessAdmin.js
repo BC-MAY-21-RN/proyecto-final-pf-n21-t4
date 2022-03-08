@@ -23,8 +23,7 @@ export const BusinessAdmin = ({navigation}) => {
   const [visible, setVisible] = useState(false)
   const [product, setProduct] = useState(null)
   const [productId, setProductId] = useState(null)
-  const [modalType, setModalType] = useState(false)
-
+  const [updateType, setUpdateType] = useState('product')
 
   useEffect(() => {
     const getShop = async () => {
@@ -42,9 +41,16 @@ export const BusinessAdmin = ({navigation}) => {
     if(shopId){
       GetProducts(shopId, setProducts)
       console.log(products)
-      console.log(modalType)
+      console.log(updateType)
     }
   },[])
+
+  const showModalWithType = (type) => {
+    setUpdateType(type)
+    console.log(type )
+    setVisible(!visible)
+  }
+  
 
   /**
    * here i need to send the product to redux to compare it later with the new information
@@ -60,14 +66,14 @@ export const BusinessAdmin = ({navigation}) => {
     shop ? <>
         <SafeAreaView style={styles.bg}>
 
-            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={modalType} func={() => setModalType(false)}/>
+            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId}/>
 
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
                     <Icon name='close-outline' size={40} type='ionicon' color='white'/>    
                 </TouchableOpacity>
                 <View style={styles.storeTitleEdit}>
-                  <Title text={shop.ShopName} hasIcon={false} clickableIcon={'edit'} textSize={'big'} textColor={'white'} hasFunction={() => {EditShopName(`shop-${auth().currentUser.uid}`, 'nuevo valor'), setModalType(true), setVisible(!visible)}}/>
+                  <Title text={shop.ShopName} hasIcon={false} clickableIcon={'edit'} textSize={'big'} textColor={'white'} hasFunction={() => {showModalWithType('shop')}}/>
                 </View>
                 <Image style={styles.image} source={{ uri: shop.Image }} />
             </View>
@@ -85,7 +91,7 @@ export const BusinessAdmin = ({navigation}) => {
                 </View>
                 <AddProduct nav={navigation} shopId={shopId}/>
                                                                                                               {/** change visible to !visible to make it work right*/}
-                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => {setVisible(!visible), sendProductData(product), setProductId(index)}} />)}
+                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => {sendProductData(product), setProductId(index), showModalWithType('product')}} />)}
     
             </ScrollView>
         </SafeAreaView>

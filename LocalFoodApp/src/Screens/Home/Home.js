@@ -96,7 +96,8 @@ export const Home = ({ navigation }) => {
     <SafeAreaView style={styles.bg}>      
       <View style={styles.Boundaries}>
         <ScrollView
-          stickyHeaderIndices={cart.length >= 1 ? [1] : [0]}
+          //stickyHeaderIndices={cart.length >= 1 ? [0] : [0]}
+          stickyHeaderIndices={[0]}
           showsVerticalScrollIndicator={false}
         >          
           <TopBar hasIcons={true} nav={navigation} />

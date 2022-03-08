@@ -5,20 +5,22 @@ import { ImagePicker } from '../SignUpBFComponents/ImagePicker'
 import { InputComponent } from '../../Components/Input/Input';
 import { Pick } from '../../Components/Picker/Pick';
 import { MainBtn } from '../MainBtn/MainBtn';
+import { UpdateProducts } from '../../Others/FirebaseFunctions/PrductFunctions';
+import auth from '@react-native-firebase/auth'
 
-export const ProductEditModal = ({openModal, shop, product ='', products = '', productId='', updateStoreData = false, func = console.log('close')}) => {
+export const ProductEditModal = ({openModal, product ='', products = '', productId='', updateStoreData = 'product', shopId}) => {
 
   const [showModal, setShowModal] = useState(!openModal)
   const [filePath, setFilePath] = useState('');
   const [selectedValue, setSelectedValue] = useState('')
-  const [productCopy, setProductCopy] = useState(null)
+  const [productList, setProductList] = useState('')
+  const newProducts = [...products]
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [cost, setCost] = useState('')
-  const [type, setType] = useState('')
+  const [type, setType] = useState(product?.Tipo)
   const [etPreparation, setEtPreparation] = useState('')
-
   const [productDetails, setProductDetails] = useState({
     Cost: cost,
     Description: description,
@@ -29,13 +31,12 @@ export const ProductEditModal = ({openModal, shop, product ='', products = '', p
   })
 
   useEffect(() => {
-
     setShowModal(!showModal)
     setName(product?.Name)
     setDescription(product?.Description)
-    setCost(product?.Cost)
+    setCost(product?.Cost.toString())
     setType(selectedValue)
-    setEtPreparation(product?.tmPreparacion)
+    setEtPreparation(product?.tmPreparacion.toString())
   }, [openModal])
 
   useEffect(() => {
@@ -43,23 +44,38 @@ export const ProductEditModal = ({openModal, shop, product ='', products = '', p
     console.log('product id', productId)
   }, [product])
   
-  const updateProduct = (product, productIndex, products) => {
+  useEffect(() => {  
     setProductDetails({
       Cost: cost,
       Description: description,
       ImgURL: filePath,
       Name: name,
-      Tipo: type,
+      Tipo: selectedValue,
       tmPreparacion: etPreparation,
     })
-    console.log(name)
+
+  }, [name, cost, type, description, etPreparation])
+
+    //i can make just one function out of this two  v v v
+  const updateInProductsList = (productId, updateProduct) => {
+    newProducts[productId] = updateProduct
+    setProductList(newProducts)
   }
 
+  const updateProduct = (productIndex) => {
+    setShowModal(false) //closes modal on product update
+    updateInProductsList(productIndex, productDetails)
+    UpdateProducts(shopId, productList)
+  }
+  
   /**
    * the idea with the ternary operation bellow was to check wether the updateStoreData is true or false, if its true
    * then the modal will show the store data such as image, name, adress and phone number. otherwise it will show the product data.
    */
-  /**change visible param in modal to to showModal*/
+
+  /*
+   * edit store EditShopName(`shop-${auth().currentUser.uid}`, 'nuevo valor')
+   */
 
   return (
     <KeyboardAvoidingView 
@@ -70,11 +86,8 @@ export const ProductEditModal = ({openModal, shop, product ='', products = '', p
         animationType="slide"
         transparent={true}
         visible={showModal}
-        onRequestClose={
-          func
-        }
       >
-      {updateStoreData ? (
+      {!updateStoreData=='product' ? (
         <ScrollView style={styles.content} contentContainerStyle={{alignItems: 'center'}}>
         <View style={styles.centered}> 
           <Title text={"Editar Tienda"} hasIcon={false} clickableIcon={'close'} textSize={'big'} textColor={'black'} lineBelow={true} hasFunction={() => setShowModal(!showModal)}/>                                       
@@ -96,13 +109,13 @@ export const ProductEditModal = ({openModal, shop, product ='', products = '', p
               <ImagePicker filePath={filePath} setFilePath={setFilePath}/>
             </View>
             <InputComponent Tipo={'Nombre del platillo'} Icon={'create-outline'} value={name} action={setName}/>
-            <InputComponent Tipo={'Descripcion'} Icon={'create-outline'} value={product?.Description}/>
-            <InputComponent Tipo={'Precio'} Icon={'cash-outline'} value={product?.Cost.toString()}/>
-            <Pick selectedValue={selectedValue} setSelectedValue={setSelectedValue} />
-            <InputComponent Tipo={'Tiempo de preparacion'} Icon={'time-outline'} value={product?.tmPreparacion.toString()}/>     
+            <InputComponent Tipo={'Descripcion'} Icon={'create-outline'} value={description} action={setDescription}/>
+            <InputComponent Tipo={'Precio'} Icon={'cash-outline'} value={cost} action={setCost}/>
+            <Pick selectedValue={selectedValue} setSelectedValue={setSelectedValue}/>
+            <InputComponent Tipo={'Tiempo de preparacion'} Icon={'time-outline'} value={etPreparation} action={setEtPreparation}/>     
 
-            <MainBtn type={'Guardar Cambios'} Action={()=>updateProduct(product, productId, products)} color={true}/>     
-            <MainBtn type={'Eliminar Producto'} Action={()=>console.log('delete')} color={false}/>     
+            <MainBtn type={'Guardar Cambios'} Action={()=>updateProduct(productId)} color={true}/>
+            <MainBtn type={'Eliminar Producto'} Action={()=>console.log('delete')} color={false}/>
         </View>
       </ScrollView>
       )}
