@@ -32,15 +32,16 @@ export const UserPanel = ({navigation}) => {
       <SafeAreaView style={styles.bg}>
         <View style={styles.Boundaries}>
           <TopBar hasIcons={false} nav={navigation} change={true} Iconn={'arrow-back-outline'}/>
-          {/* {<Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>} */}
-          <Title text={'yeah'} />
+          {<Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>}
           
           <UserInfo label={"Nombre"} info={auth().currentUser.displayName} />
           <UserInfo label={"Correo"} info={auth().currentUser.email} />
           <UserInfo label={"Contraseña"} info={"xxxxxx"} />
 
-          <MainBtn type={'Editar datos de usuario'} Action={()=>{navigation.navigate('EditUserSettings')}} color={false}/>
-
+          {(auth().currentUser.email.includes('gmail')||auth().currentUser.email.includes('ucol'))?
+            <></>:
+            <MainBtn type={'Editar datos de usuario'} Action={()=>{navigation.navigate('EditUserSettings')}} color={false}/>
+          }
           <View style={styles.BottomButtons}>
             {userIsOwner ?
               <MainBtn type={'Administrar negocio'} Action={()=>{navigation.navigate('BusinessAdmin')}} color={true}/> 
