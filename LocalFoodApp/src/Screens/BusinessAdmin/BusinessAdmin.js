@@ -66,7 +66,7 @@ export const BusinessAdmin = ({navigation}) => {
     shop ? <>
         <SafeAreaView style={styles.bg}>
 
-            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId}/>
+            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId}/>  
 
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
@@ -96,6 +96,9 @@ export const BusinessAdmin = ({navigation}) => {
             </ScrollView>
         </SafeAreaView>
       </> : 
-      <Text>Loading store</Text>
+      <View style={styles.center}>
+        <Text style={styles.replaceLoader}>Loading store</Text>
+        <Text>This has to be relplaced with a loader</Text>
+      </View>      
   )
 }

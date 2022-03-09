@@ -58,6 +58,7 @@ export const Home = ({ navigation }) => {
     },[])
   }
 
+  console.log(auth().currentUser)
 
   useEffect(()=>{
     dispatch(loadCart(TempCart))

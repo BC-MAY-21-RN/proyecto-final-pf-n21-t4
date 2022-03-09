@@ -12,7 +12,7 @@ export const AddProduct = ({nav,func = () => console.log('yeah')}) => {
   return (
     <View style={styles.fill}>
       <View style={styles.container}>
-        <Button text={"Agregar Producto"} textColor={styles.White} size={styles.ButtonLong} whenPressed={() => nav.navigate('AddProductForm',{type:'',shop:'undefined'})}/>
+        <Button text={"Agregar Producto"} textColor={styles.White} size={styles.ButtonLong} whenPressed={() => nav.navigate('AddProductForm',{type:'',shop: undefined})}/>
       </View>
     </View>
     

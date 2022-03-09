@@ -39,10 +39,9 @@ export const AddProductForm = (props) => {
       }
       if (shop != undefined) {
         RegisterShop(shop, object)
-        navigation.navigate("Home");
+        navigation.navigate("Home")
       }else{
-        AddProduct(`shop-${auth().currentUser.uid}`,object)   
-        console.log('adds the product?')     
+        AddProduct(`shop-${auth().currentUser.uid}`,object)
         navigation.navigate("BusinessAdmin");
       }
     }
