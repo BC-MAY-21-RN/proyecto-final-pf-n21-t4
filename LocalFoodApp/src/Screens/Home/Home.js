@@ -1,3 +1,4 @@
+
 import { View, SafeAreaView, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { TopBar } from '../../Components/TopBar/TopBar';
@@ -57,6 +58,7 @@ export const Home = ({ navigation }) => {
     },[])
   }
 
+  console.log(auth().currentUser)
 
   useEffect(()=>{
     dispatch(loadCart(TempCart))
@@ -95,7 +97,8 @@ export const Home = ({ navigation }) => {
     <SafeAreaView style={styles.bg}>      
       <View style={styles.Boundaries}>
         <ScrollView
-          stickyHeaderIndices={cart.length >= 1 ? [1] : [0]}
+          //stickyHeaderIndices={cart.length >= 1 ? [0] : [0]}
+          stickyHeaderIndices={[0]}
           showsVerticalScrollIndicator={false}
         >          
           <TopBar hasIcons={true} nav={navigation} />
@@ -110,7 +113,7 @@ export const Home = ({ navigation }) => {
               :
               <>
                 <Title text={"Los más pedidos de la semana"} lineBelow={false} textSize={'big'}/>
-                <Carousel shops={shops} timer={3000} />
+                <Carousel shops={shops} timer={3000} navigation={navigation} />
       
                 <Title text={"Recien añadidos"} lineBelow={true} textSize={'big'}/>
                 {recentShops}

@@ -10,8 +10,8 @@ import { ToastAndroid } from 'react-native'
 import auth from '@react-native-firebase/auth'
 import { UploadProductsCart } from '../../Others/FirebaseFunctions/CartFunctions'
 
-export const ShopItem = ({ product }) => {
-  const {idShop, cart} = useSelector(state => state.LocalFoodReducer)
+export const ShopItem = ({ product, btnText = 'Agregar', btnFunction = () => console.log('no function')}) => {
+  const {idShop, cart, editableProduct} = useSelector(state => state.LocalFoodReducer)
   const dispatch = useDispatch()
  
   const sendToCart = (producto) => {
@@ -37,6 +37,10 @@ export const ShopItem = ({ product }) => {
       ShowToast()
   }
 
+  if (btnFunction == 'addToCart') {
+    btnFunction = () => hasActiveSession(auth().currentUser)
+  }
+
   return (
     <View>
       <View style={styles.container}>        
@@ -54,7 +58,7 @@ export const ShopItem = ({ product }) => {
 
           <View style={styles.shopItemBottomBar}>
             <Text style={styles.Cost}>${product.Cost}.00</Text>
-            <Button text={"Agregar"} whenPressed={() => hasActiveSession(auth().currentUser)}/>
+            <Button text={btnText} whenPressed={btnFunction}/>
           </View>
         </View>
 

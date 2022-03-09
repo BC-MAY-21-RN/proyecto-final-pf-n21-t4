@@ -24,8 +24,8 @@ export const requestCameraPermission = async () => {
 export const chooseFile = (setFilePath, setOpc) => {
     let options = {
         mediaType: 'photo',
-        maxWidth: 400,
-        maxHeight: 200,
+        maxWidth: 1280,
+        maxHeight: 720,
         quality: 1,
     };
     launchImageLibrary(options, (response) => {

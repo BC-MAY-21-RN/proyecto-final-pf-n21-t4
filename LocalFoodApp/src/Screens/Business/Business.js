@@ -27,6 +27,7 @@ export const Business = (props) => {
       const suscriber = GetProducts(shop.ShopId, setProducts);
       dispatch(addIdShop(shop.ShopId))
       setPlaceholderVisible(false)
+      console.log(shop)
       return () => suscriber();
     },[])
     
@@ -64,7 +65,7 @@ export const Business = (props) => {
                 {placeholderVisible && placeholderCount?.map((product, index) => <ShopItemPlaceholder key={index}/>)}
                 {/* {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)} */}
 
-                {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)}
+                {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} btnFunction={'addToCart'}/>)}
 
                 {(filteredProducts.length == 0) && 
                   <View style={styles.noItems}>

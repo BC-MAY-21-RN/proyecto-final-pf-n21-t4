@@ -20,8 +20,7 @@ export const UserPanel = ({navigation}) => {
       <SafeAreaView style={styles.bg}>
         <View style={styles.Boundaries2}>
           <Text style={styles.NoUserText}>Please sign in or register your accnout</Text>
-
-          <Button title={"Iniciar sesion"} color={'#198654'} onPress={()=>{navigation.navigate('Login')}}/>
+          <MainBtn type={'Iniciar Sesion'} color={true} Action={()=>{navigation.navigate('Login')}}/>
         </View>
       </SafeAreaView>
     );

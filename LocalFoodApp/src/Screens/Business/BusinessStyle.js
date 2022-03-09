@@ -78,4 +78,12 @@ export const styles = StyleSheet.create({
       paddingBottom: 20,
       width: '93%'
   },
+  center:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  replaceLoader:{
+    fontSize: 20,
+  }
 });

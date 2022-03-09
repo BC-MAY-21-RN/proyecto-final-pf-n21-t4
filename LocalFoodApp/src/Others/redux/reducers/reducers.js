@@ -3,7 +3,8 @@ import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID
 const initialState = {
     uid: '',
     cart: [],
-    idShop: ''
+    idShop: '',
+    editableProduct: ''
 }
 
 const LocalFoodReducer = (state = initialState, action) => {
@@ -35,7 +36,7 @@ const LocalFoodReducer = (state = initialState, action) => {
             })
             return newState
         default:
-            return state
+        return state
     }
 }
 
