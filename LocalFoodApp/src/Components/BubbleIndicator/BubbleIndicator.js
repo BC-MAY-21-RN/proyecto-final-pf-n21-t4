@@ -3,7 +3,7 @@ import React from 'react'
 
 const BubbleIndicator = ({count, titleBarAdjustement = false}) => {
   return (
-    count > -1 ? (
+    count > 0 ? (
       <View style={titleBarAdjustement? styles.bubbleInTitleBae : styles.bubble}>
       <Text style={styles.text}>{count}</Text>
     </View>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     right: 4,
   },
   bubbleInTitleBae:{
-    position: 'relative',
+    position: 'absolute',
     width: 17,
     height: 17,
     backgroundColor: '#198553',   
@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    bottom: 9,
-    right: -13,
+    bottom: -10,
+    right: 0,
   },
   text:{
     color: 'white',

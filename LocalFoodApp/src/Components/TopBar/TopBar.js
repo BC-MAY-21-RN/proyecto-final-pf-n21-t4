@@ -52,6 +52,7 @@ export const TopBar = ({
                   <TouchableOpacity onPress={funcTest}>
                     <View style={styles.Icon}>
                       <StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'} />                      
+                      <BubbleIndicator count={3}/>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={funcTest}>
