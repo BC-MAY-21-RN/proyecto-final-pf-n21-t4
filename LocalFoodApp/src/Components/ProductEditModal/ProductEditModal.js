@@ -11,9 +11,9 @@ import auth from '@react-native-firebase/auth'
 export const ProductEditModal = ({ openModal, product, products, productId = '', updateStoreData = 'product', shopId }) => {
   const [showModal, setShowModal] = useState(!openModal)
   const [filePath, setFilePath] = useState({});
+  const [img, setImg] = useState(null);
   const [selectedValue, setSelectedValue] = useState('')
   let newProducts = [...products]
-
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [cost, setCost] = useState('')
@@ -34,9 +34,15 @@ export const ProductEditModal = ({ openModal, product, products, productId = '',
     newProducts[productId] = updateProduct
   }
 
+  useEffect(()=>{
+    console.log("me modifiqué")
+    setImg(product?.ImgURL)
+  },[product])
+
   const CreateObject = () =>{
-    if(filePath.uri!=filePath.uri)
+    if(filePath.uri!=img)
     {
+      console.log("1")
       uploadImageToFS(filePath).then((e)=>{
         let object = {
           Cost: cost,
@@ -50,8 +56,8 @@ export const ProductEditModal = ({ openModal, product, products, productId = '',
         UpdateProducts(shopId, newProducts);
         setShowModal(false)
       })
-    } else
-    {
+    } else {
+      console.log("2")
       let object = {
         Cost: cost,
         Description: description,
