@@ -31,7 +31,6 @@ const LocalFoodReducer = (state = initialState, action) => {
                     else
                         if(item.quantity>0)
                             item.quantity--;
-                            
                 }
             })
             return newState

@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, ScrollView, Text, View, TouchableOpacity, ToastAndroid} from 'react-native';
+import { SafeAreaView, ScrollView, Text, View, TouchableOpacity, ToastAndroid} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { TopBar } from '../../Components/TopBar/TopBar';
 import { styles } from './CartStyle'
@@ -10,43 +10,52 @@ import { Icon } from 'react-native-elements';
 import { Empty } from '../../Components/Empty/Empty';
 import { MakeOrder } from '../../Others/FirebaseFunctions/ShopFunctions';
 import { Store } from '../../Others/redux/store';
+import { setNewCart } from '../../Others/redux/actions/actions';
+import { UploadProductsCart } from '../../Others/FirebaseFunctions/CartFunctions';
 
 export const Cart = ({ navigation }) => {
   const [ total, setTotal ] = useState(0)
-  const [shop, setShop] = useState()
+  const [renderCart, setRenderCart] = useState([]);
 
   const {cart} = useSelector(state => state.LocalFoodReducer)
   const dispatch = useDispatch()
 
-  const [renderCart, setRenderCart] = useState([]);
+  const getTotal = () => {
+    let total = 0
+    cart.map(item => total += item.Cost * item.quantity)
+    setTotal(total)
+  }
   
+  const removeProduct = productName => {
+    let newCart = cart.filter(item => item.Name !== productName)
+    dispatch(setNewCart(newCart))
+    UploadProductsCart(newCart)
+  }
+  
+  const getRenderCart = () => {
+    console.log("entro aqui")
+    let renderCart = []
+    cart.map((item, index) => {
+      renderCart.push(<ProductDescriptionAdded
+        key={`cartItem-${index}`}
+        uriImage={item.ImgURL}
+        productName={item.Name}
+        productDescription={item.Description.substring(0, 75)}
+        price={item.Cost}
+        amount={item.quantity}
+        removeProduct={removeProduct}
+        dispatch={dispatch}
+      />)
+    })
+    setRenderCart(renderCart)
+    getTotal()
+  }
+
   useEffect(()=>{
-      if(cart.length!=0)
-      {
-        let x = []
-        cart.map((item, index)=>{
-          x.push(<ProductDescriptionAdded
-            key={`cartItem-${index}`}
-            uriImage={item.ImgURL}
-            productName={item.Name}
-            productDescription={item.Description.substring(0, 75)}
-            price={item.Cost}
-            amount={item.quantity}
-            dispatch={dispatch}
-          />)
-        })
-        setRenderCart(x);
-        let tempTotal = 0
-        cart.map((item)=>{
-          let x = item.Cost * item.quantity
-          tempTotal+=x;
-          setTotal(tempTotal)
-          }
-        )
-        console.log(renderCart)
-      }
+      cart.length != 0 ? getRenderCart() : null
     },[cart])
 
+  // PREGUNTAR PARA QUE SE AGREGO ESTA LINEA
   Store.subscribe(()=>{
     let x = []
     cart.map((item, index)=>{
@@ -57,6 +66,7 @@ export const Cart = ({ navigation }) => {
         productDescription={item.Description.substring(0, 75)}
         price={item.Cost}
         amount={item.quantity}
+        removeProduct={removeProduct}
         dispatch={dispatch}
       />)
     })
@@ -72,11 +82,16 @@ export const Cart = ({ navigation }) => {
     )
   })
 
+  // PREGUNTAR PARA QUE SE AGREGO ESTA LINEA
   const makeOrder = (cart, dispatch, navigation)=>{
     if(cart.length==0)
       ToastAndroid.show('No hay productos en el carrito, no se puede realizar el pedido', ToastAndroid.LONG)
     else
       MakeOrder(cart, dispatch, navigation)
+  }
+
+  const sedOrder = (cart) => {
+    console.log(cart)
   }
 
   return(
@@ -104,8 +119,8 @@ export const Cart = ({ navigation }) => {
             <Title text='' lineBelow={true} />
 
             <Title text='Total a pagar' textSize='big'/>
-            <Text style={styles.total}>${total},00</Text>
-              <MainBtn type={'Confirmar pedido'} Action={()=>makeOrder(cart, dispatch, navigation)}/>
+            <Text style={styles.total}>${total}</Text>
+              <MainBtn type={'Confirmar pedido'} Action={()=>sedOrder(cart)}/>
           </View>
         </ScrollView>
       </SafeAreaView>

@@ -12,8 +12,9 @@ export const ProductDescriptionAdded = (
     productName, 
     productDescription, 
     price, 
-    amount = 1,
-    dispatch
+    amount,
+    dispatch,
+    removeProduct
   }
   ) => {
 
@@ -26,12 +27,15 @@ export const ProductDescriptionAdded = (
   
   const handleRemove = () => {
     //if this is less than one remove it
-    prodQuantity > 0 ? setprodQuantity( prodQuantity -1) : setprodQuantity(0)
-    dispatch(ProductQuantity(productName,'-'))
+    if(prodQuantity > 1) {
+      setprodQuantity( prodQuantity -1) 
+      dispatch(ProductQuantity(productName,'-'))
+    }else {
+      removeProduct(productName)
+    }
   }  
 
   useEffect(() => {
-    console.log(prodQuantity)    
   }, [prodQuantity])
   
 

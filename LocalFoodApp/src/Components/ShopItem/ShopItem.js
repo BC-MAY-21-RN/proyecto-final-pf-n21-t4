@@ -23,10 +23,9 @@ export const ShopItem = ({ product, btnText = 'Agregar', btnFunction = () => con
     count == newCart.length ? newCart.push(producto) : null
 
     return newCart
-    
   }
+  
   const sendToCart = (producto) => {
-    console.log(producto)
     producto.idShop = idShop
     producto.quantity ? producto.quantity = product.quantity : producto.quantity = 1
     let newCart = getNewCart(cart, producto)
