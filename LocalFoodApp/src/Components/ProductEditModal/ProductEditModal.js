@@ -9,6 +9,7 @@ import { UpdateProducts, uploadImageToFS } from '../../Others/FirebaseFunctions/
 import auth from '@react-native-firebase/auth'
 
 export const ProductEditModal = ({ openModal, product = '', products, productId = '', updateStoreData = 'product', shopId }) => {
+ 
 
   const [showModal, setShowModal] = useState(!openModal)
   const [filePath, setFilePath] = useState({uri: product?.ImgURL});
@@ -29,6 +30,7 @@ export const ProductEditModal = ({ openModal, product = '', products, productId 
     setCost(product?.Cost.toString())
     setType(selectedValue)
     setEtPreparation(product?.tmPreparacion.toString())
+    console.log(updateStoreData)
   }, [openModal])
 
   const updateInProductsList = (productId, updateProduct) => {
@@ -87,7 +89,7 @@ export const ProductEditModal = ({ openModal, product = '', products, productId 
         transparent={true}
         visible={showModal}
       >
-        {!updateStoreData == 'product' ? (
+        {updateStoreData != 'product' ? (
           <ScrollView style={styles.content} contentContainerStyle={{ alignItems: 'center' }}>
             <View style={styles.centered}>
               <Title text={"Editar Tienda"} hasIcon={false} clickableIcon={'close'} textSize={'big'} textColor={'black'} lineBelow={true} hasFunction={() => setShowModal(!showModal)} />

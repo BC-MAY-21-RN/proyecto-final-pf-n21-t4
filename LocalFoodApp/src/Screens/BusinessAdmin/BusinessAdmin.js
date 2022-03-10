@@ -46,8 +46,7 @@ export const BusinessAdmin = ({navigation}) => {
   },[])
 
   const showModalWithType = (type) => {
-    setUpdateType(type)
-    console.log(type )
+    setUpdateType(type)    
     setVisible(!visible)
   }
   
