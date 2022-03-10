@@ -1,4 +1,4 @@
-import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, PODUCT_QUANTITY} from '../actions/types'
+import {  ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, PODUCT_QUANTITY, SET_NEW_CART} from '../actions/types'
 
 const initialState = {
     uid: '',
@@ -31,10 +31,11 @@ const LocalFoodReducer = (state = initialState, action) => {
                     else
                         if(item.quantity>0)
                             item.quantity--;
-                            
                 }
             })
             return newState
+        case SET_NEW_CART: 
+            return {...state, cart: action.payload}
         default:
         return state
     }
