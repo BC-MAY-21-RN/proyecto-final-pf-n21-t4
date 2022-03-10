@@ -8,11 +8,9 @@ import { MainBtn } from '../MainBtn/MainBtn';
 import { UpdateProducts, uploadImageToFS } from '../../Others/FirebaseFunctions/PrductFunctions';
 import auth from '@react-native-firebase/auth'
 
-export const ProductEditModal = ({ openModal, product = '', products, productId = '', updateStoreData = 'product', shopId }) => {
-
+export const ProductEditModal = ({ openModal, product, products, productId = '', updateStoreData = 'product', shopId }) => {
   const [showModal, setShowModal] = useState(!openModal)
-  const [filePath, setFilePath] = useState({uri: product?.ImgURL});
-  const [imgUri, setImgUri] = useState(filePath.uri)
+  const [filePath, setFilePath] = useState({});
   const [selectedValue, setSelectedValue] = useState('')
   let newProducts = [...products]
 
@@ -23,6 +21,7 @@ export const ProductEditModal = ({ openModal, product = '', products, productId 
   const [etPreparation, setEtPreparation] = useState('')
 
   useEffect(() => {
+    setFilePath({uri: product?.ImgURL})
     setShowModal(!showModal)
     setName(product?.Name)
     setDescription(product?.Description)
@@ -36,7 +35,7 @@ export const ProductEditModal = ({ openModal, product = '', products, productId 
   }
 
   const CreateObject = () =>{
-    if(imgUri!=filePath.uri)
+    if(filePath.uri!=filePath.uri)
     {
       uploadImageToFS(filePath).then((e)=>{
         let object = {
@@ -56,7 +55,7 @@ export const ProductEditModal = ({ openModal, product = '', products, productId 
       let object = {
         Cost: cost,
         Description: description,
-        ImgURL: imgUri,
+        ImgURL: filePath.uri,
         Name: name,
         Tipo: selectedValue,
         tmPreparacion: etPreparation,
