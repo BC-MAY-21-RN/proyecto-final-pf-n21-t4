@@ -27,7 +27,6 @@ export const Business = (props) => {
       const suscriber = GetProducts(shop.ShopId, setProducts);
       dispatch(addIdShop(shop.ShopId))
       setPlaceholderVisible(false)
-      console.log(shop)
       return () => suscriber();
     },[])
     
