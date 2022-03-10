@@ -9,6 +9,7 @@ import StoreIcon from '../../Assets/Images/shop.svg'
 import NotificationSvg from '../../Assets/Images/notification.svg'
 import BasketSvg from '../../Assets/Images/bag.svg'
 import LogoSvg from '../../Assets/Images/LogoSvg.svg'
+import BubbleIndicator from '../BubbleIndicator/BubbleIndicator';
 
 import auth from '@react-native-firebase/auth'
 
@@ -46,12 +47,13 @@ export const TopBar = ({
                 <>
                   <TouchableOpacity onPress={funcTest}>
                     <View style={styles.Icon}>
-                      <StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'} />
+                      <StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'} />                      
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={funcTest}>
                     <View style={styles.Icon}>
                       <NotificationSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />
+                      <BubbleIndicator count={3}/>
                     </View>
                   </TouchableOpacity>
                 </>
@@ -59,6 +61,7 @@ export const TopBar = ({
               <TouchableOpacity onPress={() => nav.navigate('Cart')}>
                 <View style={styles.Icon}>
                   <BasketSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />
+                  <BubbleIndicator count={3}/>
                 </View>
                 {/**needs a bubble with a number notficitation or animation */}
               </TouchableOpacity>

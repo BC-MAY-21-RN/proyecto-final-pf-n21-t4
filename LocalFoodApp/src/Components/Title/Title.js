@@ -6,6 +6,7 @@ import BasketSvg from '../../Assets/Images/bag.svg'
 import EditIcon from '../../Assets/Images/edit-2.svg'
 import {Empty} from '../../Components/Empty/Empty.js'
 import auth from '@react-native-firebase/auth'
+import BubbleIndicator from '../BubbleIndicator/BubbleIndicator'
 
 export const Title = (
   {
@@ -44,7 +45,7 @@ export const Title = (
               <TouchableOpacity onPress={hasFunction}>                
                 {(() => {
                   switch (clickableIcon) {
-                    case "cart":   return <BasketSvg width={30} height={30} fill="#1e8651"/>
+                    case "cart":   return <><BasketSvg width={30} height={30} fill="#1e8651"/><BubbleIndicator count={3} titleBarAdjustement={true}/></>
                     case "close": return <Icon name='close-outline' size={40} type='ionicon' color='black'/>
                     default:      return <EditIcon width={30} height={30} fill='#fff' />
                   }

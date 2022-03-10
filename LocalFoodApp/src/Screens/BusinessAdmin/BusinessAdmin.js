@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth'
 import { GetProducts } from '../../Others/FirebaseFunctions/PrductFunctions';
@@ -96,8 +96,8 @@ export const BusinessAdmin = ({navigation}) => {
         </SafeAreaView>
       </> : 
       <View style={styles.center}>
-        <Text style={styles.replaceLoader}>Loading store</Text>
-        <Text>This has to be relplaced with a loader</Text>
+        <Text style={styles.replaceLoader}>Loading store data</Text>
+        <ActivityIndicator size='large' color='#198553'/> 
       </View>      
   )
 }
