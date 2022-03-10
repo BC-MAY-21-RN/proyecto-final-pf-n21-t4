@@ -43,6 +43,7 @@ export const Cart = ({ navigation }) => {
           setTotal(tempTotal)
           }
         )
+        console.log(renderCart)
       }
     },[cart])
 

@@ -11,21 +11,14 @@ export const GetCart = userid => firestore()
   .then((e) => e._data.Cart
   ).catch(err => err)
   
-export const UploadProductsCart = (object) =>{
+export const UploadProductsCart = (newCart) =>{
   let id = auth().currentUser.uid
+ 
   firestore()
   .collection('Users')
   .doc(id)
-  .get()
-  .then((e)=>{
-    let temp = e.data()
-
-    temp.Cart.push(object)
-    firestore()
-    .collection('Users')
-    .doc(id)
-    .update({
-      Cart: temp.Cart
-    })
+  .update({
+    Cart: newCart
   })
+
 }

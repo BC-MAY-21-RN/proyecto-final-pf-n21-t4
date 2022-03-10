@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, PODUCT_QUANTITY } from './types';
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, PODUCT_QUANTITY, SET_NEW_CART } from './types';
 
 export const loaduid = (Item) =>{
     return{
@@ -47,5 +47,12 @@ export const ProductQuantity = (name, type) =>{
     return {
         type: PODUCT_QUANTITY,
         payload: {name: name, type: type}
+    }
+}
+
+export const setNewCart = (newCart) =>{
+    return {
+        type: SET_NEW_CART,
+        payload: newCart
     }
 }

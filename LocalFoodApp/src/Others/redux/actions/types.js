@@ -6,3 +6,4 @@ export const CLEAR_CART = 'CLEAR_CART'
 export const ADD_ID_SHOP = 'ADD_ID_SHOP'
 export const TOTAL_PRICE_OF_PRODUCT = 'TOTAL_PRICE_OF_PRODUCT'
 export const PODUCT_QUANTITY = 'PODUCT_QUANTITY';
+export const SET_NEW_CART = 'SET_NEW_CART';
