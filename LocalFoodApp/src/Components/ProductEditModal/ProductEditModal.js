@@ -8,15 +8,12 @@ import { MainBtn } from '../MainBtn/MainBtn';
 import { UpdateProducts, uploadImageToFS } from '../../Others/FirebaseFunctions/PrductFunctions';
 import auth from '@react-native-firebase/auth'
 
-export const ProductEditModal = ({ openModal, product = '', products, productId = '', updateStoreData = 'product', shopId }) => {
- 
-
+export const ProductEditModal = ({ openModal, product, products, productId = '', updateStoreData = 'product', shopId }) => {
   const [showModal, setShowModal] = useState(!openModal)
-  const [filePath, setFilePath] = useState({uri: product?.ImgURL});
-  const [imgUri, setImgUri] = useState(filePath.uri)
+  const [filePath, setFilePath] = useState({});
+  const [img, setImg] = useState(null);
   const [selectedValue, setSelectedValue] = useState('')
   let newProducts = [...products]
-
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [cost, setCost] = useState('')
@@ -24,6 +21,7 @@ export const ProductEditModal = ({ openModal, product = '', products, productId 
   const [etPreparation, setEtPreparation] = useState('')
 
   useEffect(() => {
+    setFilePath({uri: product?.ImgURL})
     setShowModal(!showModal)
     setName(product?.Name)
     setDescription(product?.Description)
@@ -37,9 +35,15 @@ export const ProductEditModal = ({ openModal, product = '', products, productId 
     newProducts[productId] = updateProduct
   }
 
+  useEffect(()=>{
+    console.log("me modifiqué")
+    setImg(product?.ImgURL)
+  },[product])
+
   const CreateObject = () =>{
-    if(imgUri!=filePath.uri)
+    if(filePath.uri!=img)
     {
+      console.log("1")
       uploadImageToFS(filePath).then((e)=>{
         let object = {
           Cost: cost,
@@ -53,12 +57,12 @@ export const ProductEditModal = ({ openModal, product = '', products, productId 
         UpdateProducts(shopId, newProducts);
         setShowModal(false)
       })
-    } else
-    {
+    } else {
+      console.log("2")
       let object = {
         Cost: cost,
         Description: description,
-        ImgURL: imgUri,
+        ImgURL: filePath.uri,
         Name: name,
         Tipo: selectedValue,
         tmPreparacion: etPreparation,

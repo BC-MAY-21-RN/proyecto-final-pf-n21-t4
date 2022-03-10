@@ -37,8 +37,10 @@ export const UserPanel = ({navigation}) => {
           <UserInfo label={"Correo"} info={auth().currentUser.email} />
           <UserInfo label={"Contraseña"} info={"xxxxxx"} />
 
-          <MainBtn type={'Editar datos de usuario'} Action={()=>{navigation.navigate('EditUserSettings')}} color={false}/>
-
+          {(auth().currentUser.email.includes('gmail')||auth().currentUser.email.includes('ucol'))?
+            <></>:
+            <MainBtn type={'Editar datos de usuario'} Action={()=>{navigation.navigate('EditUserSettings')}} color={false}/>
+          }
           <View style={styles.BottomButtons}>
             {userIsOwner ?
               <MainBtn type={'Administrar negocio'} Action={()=>{navigation.navigate('BusinessAdmin')}} color={true}/> 

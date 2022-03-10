@@ -40,16 +40,20 @@ export const BusinessAdmin = ({navigation}) => {
   useEffect(() => {
     if(shopId){
       GetProducts(shopId, setProducts)
-      console.log(products)
-      console.log(updateType)
     }
   },[])
 
   const showModalWithType = (type) => {
-    setUpdateType(type)    
+    setUpdateType(type)
     setVisible(!visible)
   }
   
+  useEffect(()=>{
+  },[product])
+
+  const setProductData = (prod) =>{
+    setProduct(prod)
+  }
 
   /**
    * here i need to send the product to redux to compare it later with the new information
@@ -57,15 +61,10 @@ export const BusinessAdmin = ({navigation}) => {
    * case scenatio i would be able to upload to firestore only the changed data else...
    * but for time sake i will just reupoload the data with the changed values
    */
-  const sendProductData = (prod) => {
-    setProduct(prod)
-  }
 
   return (
     shop ? <>
         <SafeAreaView style={styles.bg}>
-
-            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId}/>  
 
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
@@ -90,9 +89,10 @@ export const BusinessAdmin = ({navigation}) => {
                 </View>
                 <AddProduct nav={navigation} shopId={shopId}/>
                                                                                                               {/** change visible to !visible to make it work right*/}
-                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => {sendProductData(product), setProductId(index), showModalWithType('product')}} />)}
+                {products?.map((value, index) => <ShopItem key={index} product={value} btnText="Editar"  btnFunction={() => {setProductData(value), setProductId(index), showModalWithType('product')}} />)}
     
             </ScrollView>
+            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId}/>  
         </SafeAreaView>
       </> : 
       <View style={styles.center}>

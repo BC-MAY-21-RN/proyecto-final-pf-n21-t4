@@ -41,7 +41,7 @@ export const Login = (Props) => {
         
         <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd, navigation, dispatch)}} color={true}/>
 
-        <GoogleBtn />
+        <GoogleBtn navigation={navigation}/>
 
         <BottomText>No tienes cuenta? <ClickHere onPress={()=>{navigation.navigate("SignUp")}}>registrate aquí</ClickHere> </BottomText>
 

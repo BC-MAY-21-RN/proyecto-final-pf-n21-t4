@@ -32,7 +32,7 @@ export const UpdateProducts = async (shopId, products) => {
   })
 }
 
-export const uploadImageToFS = async (filePath, setImgUri) => { 
+export const uploadImageToFS = async (filePath) => { 
   let folder = 'products'
   let uploadUri = filePath.uri;
   let filename = filePath.fileName;
