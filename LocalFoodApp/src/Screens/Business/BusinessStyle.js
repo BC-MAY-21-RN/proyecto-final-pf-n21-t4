@@ -82,8 +82,13 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',    
   },
   replaceLoader:{
     fontSize: 20,
+    marginBottom: 20,
+  },
+  menuBar:{
+    backgroundColor: 'white'
   }
 });

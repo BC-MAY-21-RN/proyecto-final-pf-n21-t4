@@ -27,7 +27,6 @@ export const Business = (props) => {
       const suscriber = GetProducts(shop.ShopId, setProducts);
       dispatch(addIdShop(shop.ShopId))
       setPlaceholderVisible(false)
-      console.log(shop)
       return () => suscriber();
     },[])
     
@@ -53,15 +52,20 @@ export const Business = (props) => {
                 <Text style={styles.storeTitle}>{shop.ShopName}</Text>                
                 <Image style={styles.image} source={{ uri: shop.Image }} />
             </View>            
-            <ScrollView style={styles.Boundaries}>
+            <ScrollView style={styles.Boundaries}
+              stickyHeaderIndices={[0]}
+              showsVerticalScrollIndicator={false}
+            >
                 {/** hasFunction -> navigate to cart component */}
-                <Title text="Menú" clickableIcon={'cart'} hasFunction={() => navigation.navigate('Cart')}/>
-                <View style={styles.container}>
-                    <FilterButton selected={selectedButton === "Menú"} text="Menú" setSelectedButton={setSelectedButton} />
-                    <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
-                    <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
-                    <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
-                </View>                                 
+                <View style={styles.menuBar}>
+                  <Title text="Menú" clickableIcon={'cart'} hasFunction={() => navigation.navigate('Cart')}/>
+                  <View style={styles.container}>
+                      <FilterButton selected={selectedButton === "Menú"} text="Menú" setSelectedButton={setSelectedButton} />
+                      <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
+                      <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
+                      <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
+                  </View> 
+                </View>                                
                 {placeholderVisible && placeholderCount?.map((product, index) => <ShopItemPlaceholder key={index}/>)}
                 {/* {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)} */}
 

@@ -1,8 +1,8 @@
-import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth'
 import { GetProducts } from '../../Others/FirebaseFunctions/PrductFunctions';
-import { GetShop, EditShopName } from '../../Others/FirebaseFunctions/ShopFunctions';
+import { GetShop } from '../../Others/FirebaseFunctions/ShopFunctions';
 import {styles} from '../Business/BusinessStyle'
 import { FilterButton } from '../../Components/FilterButton/FilterButton';
 import { Icon } from 'react-native-elements';
@@ -40,33 +40,24 @@ export const BusinessAdmin = ({navigation}) => {
   useEffect(() => {
     if(shopId){
       GetProducts(shopId, setProducts)
-      console.log(products)
-      console.log(updateType)
     }
   },[])
 
   const showModalWithType = (type) => {
     setUpdateType(type)
-    console.log(type )
     setVisible(!visible)
   }
   
+  useEffect(()=>{
+  },[product])
 
-  /**
-   * here i need to send the product to redux to compare it later with the new information
-   * upong touching the save button i will compare the new data with the previous data, in a good
-   * case scenatio i would be able to upload to firestore only the changed data else...
-   * but for time sake i will just reupoload the data with the changed values
-   */
-  const sendProductData = (prod) => {
+  const setProductData = (prod) =>{
     setProduct(prod)
   }
 
   return (
     shop ? <>
         <SafeAreaView style={styles.bg}>
-
-            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId}/>  
 
             <View style={styles.storeHeader}>
                 <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
@@ -91,14 +82,15 @@ export const BusinessAdmin = ({navigation}) => {
                 </View>
                 <AddProduct nav={navigation} shopId={shopId}/>
                                                                                                               {/** change visible to !visible to make it work right*/}
-                {products?.map((product, index) => <ShopItem key={index} product={product} btnText="Editar"  btnFunction={() => {sendProductData(product), setProductId(index), showModalWithType('product')}} />)}
+                {products?.map((value, index) => <ShopItem key={index} product={value} btnText="Editar"  btnFunction={() => {setProductData(value), setProductId(index), showModalWithType('product')}} />)}
     
             </ScrollView>
+            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId} shop={shop}/>  
         </SafeAreaView>
       </> : 
       <View style={styles.center}>
-        <Text style={styles.replaceLoader}>Loading store</Text>
-        <Text>This has to be relplaced with a loader</Text>
+        <Text style={styles.replaceLoader}>Loading store data</Text>
+        <ActivityIndicator size='large' color='#198553'/> 
       </View>      
   )
 }

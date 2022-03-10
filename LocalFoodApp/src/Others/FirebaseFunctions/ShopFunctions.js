@@ -52,14 +52,16 @@ export const GetTopShops = () => {
     */}
 }
 
-export const EditShopName = (shopId, newValue) => firestore()
+export const EditShopData = (shopId, shopName, shopAdress, shopNumber) => firestore()
   .collection('Shops')
   .doc(shopId)
   .update({
-    ShopName: newValue,
+    ShopName: shopName,
+    Street: shopAdress,
+    PhoneNumber: shopNumber
   })
   .then(() => {
-    console.log('ShopName Updated');
+    console.log('Shop data updated');
   });
 
 
@@ -149,4 +151,8 @@ export const MakeOrder = (cart, dispatch, nav) => {
   })
 
   nav.navigate('Home');
+}
+
+export const RenameShop = (shopId) => {
+  
 }
