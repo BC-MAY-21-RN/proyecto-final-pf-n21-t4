@@ -6,6 +6,8 @@ import BasketSvg from '../../Assets/Images/bag.svg'
 import EditIcon from '../../Assets/Images/edit-2.svg'
 import {Empty} from '../../Components/Empty/Empty.js'
 import auth from '@react-native-firebase/auth'
+import BubbleIndicator from '../BubbleIndicator/BubbleIndicator'
+import { useSelector } from 'react-redux'
 
 export const Title = (
   {
@@ -19,6 +21,8 @@ export const Title = (
     textColor = 'black'
   }
 ) => {
+
+  const {cart} = useSelector(state => state.LocalFoodReducer)
 
   const getText = sizeSelected => {
     switch(sizeSelected) {
@@ -41,8 +45,14 @@ export const Title = (
         {getText(textSize)}
         <View>
         { (clickableIcon && auth().currentUser != null) &&        
-              <TouchableOpacity onPress={hasFunction}>
-                {(clickableIcon == 'cart') ? <BasketSvg width={30} height={30} fill="#1e8651"/> : (<EditIcon width={30} height={30} fill='#fff' />)}
+              <TouchableOpacity onPress={hasFunction}>                
+                {(() => {
+                  switch (clickableIcon) {
+                    case "cart":   return <><BasketSvg width={30} height={30} fill="#1e8651"/><BubbleIndicator count={cart.length} titleBarAdjustement={true}/></>
+                    case "close": return <Icon name='close-outline' size={40} type='ionicon' color='black'/>
+                    default:      return <EditIcon width={30} height={30} fill='#fff' />
+                  }
+                })()}
               </TouchableOpacity>
           }
           { hasIcon ? <Icon name={icon}/> : <Empty />}

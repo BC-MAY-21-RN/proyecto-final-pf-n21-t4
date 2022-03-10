@@ -6,7 +6,7 @@ import { styles } from './UserPStyles';
 import auth from '@react-native-firebase/auth'
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { UserInfo } from '../../Components/UserInfo/UserInfo';
-import { UserOwnerInfo } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { UserOwnerInfo } from '../../Others/FirebaseFunctions/UserFunctions';
 
 export const UserPanel = ({navigation}) => {
   const [userIsOwner, setUserIsOwner] = useState(null);
@@ -20,8 +20,7 @@ export const UserPanel = ({navigation}) => {
       <SafeAreaView style={styles.bg}>
         <View style={styles.Boundaries2}>
           <Text style={styles.NoUserText}>Please sign in or register your accnout</Text>
-
-          <Button title={"Iniciar sesion"} color={'#198654'} onPress={()=>{navigation.navigate('Login')}}/>
+          <MainBtn type={'Iniciar Sesion'} color={true} Action={()=>{navigation.navigate('Login')}}/>
         </View>
       </SafeAreaView>
     );
@@ -32,15 +31,16 @@ export const UserPanel = ({navigation}) => {
       <SafeAreaView style={styles.bg}>
         <View style={styles.Boundaries}>
           <TopBar hasIcons={false} nav={navigation} change={true} Iconn={'arrow-back-outline'}/>
-          {/* {<Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>} */}
-          <Title text={'yeah'} />
+          {<Title text={`Bienvenido ${auth().currentUser.displayName}`} textSize='big' lineBelow={true}/>}
           
           <UserInfo label={"Nombre"} info={auth().currentUser.displayName} />
           <UserInfo label={"Correo"} info={auth().currentUser.email} />
           <UserInfo label={"Contraseña"} info={"xxxxxx"} />
 
-          <MainBtn type={'Editar datos de usuario'} Action={()=>{navigation.navigate('EditUserSettings')}} color={false}/>
-
+          {(auth().currentUser.email.includes('gmail')||auth().currentUser.email.includes('ucol'))?
+            <></>:
+            <MainBtn type={'Editar datos de usuario'} Action={()=>{navigation.navigate('EditUserSettings')}} color={false}/>
+          }
           <View style={styles.BottomButtons}>
             {userIsOwner ?
               <MainBtn type={'Administrar negocio'} Action={()=>{navigation.navigate('BusinessAdmin')}} color={true}/> 

@@ -1,4 +1,11 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, TOTAL_PRICE_OF_PRODUCT } from './types';
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, LOAD_CART, LOAD_UID, ADD_ID_SHOP, PODUCT_QUANTITY, SET_NEW_CART } from './types';
+
+export const loaduid = (Item) =>{
+    return{
+        type: LOAD_UID,
+        payload: Item
+    }
+};
 
 export const loadCart = (Item) =>{
     return{
@@ -7,12 +14,6 @@ export const loadCart = (Item) =>{
     }
 };
 
-export const loaduid = (Item) =>{
-    return{
-        type: LOAD_UID,
-        payload: Item
-    }
-};
 
 export const addToCart = (Item) =>{
     return{
@@ -30,7 +31,7 @@ export const removeFromCart = (Item) =>{
 
 export const clearCart = () =>{
     return{
-        type: REMOVE_FROM_CART,
+        type: CLEAR_CART,
         payload: []
     }
 };
@@ -42,9 +43,16 @@ export const addIdShop = (id) => {
     }   
 }
 
-export const IPPIC = (productName, quantity) =>{
+export const ProductQuantity = (name, type) =>{
     return {
-        type: TOTAL_PRICE_OF_PRODUCT,
-        payload: {productName: productName, quantity: quantity}
+        type: PODUCT_QUANTITY,
+        payload: {name: name, type: type}
+    }
+}
+
+export const setNewCart = (newCart) =>{
+    return {
+        type: SET_NEW_CART,
+        payload: newCart
     }
 }

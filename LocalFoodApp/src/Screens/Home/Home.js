@@ -1,3 +1,4 @@
+
 import { View, SafeAreaView, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { TopBar } from '../../Components/TopBar/TopBar';
@@ -8,10 +9,14 @@ import { Title } from '../../Components/Title/Title.js';
 import {OrderStatus} from '../../Components/OrderStatus/OrderStatus';
 import ShopCard from '../../Components/ShopCad/ShopCard';
 
-import { GetShops, signOut, GetCart, GetAllShops } from '../../Others/FirebaseFunctions/FirebaseFunctions'
+import { GetShops, GetAllShops } from '../../Others/FirebaseFunctions/ShopFunctions';
+import { signOut } from '../../Others/FirebaseFunctions/UserFunctions';
+import { GetCart } from '../../Others/FirebaseFunctions/CartFunctions';
+
 import { useSelector, useDispatch } from 'react-redux'
 import { loadCart} from '../../Others/redux/actions/actions';
 import auth from '@react-native-firebase/auth'
+import { Store } from '../../Others/redux/store';
 
 export const Home = ({ navigation }) => {
   const { cart, uid } = useSelector(state => state.LocalFoodReducer)
@@ -33,20 +38,29 @@ export const Home = ({ navigation }) => {
       signOut()
   })
 
+  Store.subscribe(()=>{
+  })
+
+  useEffect(()=>{
+    GetShops(setShops)
+    GetAllShops(setShops2)
+  },[])
+
   if(auth().currentUser!=null)
   {
     useEffect(()=>{
-      const suscriber = GetCart(uid, setTempCart);
-      dispatch(loadCart(TempCart))
-  
-      return () => suscriber();
+      const getCart = async () => {
+        await GetCart(uid).then((response)=>{
+          setTempCart(response)
+        })
+      }
+      getCart()
     },[])
   }
 
-  useEffect(() => {
-    GetShops(setShops)
-    GetAllShops(setShops2)
-  },[cart])
+  useEffect(()=>{
+    dispatch(loadCart(TempCart))
+  },[TempCart])
 
   /*Funcion search bar*/
   useEffect(()=>{
@@ -81,11 +95,12 @@ export const Home = ({ navigation }) => {
     <SafeAreaView style={styles.bg}>      
       <View style={styles.Boundaries}>
         <ScrollView
-          stickyHeaderIndices={cart.length >= 1 ? [1] : [0]}
+          //stickyHeaderIndices={cart.length >= 1 ? [0] : [0]}
+          stickyHeaderIndices={[0]}
           showsVerticalScrollIndicator={false}
         >          
           <TopBar hasIcons={true} nav={navigation} />
-          {cart.length >= 1 && <OrderStatus ordersETC={cart} nav={navigation}/>}
+          {/* {cart.length >= 1 && <OrderStatus ordersETC={cart} nav={navigation}/>} */}
           {/**placeholder not showing up */}
           <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false} action={setSearch} value={search}/>                    
           {
@@ -96,7 +111,7 @@ export const Home = ({ navigation }) => {
               :
               <>
                 <Title text={"Los más pedidos de la semana"} lineBelow={false} textSize={'big'}/>
-                <Carousel shops={shops} timer={3000} />
+                <Carousel shops={shops} timer={3000} navigation={navigation} />
       
                 <Title text={"Recien añadidos"} lineBelow={true} textSize={'big'}/>
                 {recentShops}

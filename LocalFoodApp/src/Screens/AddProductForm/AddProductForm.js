@@ -7,7 +7,8 @@ import { Title } from '../../Components/Title/Title';
 import { InputComponent } from '../../Components/Input/Input';
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { Pick } from '../../Components/Picker/Pick';
-import { AddProduct, RegisterShop } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { AddProduct } from '../../Others/FirebaseFunctions/PrductFunctions';
+import { RegisterShop } from '../../Others/FirebaseFunctions/ShopFunctions';
 import auth from '@react-native-firebase/auth'
 
 export const AddProductForm = (props) => {
@@ -24,7 +25,7 @@ export const AddProductForm = (props) => {
   const CreateObject = (name, dsc, precio, time, categoria, img) => {
     if(name==''||dsc==''||precio==''||time==''||categoria==''||img.fileName=='https://assets.dominos.com.mx/dev/webOptimized/especialidad/CF/CF.png')
     {
-      ToastAndroid.show("Favor asegurese de llenar todos los campos y seleccionar una imagen", ToastAndroid.LONG);
+      ToastAndroid.show("Asegurese de llenar todos los campos y seleccionar una imagen", ToastAndroid.LONG);
     }
     else
     {
@@ -38,9 +39,9 @@ export const AddProductForm = (props) => {
       }
       if (shop != undefined) {
         RegisterShop(shop, object)
-        navigation.navigate("Home");
+        navigation.navigate("Home")
       }else{
-        AddProduct(`shop-${auth().currentUser.uid}`,object)        
+        AddProduct(`shop-${auth().currentUser.uid}`,object)
         navigation.navigate("BusinessAdmin");
       }
     }

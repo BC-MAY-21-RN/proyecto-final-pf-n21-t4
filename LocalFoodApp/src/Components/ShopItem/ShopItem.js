@@ -5,18 +5,32 @@ import Button from '../Button/Button'
 import { Title } from '../Title/Title'
 
 import {useDispatch, useSelector} from 'react-redux'
-import { addToCart } from '../../Others/redux/actions/actions'
+import { setNewCart } from '../../Others/redux/actions/actions'
 import { ToastAndroid } from 'react-native'
 import auth from '@react-native-firebase/auth'
+import { UploadProductsCart } from '../../Others/FirebaseFunctions/CartFunctions'
 
-export const ShopItem = ({ product }) => {
-  const {idShop, cart} = useSelector(state => state.LocalFoodReducer)
+export const ShopItem = ({ product, btnText = 'Agregar', btnFunction = () => console.log('no function')}) => {
+  const {idShop, cart, editableProduct} = useSelector(state => state.LocalFoodReducer)
   const dispatch = useDispatch()
- 
+
+  const getNewCart = ( cart, producto) => {
+    let count = 0
+    let newCart = cart.map(item => {
+      item.Name === producto.Name ? item.quantity++ : count++
+      return item
+    })
+    count == newCart.length ? newCart.push(producto) : null
+
+    return newCart
+  }
+  
   const sendToCart = (producto) => {
     producto.idShop = idShop
-    producto.quantity = 1;
-    dispatch(addToCart(producto))    
+    producto.quantity ? producto.quantity = product.quantity : producto.quantity = 1
+    let newCart = getNewCart(cart, producto)
+    dispatch(setNewCart(newCart))
+    UploadProductsCart(newCart)
   }
 
   const ShowToast = (message="You must be logged in to place an order") => {
@@ -33,6 +47,10 @@ export const ShopItem = ({ product }) => {
       ShowToast('Añadido al Carrito!')
     }else
       ShowToast()
+  }
+
+  if (btnFunction == 'addToCart') {
+    btnFunction = () => hasActiveSession(auth().currentUser)
   }
 
   return (
@@ -52,7 +70,7 @@ export const ShopItem = ({ product }) => {
 
           <View style={styles.shopItemBottomBar}>
             <Text style={styles.Cost}>${product.Cost}.00</Text>
-            <Button text={"Agregar"} whenPressed={() => hasActiveSession(auth().currentUser)}/>
+            <Button text={btnText} whenPressed={btnFunction}/>
           </View>
         </View>
 

@@ -5,7 +5,6 @@ import {Title} from '../../Components/Title/Title.js';
 import { InputComponent } from '../../Components/Input/Input';
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import {TopBar} from '../../Components/TopBar/TopBar';
-import { RegisterShop } from '../../Others/FirebaseFunctions/FirebaseFunctions';
 
 export const SignUpBusinessForm = ({navigation}) => {
   const [Bname, setBname] = useState('')

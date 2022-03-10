@@ -1,41 +1,74 @@
-import { FlatList, SafeAreaView, ScrollView, Text, View, TouchableOpacity} from 'react-native';
+import { SafeAreaView, ScrollView, Text, View, TouchableOpacity, ToastAndroid} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { TopBar } from '../../Components/TopBar/TopBar';
 import { styles } from './CartStyle'
 import { Title } from '../../Components/Title/Title';
 import { MainBtn } from '../../Components/MainBtn/MainBtn'
 import { ProductDescriptionAdded } from '../../Components/ProductDescriptionAdded/ProductDescriptionAdded';
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Icon } from 'react-native-elements';
 import { Empty } from '../../Components/Empty/Empty';
-import { GetShop } from '../../Others/FirebaseFunctions/FirebaseFunctions';
-import auth from '@react-native-firebase/auth'
+import { MakeOrder } from '../../Others/FirebaseFunctions/ShopFunctions';
+import { Store } from '../../Others/redux/store';
+import { setNewCart } from '../../Others/redux/actions/actions';
+import { UploadProductsCart } from '../../Others/FirebaseFunctions/CartFunctions';
 
 export const Cart = ({ navigation }) => {
   const [ total, setTotal ] = useState(0)
-  const [shop, setShop] = useState()
+  const [renderCart, setRenderCart] = useState([]);
 
   const {cart} = useSelector(state => state.LocalFoodReducer)
-  
-  useEffect(() => {
-    console.log('el carrito antes de hacer las sumas', cart)
-    cart.forEach(element => {
-      console.log(element.Cost)
-      setTotal(element.Cost + total)
-    });
-    console.log('total', total)
-  }, [cart]) 
+  const dispatch = useDispatch()
 
-  const ProductItem = ({item}) => {
-    return(
-      <ProductDescriptionAdded
+  const getTotal = () => {
+    let total = 0
+    cart.map(item => total += item.Cost * item.quantity)
+    setTotal(total)
+  }
+  
+  const removeProduct = productName => {
+    let newCart = cart.filter(item => item.Name !== productName)
+    dispatch(setNewCart(newCart))
+    UploadProductsCart(newCart)
+  }
+  
+  const getRenderCart = () => {
+    let renderCart = []
+    cart.map((item, index) => {
+      renderCart.push(<ProductDescriptionAdded
+        key={`cartItem-${index}`}
         uriImage={item.ImgURL}
         productName={item.Name}
         productDescription={item.Description.substring(0, 75)}
         price={item.Cost}
         amount={item.quantity}
-      />
-    )
+        removeProduct={removeProduct}
+        dispatch={dispatch}
+      />)
+    })
+    setRenderCart(renderCart)
+    getTotal();
+  }
+
+  useEffect(()=>{
+    cart.length != 0 ? getRenderCart() : getRenderCart()
+  },[cart])
+
+  // PREGUNTAR PARA QUE SE AGREGO ESTA LINEA
+  Store.subscribe(()=>{
+    getRenderCart();
+  })
+
+  // PREGUNTAR PARA QUE SE AGREGO ESTA LINEA
+  const makeOrder = (cart, dispatch, navigation)=>{
+    if(cart.length==0)
+      ToastAndroid.show('No hay productos en el carrito, no se puede realizar el pedido', ToastAndroid.LONG)
+    else
+      MakeOrder(cart, dispatch, navigation)
+  }
+
+  const sedOrder = (cart) => {
+    console.log(cart)
   }
 
   return(
@@ -54,18 +87,17 @@ export const Cart = ({ navigation }) => {
             <Title text={'Tienda'}/>
             <Text style={styles.shopsAddress}> Domicilio del negocio</Text>
             {cart ?
-              <FlatList
-                data={cart}
-                renderItem={ProductItem}
-                keyExtractor={item => item.id}
-              /> : null
+              <>
+                {renderCart}
+              </>
+              : null
             } 
 
             <Title text='' lineBelow={true} />
 
             <Title text='Total a pagar' textSize='big'/>
-            <Text style={styles.total}>${total},00</Text>
-              <MainBtn type={'Confirmar pedido'}/>
+            <Text style={styles.total}>${total}</Text>
+              <MainBtn type={'Confirmar pedido'} Action={()=>sedOrder(cart)}/>
           </View>
         </ScrollView>
       </SafeAreaView>

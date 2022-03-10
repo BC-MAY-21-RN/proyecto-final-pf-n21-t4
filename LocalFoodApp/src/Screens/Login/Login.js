@@ -5,7 +5,7 @@ import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { GoogleBtn } from '../../Components/GoogleBtn/GoogleBtn';
 import { ScrollView, Text, View } from 'react-native';
 import {styles} from '../SharedScreenStyle';
-import { login } from '../../Others/FirebaseFunctions/FirebaseFunctions';
+import { login } from '../../Others/FirebaseFunctions/UserFunctions';
 import auth from '@react-native-firebase/auth'
 import { useDispatch } from 'react-redux'
 import { loaduid } from '../../Others/redux/actions/actions';
@@ -41,7 +41,7 @@ export const Login = (Props) => {
         
         <MainBtn type={'Ingresar'} Action={()=>{login(email, pwd, navigation, dispatch)}} color={true}/>
 
-        <GoogleBtn />
+        <GoogleBtn navigation={navigation}/>
 
         <BottomText>No tienes cuenta? <ClickHere onPress={()=>{navigation.navigate("SignUp")}}>registrate aquí</ClickHere> </BottomText>
 

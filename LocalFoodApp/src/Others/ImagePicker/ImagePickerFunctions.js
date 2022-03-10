@@ -15,7 +15,6 @@ export const requestCameraPermission = async () => {
         // If CAMERA Permission is granted
         return granted === PermissionsAndroid.RESULTS.GRANTED;
       } catch (err) {
-        console.warn(err);
         return false;
       }
     } else return true;
@@ -25,13 +24,11 @@ export const requestCameraPermission = async () => {
 export const chooseFile = (setFilePath, setOpc) => {
     let options = {
         mediaType: 'photo',
-        maxWidth: 400,
-        maxHeight: 200,
+        maxWidth: 1280,
+        maxHeight: 720,
         quality: 1,
     };
     launchImageLibrary(options, (response) => {
-        console.log('Response = ', response.assets[0]);
-
         if (response.didCancel) {
             alert('User cancelled camera picker');
             return;
