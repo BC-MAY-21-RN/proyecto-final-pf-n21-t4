@@ -87,5 +87,8 @@ export const styles = StyleSheet.create({
   replaceLoader:{
     fontSize: 20,
     marginBottom: 20,
+  },
+  menuBar:{
+    backgroundColor: 'white'
   }
 });
