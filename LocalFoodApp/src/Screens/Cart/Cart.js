@@ -33,7 +33,6 @@ export const Cart = ({ navigation }) => {
   }
   
   const getRenderCart = () => {
-    console.log("entro aqui")
     let renderCart = []
     cart.map((item, index) => {
       renderCart.push(<ProductDescriptionAdded
@@ -48,38 +47,16 @@ export const Cart = ({ navigation }) => {
       />)
     })
     setRenderCart(renderCart)
-    getTotal()
+    getTotal();
   }
 
   useEffect(()=>{
-      cart.length != 0 ? getRenderCart() : null
-    },[cart])
+    cart.length != 0 ? getRenderCart() : getRenderCart()
+  },[cart])
 
   // PREGUNTAR PARA QUE SE AGREGO ESTA LINEA
   Store.subscribe(()=>{
-    let x = []
-    cart.map((item, index)=>{
-      x.push(<ProductDescriptionAdded
-        key={`cartItem-${index}`}
-        uriImage={item.ImgURL}
-        productName={item.Name}
-        productDescription={item.Description.substring(0, 75)}
-        price={item.Cost}
-        amount={item.quantity}
-        removeProduct={removeProduct}
-        dispatch={dispatch}
-      />)
-    })
-
-    setRenderCart(x);
-
-    let tempTotal = 0
-    cart.map((item)=>{
-      let x = item.Cost * item.quantity
-      tempTotal+=x;
-      setTotal(tempTotal)
-      }
-    )
+    getRenderCart();
   })
 
   // PREGUNTAR PARA QUE SE AGREGO ESTA LINEA
