@@ -12,6 +12,8 @@ import LogoSvg from '../../Assets/Images/LogoSvg.svg'
 import BubbleIndicator from '../BubbleIndicator/BubbleIndicator';
 
 import auth from '@react-native-firebase/auth'
+import { useDispatch, useSelector } from 'react-redux';
+
 
 export const TopBar = ({
   hasIcons = false,
@@ -22,6 +24,8 @@ export const TopBar = ({
 }) => {
   const [navPage, setNavPage] = useState('');
   const [iconc, setIconc] = useState(Iconn);
+  
+  const {cart} = useSelector(state => state.LocalFoodReducer)  
 
   useEffect(() => {
     if (change == true) {
@@ -31,7 +35,7 @@ export const TopBar = ({
     else {
       setNavPage('UserPanel');
       setIconc(Iconn);
-    }
+    }           
   }, [])
 
   return (
@@ -61,7 +65,7 @@ export const TopBar = ({
               <TouchableOpacity onPress={() => nav.navigate('Cart')}>
                 <View style={styles.Icon}>
                   <BasketSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />
-                  <BubbleIndicator count={3}/>
+                  <BubbleIndicator count={cart.length}/>
                 </View>
                 {/**needs a bubble with a number notficitation or animation */}
               </TouchableOpacity>

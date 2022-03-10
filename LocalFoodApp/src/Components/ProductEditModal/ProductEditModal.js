@@ -6,9 +6,10 @@ import { InputComponent } from '../../Components/Input/Input';
 import { Pick } from '../../Components/Picker/Pick';
 import { MainBtn } from '../MainBtn/MainBtn';
 import { UpdateProducts, uploadImageToFS } from '../../Others/FirebaseFunctions/PrductFunctions';
-import auth from '@react-native-firebase/auth'
+import { Empty } from '../Empty/Empty';
+import { EditShopData } from '../../Others/FirebaseFunctions/ShopFunctions';
 
-export const ProductEditModal = ({ openModal, product, products, productId = '', updateStoreData = 'product', shopId }) => {
+export const ProductEditModal = ({ openModal, product, products, productId = '', updateStoreData = 'product', shopId, shop }) => {
   const [showModal, setShowModal] = useState(!openModal)
   const [filePath, setFilePath] = useState({});
   const [img, setImg] = useState(null);
@@ -20,6 +21,10 @@ export const ProductEditModal = ({ openModal, product, products, productId = '',
   const [type, setType] = useState(product?.Tipo)
   const [etPreparation, setEtPreparation] = useState('')
 
+  const [shopName, setShopName] = useState('')
+  const [shopAdress, setShopAdress] = useState('')
+  const [shopNumber, setShopNumber] = useState('')
+
   useEffect(() => {
     setFilePath({uri: product?.ImgURL})
     setShowModal(!showModal)
@@ -28,17 +33,21 @@ export const ProductEditModal = ({ openModal, product, products, productId = '',
     setCost(product?.Cost.toString())
     setType(selectedValue)
     setEtPreparation(product?.tmPreparacion.toString())
-    console.log(updateStoreData)
+
+    setShopName(shop?.ShopName)
+    setShopAdress(shop?.Street)
+    setShopNumber(shop?.PhoneNumber)
+
   }, [openModal])
 
   const updateInProductsList = (productId, updateProduct) => {
     newProducts[productId] = updateProduct
   }
 
-  useEffect(()=>{
-    console.log("me modifiqué")
-    setImg(product?.ImgURL)
-  },[product])
+  useEffect(()=>{    
+    setImg(product?.ImgURL)        
+  },[product])  
+  
 
   const CreateObject = () =>{
     if(filePath.uri!=img)
@@ -72,13 +81,6 @@ export const ProductEditModal = ({ openModal, product, products, productId = '',
       setShowModal(false)
     }
   }
-  
-
-  /**
-   * the idea with the ternary operation bellow was to check wether the updateStoreData is true or false, if its true
-   * then the modal will show the store data such as image, name, adress and phone number. otherwise it will show the product data.
-   */
-
   /*
    * edit store EditShopName(`shop-${auth().currentUser.uid}`, 'nuevo valor')
    */
@@ -96,18 +98,15 @@ export const ProductEditModal = ({ openModal, product, products, productId = '',
         {updateStoreData != 'product' ? (
           <ScrollView style={styles.content} contentContainerStyle={{ alignItems: 'center' }}>
             <View style={styles.centered}>
-              <Title text={"Editar Tienda"} hasIcon={false} clickableIcon={'close'} textSize={'big'} textColor={'black'} lineBelow={true} hasFunction={() => setShowModal(!showModal)} />
-              <View style={styles.image}>
-                <ImagePicker filePath={filePath} setFilePath={setFilePath} />
-              </View>
-              <InputComponent Tipo={'Nombre'} Icon={'create-outline'} value={product?.Name} />
-              <InputComponent Tipo={'Domicilio'} Icon={'location-outline'} value={product?.Description} />
-              <InputComponent Tipo={'Numero de telefono'} Icon={'call-outline'} value={product?.Cost.toString()} />
-
-              <MainBtn type={'Guardar Cambios'} Action={() => console.log('save')} color={true} />
+              <Title text={"Editar Tienda"} hasIcon={false} clickableIcon={'close'} textSize={'big'} textColor={'black'} lineBelow={true} hasFunction={() => setShowModal(!showModal)} />                            
+              <Empty bottomMargin={20}></Empty>
+              <InputComponent Tipo={'Nombre'} Icon={'create-outline'} value={shopName} action={setShopName}/>
+              <InputComponent Tipo={'Domicilio'} Icon={'location-outline'} value={shopAdress} action={setShopAdress}/>
+              <InputComponent Tipo={'Numero de telefono'} Icon={'call-outline'} value={shopNumber} action={setShopNumber}/>
+              <MainBtn type={'Guardar Cambios'} Action={() => {EditShopData(shopId, shopName,shopAdress,shopNumber), setShowModal(!showModal)}} color={true} />
             </View>
           </ScrollView>
-        ) : (
+        ) : (          
           <ScrollView style={styles.content} contentContainerStyle={{ alignItems: 'center' }}>
             <View style={styles.centered}>
               <Title text={"Editar Producto"} hasIcon={false} clickableIcon={'close'} textSize={'big'} textColor={'black'} lineBelow={true} hasFunction={() => setShowModal(!showModal)} />

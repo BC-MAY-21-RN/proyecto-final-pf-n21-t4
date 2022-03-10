@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaVi
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth'
 import { GetProducts } from '../../Others/FirebaseFunctions/PrductFunctions';
-import { GetShop, EditShopName } from '../../Others/FirebaseFunctions/ShopFunctions';
+import { GetShop } from '../../Others/FirebaseFunctions/ShopFunctions';
 import {styles} from '../Business/BusinessStyle'
 import { FilterButton } from '../../Components/FilterButton/FilterButton';
 import { Icon } from 'react-native-elements';
@@ -55,13 +55,6 @@ export const BusinessAdmin = ({navigation}) => {
     setProduct(prod)
   }
 
-  /**
-   * here i need to send the product to redux to compare it later with the new information
-   * upong touching the save button i will compare the new data with the previous data, in a good
-   * case scenatio i would be able to upload to firestore only the changed data else...
-   * but for time sake i will just reupoload the data with the changed values
-   */
-
   return (
     shop ? <>
         <SafeAreaView style={styles.bg}>
@@ -92,7 +85,7 @@ export const BusinessAdmin = ({navigation}) => {
                 {products?.map((value, index) => <ShopItem key={index} product={value} btnText="Editar"  btnFunction={() => {setProductData(value), setProductId(index), showModalWithType('product')}} />)}
     
             </ScrollView>
-            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId}/>  
+            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId} shop={shop}/>  
         </SafeAreaView>
       </> : 
       <View style={styles.center}>
