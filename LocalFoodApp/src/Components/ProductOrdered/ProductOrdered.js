@@ -16,7 +16,7 @@ import { styles } from './ProductOrderedStyles';
         <Text style={{color:'black', fontWeight: 'bold', fontSize:18}}>{productName}</Text>
         <Text style={{color:'black', fontWeight: 'normal', fontSize:15}}>X{amount}</Text>
       </View>
-      <Icon name='checkbox-outline' size={30} type='ionicon' color='green'/>
+      {/* <Icon name='checkbox-outline' size={30} type='ionicon' color='green'/> */}
     </View>
   )
 }
