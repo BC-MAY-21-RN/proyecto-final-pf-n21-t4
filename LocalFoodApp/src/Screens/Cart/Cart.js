@@ -63,12 +63,11 @@ export const Cart = ({ navigation }) => {
   const makeOrder = (cart, dispatch, navigation)=>{
     if(cart.length==0)
       ToastAndroid.show('No hay productos en el carrito, no se puede realizar el pedido', ToastAndroid.LONG)
-    else
+    else{
       MakeOrder(cart, dispatch, navigation)
-  }
-
-  const sedOrder = (cart) => {
-    console.log(cart)
+      dispatch(setNewCart([]))
+      UploadProductsCart([])
+    }
   }
 
   return(
