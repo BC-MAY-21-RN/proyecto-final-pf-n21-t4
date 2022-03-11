@@ -169,7 +169,7 @@ export const RenameShop = (shopId) => {
 }
 
 
-export const GetOrders = shopId =>  firebase.firestore()
+export const GetOrders = (shopId, setOrders) =>  firebase.firestore()
   .collection('Shops')
   .doc(shopId)
-  .onSnapshot(res=>console.log(res.data()))
+  .onSnapshot(res=>setOrders(res.data()))
