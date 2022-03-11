@@ -1,4 +1,4 @@
-import auth from '@react-native-firebase/auth'
+import auth, { firebase } from '@react-native-firebase/auth'
 import firestore from '@react-native-firebase/firestore'
 import { ToastAndroid } from 'react-native';
 import storage from '@react-native-firebase/storage';
@@ -119,40 +119,57 @@ export const RegisterShop = async (shop, product) =>{
 
 export const MakeOrder = (cart, dispatch, nav) => {
   let productosTienda = []
-  let id = ''
   let hash = Math.floor(Math.random()*2000);
+  let idss = [];
 
   cart.map((product,index)=>{
-    productosTienda.push(product)
-    id=product.idShop
+    let x = idss.find( idShop => idShop == product.idShop);
+    (x==undefined) ? idss.push(product.idShop) : null;
   })
+  idss.map((Shopid,index)=>{
+    let object = {
+      hash: hash,
+      order: [],
+      client: auth().currentUser.displayName,
+      status: false
+    }
 
-  let object = {
-    hash: hash,
-    order: productosTienda,
-    client: auth().currentUser.displayName
-  }
+    cart.map((product,index)=>{
+      if(Shopid==product?.idShop)
+      {
+        delete product.idShop
+        productosTienda.push(product)
+      }
+    })
 
-  firestore()
-  .collection('Shops')
-  .doc(id)
-  .get()
-  .then((e)=>{
-    let temp = e.data()
-
-    temp.Orders.push(object)
+    object.order=productosTienda;
     firestore()
-      .collection('Shops')
-      .doc(id)
-      .update({
-        Orders: temp.Orders
-      })
-      .then(()=> dispatch(clearCart()))
+    .collection('Shops')
+    .doc(Shopid)
+    .get()
+    .then((e)=>{
+      let temp = e.data()
+      temp.Orders.push(object)
+      firestore()
+        .collection('Shops')
+        .doc(Shopid)
+        .update({
+          Orders: temp.Orders
+        })
+    })
+    productosTienda=[];
   })
 
+  dispatch(clearCart())
   nav.navigate('Home');
 }
 
 export const RenameShop = (shopId) => {
   
 }
+
+
+export const GetOrders = shopId =>  firebase.firestore()
+  .collection('Shops')
+  .doc(shopId)
+  .onSnapshot(res=>console.log(res.data()))

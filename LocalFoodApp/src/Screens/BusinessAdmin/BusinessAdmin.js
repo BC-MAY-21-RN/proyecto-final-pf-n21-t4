@@ -5,7 +5,7 @@ import { GetProducts } from '../../Others/FirebaseFunctions/PrductFunctions';
 import { GetShop } from '../../Others/FirebaseFunctions/ShopFunctions';
 import {styles} from '../Business/BusinessStyle'
 import { FilterButton } from '../../Components/FilterButton/FilterButton';
-import { Icon } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import { Title } from '../../Components/Title/Title';
 
 import { ShopItem } from '../../Components/ShopItem/ShopItem';
@@ -80,9 +80,9 @@ export const BusinessAdmin = ({navigation}) => {
                     <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />   
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
                 </View>
-                <AddProduct nav={navigation} shopId={shopId}/>
                                                                                                               {/** change visible to !visible to make it work right*/}
                 {products?.map((value, index) => <ShopItem key={index} product={value} btnText="Editar"  btnFunction={() => {setProductData(value), setProductId(index), showModalWithType('product')}} />)}
+                <AddProduct nav={navigation} shopId={shopId}/>
     
             </ScrollView>
             <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId} shop={shop}/>  

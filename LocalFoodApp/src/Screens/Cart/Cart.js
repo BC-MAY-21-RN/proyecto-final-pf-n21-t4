@@ -97,7 +97,7 @@ export const Cart = ({ navigation }) => {
 
             <Title text='Total a pagar' textSize='big'/>
             <Text style={styles.total}>${total}</Text>
-              <MainBtn type={'Confirmar pedido'} Action={()=>sedOrder(cart)}/>
+              <MainBtn type={'Confirmar pedido'} Action={()=>makeOrder(cart,dispatch,navigation)}/>
           </View>
         </ScrollView>
       </SafeAreaView>
