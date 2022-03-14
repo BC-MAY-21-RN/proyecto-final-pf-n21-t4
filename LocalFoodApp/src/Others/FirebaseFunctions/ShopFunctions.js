@@ -173,3 +173,16 @@ export const GetOrders = (shopId, setOrders) =>  firebase.firestore()
   .collection('Shops')
   .doc(shopId)
   .onSnapshot(res=>setOrders(res.data()))
+
+export const CancelOrder = (Orders) => firebase.firestore()
+  .collection('Shops')
+  .doc(`shop-${auth().currentUser.uid}`)
+  .update({
+    Orders: Orders,
+})
+
+export const GetUserNumber = (name) => firebase.firestore()
+  .collection('Users')
+  .where('Name','==',name)
+  .get()
+  .then(res=>res.docs[0]._data.PhoneNumber)
