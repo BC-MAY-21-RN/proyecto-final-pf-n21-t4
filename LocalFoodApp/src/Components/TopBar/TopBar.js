@@ -39,11 +39,6 @@ export const TopBar = ({
     }           
   }, [])
 
-  useEffect(()=>{
-    const suscriber = GetOrders(`shop-${auth().currentUser.uid}`,setOrders)
-    return () => suscriber();
-  },[])  
-
   return (
     <SafeAreaView>
       <View style={styles.Center}>
@@ -58,11 +53,11 @@ export const TopBar = ({
                   <TouchableOpacity onPress={()=>{nav.navigate('OrdenInProgress')}}>
                     <View style={styles.Icon}>
                       <StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'} />                      
-                      <BubbleIndicator count={orders.length+1}/>
+                      <BubbleIndicator count={0}/>
                     </View>
                   </TouchableOpacity>
 
-                  <TouchableOpacity onPress={funcTest}>
+                  <TouchableOpacity onPress={() => nav.navigate('UserOrdersInProgress')}>
                     <View style={styles.Icon}>
                       <NotificationSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />
                       <BubbleIndicator count={3}/>

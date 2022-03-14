@@ -78,6 +78,12 @@ export const styles = StyleSheet.create({
       paddingBottom: 20,
       width: '93%'
   },
+  menuBar:{
+    backgroundColor: 'white'
+  }
+});
+
+export const loader = StyleSheet.create({
   center:{
     flex: 1,
     justifyContent: 'center',
@@ -88,7 +94,4 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
   },
-  menuBar:{
-    backgroundColor: 'white'
-  }
-});
+})

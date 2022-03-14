@@ -44,6 +44,13 @@ export const ProductEditModal = ({ openModal, product, products, productId = '',
     newProducts[productId] = updateProduct
   }
 
+  const deleteProduct = (product) => {
+    const updatedProductList = products.filter((t) => t !== product) 
+    products = updatedProductList
+    UpdateProducts(shopId, updatedProductList);
+    setShowModal(false)
+  }
+
   useEffect(()=>{    
     setImg(product?.ImgURL)        
   },[product])  
@@ -120,7 +127,7 @@ export const ProductEditModal = ({ openModal, product, products, productId = '',
               <InputComponent Tipo={'Tiempo de preparacion'} Icon={'time-outline'} value={etPreparation} action={setEtPreparation} />
 
               <MainBtn type={'Guardar Cambios'} Action={() => CreateObject()} color={true} />
-              <MainBtn type={'Eliminar Producto'} Action={() => console.log('delete')} color={false} />
+              <MainBtn type={'Eliminar Producto'} Action={() => deleteProduct(product)} color={false} />
             </View>
           </ScrollView>
         )}
