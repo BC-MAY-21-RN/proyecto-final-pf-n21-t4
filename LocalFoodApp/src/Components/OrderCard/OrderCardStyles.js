@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
   },
   fontInfoBold: {
     fontWeight: 'bold',
+    fontSize: 20,
     color: 'black'
   },
   containerButtons: {
