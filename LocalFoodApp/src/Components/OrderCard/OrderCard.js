@@ -34,16 +34,11 @@ export const OrderCard = ({order, orderid, orders, phone}) => {
     setModalStatus(false)
   },[orders])
 
-export const OrderCard = ({order}) => {
   return(
     <View style={styles.containerCard}>
       {/* Client Data */}
       <View style={{ marginBottom: 20 }}>
         <Text style={styles.fontInfoBold}>
-          <Text style={{color:'green', fontSize: 20}}>Codigo de pedido: #{order?.hash}</Text>
-        </Text>
-        <Text style={styles.fontInfoBold}>
-          <Text style={{fontWeight: 'normal', fontSize: 20}}>Cliente: {order?.client}</Text>
           Codigo de pedido:
           <Text style={{color:'green', fontSize: 20}}> #{order?.hash}</Text>
         </Text>
@@ -55,7 +50,7 @@ export const OrderCard = ({order}) => {
 
       {/* Products Ordered */}
       <View>
-        {order && order.order?.map((product, index)=><ProductOrdered key={index} uriImage={product.ImgURL} productName={product.Name} amount={product.quantity}/>)}
+        {order && order.order?.map((product, index)=><ProductOrdered key={index} product={product}/>)}
         <Text style={{alignSelf:'flex-end', marginBottom: 10, fontWeight:'bold', fontSize:20}}>
           Total a pagar: <Text style={{color:'green', fontWeight:'normal'}}>${total}</Text>
         </Text>

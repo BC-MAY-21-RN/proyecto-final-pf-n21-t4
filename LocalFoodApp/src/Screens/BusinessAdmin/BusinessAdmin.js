@@ -71,7 +71,7 @@ export const BusinessAdmin = ({navigation}) => {
             <ScrollView style={styles.Boundaries}
               stickyHeaderIndices={[2]}
               showsVerticalScrollIndicator={false}
-            >
+            >                
                 {/** hasFunction -> navigate to cart component */}
                 <Title text="Menú" hasIcon={false}/>
                 <View style={styles.container}>
@@ -80,9 +80,8 @@ export const BusinessAdmin = ({navigation}) => {
                     <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />   
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
                 </View>
-                                                                                                              {/** change visible to !visible to make it work right*/}
-                {products?.map((value, index) => <ShopItem key={index} product={value} btnText="Editar"  btnFunction={() => {setProductData(value), setProductId(index), showModalWithType('product')}} />)}
-                <AddProduct nav={navigation} shopId={shopId}/>
+                <AddProduct nav={navigation} shopId={shopId}/>                                                                                                            
+                {products?.map((value, index) => <ShopItem key={index} product={value} btnText="Editar"  btnFunction={() => {setProductData(value), setProductId(index), showModalWithType('product')}} />)}                
     
             </ScrollView>
             <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId} shop={shop}/>  

@@ -14,6 +14,7 @@ import BubbleIndicator from '../BubbleIndicator/BubbleIndicator';
 import auth from '@react-native-firebase/auth'
 import { useDispatch, useSelector } from 'react-redux';
 
+import { GetOrders } from '../../Others/FirebaseFunctions/ShopFunctions';
 
 export const TopBar = ({
   hasIcons = false,
@@ -24,9 +25,9 @@ export const TopBar = ({
 }) => {
   const [navPage, setNavPage] = useState('');
   const [iconc, setIconc] = useState(Iconn);
-  
   const {cart} = useSelector(state => state.LocalFoodReducer)  
-
+  const [orders, setOrders] = useState([])
+    
   useEffect(() => {
     if (change == true) {
       setNavPage('Home');
@@ -37,6 +38,11 @@ export const TopBar = ({
       setIconc(Iconn);
     }           
   }, [])
+
+  useEffect(()=>{
+    const suscriber = GetOrders(`shop-${auth().currentUser.uid}`,setOrders)
+    return () => suscriber();
+  },[])  
 
   return (
     <SafeAreaView>
@@ -52,9 +58,10 @@ export const TopBar = ({
                   <TouchableOpacity onPress={()=>{nav.navigate('OrdenInProgress')}}>
                     <View style={styles.Icon}>
                       <StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'} />                      
-                      <BubbleIndicator count={3}/>
+                      <BubbleIndicator count={orders.length+1}/>
                     </View>
                   </TouchableOpacity>
+
                   <TouchableOpacity onPress={funcTest}>
                     <View style={styles.Icon}>
                       <NotificationSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />

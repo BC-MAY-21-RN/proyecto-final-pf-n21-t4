@@ -24,7 +24,7 @@ export const OrdersInProgress = ({navigation}) => {
   }
 
   return (
-    orders ?<>
+    orders ?
         <SafeAreaView style={styles.bg}>
           <View style={styles.Boundaries}>
             <TopBar hasIcons={false} nav={navigation} change={true}/>
@@ -38,11 +38,12 @@ export const OrdersInProgress = ({navigation}) => {
             </ScrollView>
           </View>
         </SafeAreaView>
-      </>
     :
+      
       <View style={styles.center}>
         <Text style={styles.replaceLoader}>Loading orders</Text>
         <ActivityIndicator size='large' color='#198553'/> 
       </View>   
+      
   );
 };
