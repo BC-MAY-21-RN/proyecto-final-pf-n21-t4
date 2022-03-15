@@ -15,7 +15,7 @@ const Carousel = ({shops, timer, navigation}) => {
 
   //<TouchableOpacity style={styles.carousel} >
   return (
-      <TouchableOpacity style={styles.carousel} onPress={()=>{navigation.navigate('Business', shops[count])}}>      
+      <TouchableOpacity style={styles.carousel} onPress={()=>{navigation.navigate('Business', {shop: shops[count]})}}>      
         <Text style={styles.title}>{shops[count]?.ShopName}</Text>
         <Image style={styles.image} source={{uri: shops[count]?.Image}}/>
       </TouchableOpacity>

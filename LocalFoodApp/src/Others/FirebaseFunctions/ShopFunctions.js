@@ -131,7 +131,8 @@ export const MakeOrder = (cart, dispatch, nav) => {
       hash: hash,
       order: [],
       client: auth().currentUser.displayName,
-      status: false
+      status: false,
+      client_id: auth().currentUser.uid
     }
 
     cart.map((product,index)=>{
@@ -196,8 +197,15 @@ export const CancelOrder = (Orders) => firebase.firestore()
     Orders: Orders,
 })
 
-export const GetUserNumber = (name) => firebase.firestore()
-  .collection('Users')
-  .where('Name','==',name)
-  .get()
-  .then(res=>res.docs[0]._data.PhoneNumber)
+export const GetUserNumber = (usrid) => firebase.firestore()
+.collection('Users')
+.doc(usrid)
+.get()
+.then(res=>res._data.PhoneNumbe)
+
+export const CompleteOrder = (Orders) => firebase.firestore()
+  .collection('Shops')
+  .doc(`shop-${auth().currentUser.uid}`)
+  .update({
+    Orders: Orders,
+})
