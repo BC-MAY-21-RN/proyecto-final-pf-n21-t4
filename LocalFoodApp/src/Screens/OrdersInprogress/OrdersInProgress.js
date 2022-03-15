@@ -23,8 +23,8 @@ export const OrdersInProgress = ({navigation}) => {
     return () => suscriber();
   },[])
 
-  const getPhone = (name) => {
-    GetUserNumber(name).then(e=>{
+  const getPhone = (usrid) => {
+    GetUserNumber(usrid).then(e=>{
       setPhone(e)
     })
     return phone;
@@ -47,7 +47,7 @@ export const OrdersInProgress = ({navigation}) => {
               textSize={'big'}
             />
             <ScrollView style={{marginBottom: '6%'}}>
-              {orders && orders.Orders.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders.Orders} phone={getPhone(order.client)}/>)}
+              {orders && orders.Orders.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders.Orders} phone={getPhone(order.client_id)}/>)}
             </ScrollView>
           </View>
         </SafeAreaView>
