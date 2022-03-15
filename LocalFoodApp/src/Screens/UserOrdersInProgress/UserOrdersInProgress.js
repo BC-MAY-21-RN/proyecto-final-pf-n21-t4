@@ -10,27 +10,17 @@ import { GetUserOrders, GetUserNumber } from '../../Others/FirebaseFunctions/Sho
 import { useSelector } from 'react-redux';
 
 export const UserOrdersInProgress = ({navigation}) => {
-  const [orders, setOrders] = useState();
+  const [orders, setOrders] = useState([]);
+  const [shopNumber, setShopNumber] = useState('')
   const [phone, setPhone] = useState('');
   const [total, setTotal] = useState()
   const [renderCart, setRenderCart] = useState([]);
 
   const {cart} = useSelector(state => state.LocalFoodReducer)
-  // useEffect(()=>{
-  //   const suscriber = GetUserOrders(auth.currentUser, setOrders)
-  //   return () => suscriber();
-  // },[])
 
   useEffect(()=>{
-    GetUserOrders(auth().currentUser.uid, setOrders)
+    GetUserOrders(auth().currentUser.uid, setOrders, setShopNumber)
   },[])
-
-  const getPhone = (name) => {
-    GetUserNumber(name).then(e=>{
-      setPhone(e)
-    })
-    return phone;
-  }
 
   const getTotal = () => {
     let total = 0
@@ -45,11 +35,11 @@ export const UserOrdersInProgress = ({navigation}) => {
             <TopBar hasIcons={false} nav={navigation} change={true}/>
             <Title
               lineBelow={true}
-              text={'Mis pedidos: ' + orders.Orders?.length}
+              text={'Mis pedidos'}
               textSize={'big'}
             />
             <ScrollView style={{marginBottom: '6%'}}>
-              {orders && orders.Orders?.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders.Orders} phone={getPhone(order.client)}/>)}
+              {orders && orders?.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders} phone={shopNumber} isBusiness={false}/>)}
             </ScrollView>
           </View>
         </SafeAreaView>

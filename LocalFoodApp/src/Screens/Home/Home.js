@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { loadCart} from '../../Others/redux/actions/actions';
 import auth from '@react-native-firebase/auth'
 import { Store } from '../../Others/redux/store';
+import {NotificationMock} from '../../Components/NotificationMock/NotificationMock';
 
 export const Home = ({ navigation }) => {
   const { cart, uid } = useSelector(state => state.LocalFoodReducer)
@@ -100,6 +101,7 @@ export const Home = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >          
           <TopBar hasIcons={true} nav={navigation} />
+          {/* <NotificationMock /> */}
           {/* {cart.length >= 1 && <OrderStatus ordersETC={cart} nav={navigation}/>} */}
           {/**placeholder not showing up */}
           <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false} action={setSearch} value={search}/>                    

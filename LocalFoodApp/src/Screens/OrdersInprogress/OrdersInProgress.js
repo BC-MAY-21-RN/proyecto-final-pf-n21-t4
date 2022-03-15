@@ -47,7 +47,7 @@ export const OrdersInProgress = ({navigation}) => {
               textSize={'big'}
             />
             <ScrollView style={{marginBottom: '6%'}}>
-              {orders && orders.Orders.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders.Orders} phone={getPhone(order.client_id)}/>)}
+              {orders && orders.Orders.map((order, index)=><OrderCard key={index} order={order} orderid={index} orders={orders.Orders} phone={getPhone(order.client_id)}/>)}
             </ScrollView>
           </View>
         </SafeAreaView>

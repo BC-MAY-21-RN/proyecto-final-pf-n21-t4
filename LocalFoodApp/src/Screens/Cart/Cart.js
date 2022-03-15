@@ -83,8 +83,8 @@ export const Cart = ({ navigation }) => {
               <TouchableOpacity onPress={navigation.goBack}><Icon name='close-outline' size={40} type='ionicon' color='black'/></TouchableOpacity>
             </View>
 
-            <Title text={'Tienda'}/>
-            <Text style={styles.shopsAddress}> Domicilio del negocio</Text>
+            {/* <Title text={'Tienda'}/>
+            <Text style={styles.shopsAddress}> Domicilio del negocio</Text> */}
             {cart ?
               <>
                 {renderCart}

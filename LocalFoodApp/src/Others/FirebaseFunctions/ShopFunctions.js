@@ -9,34 +9,34 @@ export const GetShop = shopId => firestore()
   .collection("Shops").doc(shopId).get()
 
 export const GetShops = async (accion) => {
-    let info = []
-    try {
+  let info = []
+  try {
     firestore()
       .collection("Shops")
       .orderBy("Fecha", "desc")
       .limit(5)
-      .onSnapshot(e=>{
+      .onSnapshot(e => {
         e.forEach((element) => {
-          info.push({...element.data(), ShopId: element.id})   
+          info.push({ ...element.data(), ShopId: element.id })
         })
         accion(info)
-        info=[];
+        info = [];
       })
   } catch (e) {
     console.log('Este es un error ' + e)
   }
 }
 
-export const GetAllShops = (setShops2) =>{ 
+export const GetAllShops = (setShops2) => {
   let shops = []
   firestore()
-  .collection('Shops')
-  .onSnapshot((e)=>{
-    e._docs.map((valor, index)=>{
-      shops.push(valor._data)
-    })
-    setShops2(shops);
-  });
+    .collection('Shops')
+    .onSnapshot((e) => {
+      e._docs.map((valor, index) => {
+        shops.push(valor._data)
+      })
+      setShops2(shops);
+    });
 }
 
 export const GetTopShops = () => {
@@ -65,42 +65,42 @@ export const EditShopData = (shopId, shopName, shopAdress, shopNumber) => firest
   });
 
 
-export const RegisterShop = async (shop, product) =>{
+export const RegisterShop = async (shop, product) => {
   const { name, number, street, img } = shop
   const folder = 'images';
 
-  try{
-      let uploadUri = img.uri;
-      let filename = img.fileName;
-      
-      //ref es el folder donde se va a subir, child es el nombre del archivo y putFile es la función que sube la imagen.
-      await storage().ref(folder).child(filename).putFile(uploadUri);
+  try {
+    let uploadUri = img.uri;
+    let filename = img.fileName;
 
-      //recupera el URL de la imagen.
-      const url = await storage().ref(folder).child(filename).getDownloadURL();
+    //ref es el folder donde se va a subir, child es el nombre del archivo y putFile es la función que sube la imagen.
+    await storage().ref(folder).child(filename).putFile(uploadUri);
 
-      firestore() 
+    //recupera el URL de la imagen.
+    const url = await storage().ref(folder).child(filename).getDownloadURL();
+
+    firestore()
       .collection('Shops')
-      .doc('shop-'+auth().currentUser.uid)
+      .doc('shop-' + auth().currentUser.uid)
       .set({
-          Fecha: firestore.Timestamp.now().toDate(),
-          Image: url,
-          Orders: [],
-          Owner: auth().currentUser.displayName,
-          PhoneNumber: number,
-          ShopName: name,
-          Street: street, 
+        Fecha: firestore.Timestamp.now().toDate(),
+        Image: url,
+        Orders: [],
+        Owner: auth().currentUser.displayName,
+        PhoneNumber: number,
+        ShopName: name,
+        Street: street,
       })
 
-      /*Asigna que el usuario ya es dueño de una tienda */
-      firestore()
+    /*Asigna que el usuario ya es dueño de una tienda */
+    firestore()
       .collection('Users')
       .doc(auth().currentUser.uid)
       .update({
-            ShopOwner: true
+        ShopOwner: true
       })
 
-      firestore()
+    firestore()
       .collection('ShopProducts')
       .doc()
       .set({
@@ -108,25 +108,26 @@ export const RegisterShop = async (shop, product) =>{
         ShopId: `shop-${auth().currentUser.uid}`
       })
 
-      /*Agrega el producto*/
-      AddProduct(`shop-${auth().currentUser.uid}`, product);
-  
-  } catch(e){
-      console.log('Este es un error '+ e)
+    /*Agrega el producto*/
+    AddProduct(`shop-${auth().currentUser.uid}`, product);
+
+  } catch (e) {
+    console.log('Este es un error ' + e)
   }
 }
 
 
 export const MakeOrder = (cart, dispatch, nav) => {
   let productosTienda = []
-  let hash = Math.floor(Math.random()*2000);
   let idss = [];
 
-  cart.map((product,index)=>{
-    let x = idss.find( idShop => idShop == product.idShop);
-    (x==undefined) ? idss.push(product.idShop) : null;
+  cart.map((product, index) => {
+    let x = idss.find(idShop => idShop == product.idShop);
+    (x == undefined) ? idss.push(product.idShop) : null;
   })
-  idss.map((Shopid,index)=>{
+
+  idss.map((Shopid, index) => {
+    let hash = Math.floor(Math.random() * 2000);
     let object = {
       hash: hash,
       order: [],
@@ -135,77 +136,111 @@ export const MakeOrder = (cart, dispatch, nav) => {
       client_id: auth().currentUser.uid
     }
 
-    cart.map((product,index)=>{
-      if(Shopid==product?.idShop)
-      {
+    cart.map((product, index) => {
+      if (Shopid == product?.idShop) {
         delete product.idShop
         productosTienda.push(product)
       }
     })
 
-    object.order=productosTienda;
+    object.order = productosTienda;
     firestore()
-    .collection('Shops')
-    .doc(Shopid)
-    .get()
-    .then((e)=>{
-      let temp = e.data()
-      temp.Orders.push(object)
-      firestore()
-        .collection('Shops')
-        .doc(Shopid)
-        .update({
-          Orders: temp.Orders
-        })
-    })
-    productosTienda=[];
+      .collection('Shops')
+      .doc(Shopid)
+      .get()
+      .then((e) => {
+        let temp = e.data()
+        temp.Orders.push(object)
+        firestore()
+          .collection('Shops')
+          .doc(Shopid)
+          .update({
+            Orders: temp.Orders
+          })
+      })
+    productosTienda = [];
   })
 
   dispatch(clearCart())
   nav.navigate('Home');
 }
 
-export const GetUserOrders = (userId, setOrders) => firebase.firestore()
+export const GetUserOrders = (userId, setOrders, setShopNumber) => firebase.firestore()
   .collection('Shops')
-  .get().then(e=>{        
-    
-    let userOrders = []    
-    e.docs.forEach((e)=>{      
-      for (let index = 0; index < e._data.Orders.length; index++) {
-        console.log(e._data.Orders[index].client_id)
-        console.log('UID ', userId)
-        // if(userId === e._data.Orders[index].client_id){
-        //   console.log(e._data.Orders[index])
-        // }else{
-        //   console.log('nuffin')
-        // }
+  .onSnapshot(e => {
+    let userOrders = []
+    e.docs.forEach((e) => {
+      for (let i = 0; i < e._data.Orders.length; i++) {
+        setShopNumber(e._data.PhoneNumber)
+        if (userId === e._data.Orders[i].client_id) {
+          userOrders.push(e._data.Orders[i])
+        }
+      }
+    })
+    setOrders(userOrders)
+  })
+
+
+export const getProductAndShop = (hash) => firebase.firestore()
+  .collection('Shops')
+  .get()
+  .then(e => {
+    e.docs.forEach((e) => {
+      for (let i = 0; i < e._data.Orders.length; i++) {
+        if (hash === e._data.Orders[i].hash) {
+          eraseProduct(e.id, hash)
+        }
       }
     })
   })
-  // .where('client_id', '==', userId)
-  // .onSnapshot(res=>setOrders(res.data()))
 
-export const GetOrders = (shopId, setOrders) =>  firebase.firestore()
+  export const eraseProduct = (shopId, hash) => {
+    let newOrders = [];
+    firebase.firestore()
+          .collection('Shops')
+          .doc(shopId)
+          .get()
+          .then(e=>{
+            newOrders = e._data.Orders;            
+            console.log("before splice: ", newOrders)
+            newOrders.map((order,index) => {
+              if (order.hash == hash) {
+                newOrders.splice(index, 1)
+                CancelOrderUser(newOrders, shopId)
+              }
+            });
+          })
+  }
+
+
+export const GetOrders = (shopId, setOrders) => firebase.firestore()
   .collection('Shops')
   .doc(shopId)
-  .onSnapshot(res=>setOrders(res.data()))
+  .onSnapshot(res => setOrders(res.data()))
 
-export const CancelOrder = (Orders) => firebase.firestore()
+export const CancelOrderFromBusiness = (Orders) => firebase.firestore()
   .collection('Shops')
   .doc(`shop-${auth().currentUser.uid}`)
   .update({
     Orders: Orders,
-})
+  })
+
+export const CancelOrderUser = (Orders, shopId) => firebase.firestore()
+  .collection('Shops')
+  .doc(shopId)
+  .update({
+    Orders: Orders,
+  })
 
 export const GetUserNumber = (usrid) => firebase.firestore()
-.collection('Users')
-.doc(usrid)
-.get()
-.then(res=>res._data.PhoneNumbe)
+  .collection('Users')
+  .doc(usrid)
+  .get()
+  .then(res => res._data.PhoneNumbe)
 
 export const CompleteOrder = (Orders) => firebase.firestore()
   .collection('Shops')
   .doc(`shop-${auth().currentUser.uid}`)
   .update({
     Orders: Orders,
-})
+  })
