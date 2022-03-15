@@ -164,10 +164,25 @@ export const MakeOrder = (cart, dispatch, nav) => {
   nav.navigate('Home');
 }
 
-export const RenameShop = (shopId) => {
-  
-}
-
+export const GetUserOrders = (userId, setOrders) => firebase.firestore()
+  .collection('Shops')
+  .get().then(e=>{        
+    
+    let userOrders = []    
+    e.docs.forEach((e)=>{      
+      for (let index = 0; index < e._data.Orders.length; index++) {
+        console.log(e._data.Orders[index].client_id)
+        console.log('UID ', userId)
+        // if(userId === e._data.Orders[index].client_id){
+        //   console.log(e._data.Orders[index])
+        // }else{
+        //   console.log('nuffin')
+        // }
+      }
+    })
+  })
+  // .where('client_id', '==', userId)
+  // .onSnapshot(res=>setOrders(res.data()))
 
 export const GetOrders = (shopId, setOrders) =>  firebase.firestore()
   .collection('Shops')

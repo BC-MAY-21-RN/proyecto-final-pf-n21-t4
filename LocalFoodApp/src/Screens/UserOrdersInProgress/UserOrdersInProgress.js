@@ -6,7 +6,7 @@ import { styles } from '../OrdersInprogress/OrdersInProgressStyles'
 import {loader} from '../Business/BusinessStyle'
 import { OrderCard } from '../../Components/OrderCard/OrderCard';
 import auth from '@react-native-firebase/auth'
-import { GetOrders, GetUserNumber } from '../../Others/FirebaseFunctions/ShopFunctions';
+import { GetUserOrders, GetUserNumber } from '../../Others/FirebaseFunctions/ShopFunctions';
 import { useSelector } from 'react-redux';
 
 export const UserOrdersInProgress = ({navigation}) => {
@@ -16,11 +16,13 @@ export const UserOrdersInProgress = ({navigation}) => {
   const [renderCart, setRenderCart] = useState([]);
 
   const {cart} = useSelector(state => state.LocalFoodReducer)
+  // useEffect(()=>{
+  //   const suscriber = GetUserOrders(auth.currentUser, setOrders)
+  //   return () => suscriber();
+  // },[])
 
-  //FUNCIONA
   useEffect(()=>{
-    const suscriber = GetOrders(`shop-${auth().currentUser.uid}`,setOrders)
-    return () => suscriber();
+    GetUserOrders(auth().currentUser.uid, setOrders)
   },[])
 
   const getPhone = (name) => {
@@ -43,18 +45,18 @@ export const UserOrdersInProgress = ({navigation}) => {
             <TopBar hasIcons={false} nav={navigation} change={true}/>
             <Title
               lineBelow={true}
-              text={'Pedidos en progreso: ' + orders.Orders?.length}
+              text={'Mis pedidos: ' + orders.Orders?.length}
               textSize={'big'}
             />
             <ScrollView style={{marginBottom: '6%'}}>
-              {orders && orders.Orders.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders.Orders} phone={getPhone(order.client)}/>)}
+              {orders && orders.Orders?.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders.Orders} phone={getPhone(order.client)}/>)}
             </ScrollView>
           </View>
         </SafeAreaView>
     :
       <View style={loader.center}>
-      <Text style={loader.replaceLoader}>Loading orders</Text>
-      <ActivityIndicator size='large' color='#198553'/> 
+        <Text style={loader.replaceLoader}>Loading orders</Text>
+        <ActivityIndicator size='large' color='#198553'/> 
       </View>  
       
   );
