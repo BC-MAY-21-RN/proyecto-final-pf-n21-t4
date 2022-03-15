@@ -12,73 +12,73 @@ import { useDispatch } from 'react-redux'
 import { addIdShop } from '../../Others/redux/actions/actions';
 
 export const Business = (props) => {
-    const { route: { params: { shop } } } = props
-    const {navigation} = props
+  const { route: { params: { shop } } } = props
+  const { navigation } = props
 
-    const [products, setProducts] = useState([])
-    const [filteredProducts, setFilteredProducts] = useState([])
-    const [selectedButton, setSelectedButton] = useState('Menú')
-    const [placeholderVisible, setPlaceholderVisible] = useState(true)
+  const [products, setProducts] = useState([])
+  const [filteredProducts, setFilteredProducts] = useState([])
+  const [selectedButton, setSelectedButton] = useState('Menú')
+  const [placeholderVisible, setPlaceholderVisible] = useState(true)
 
-    const placeholderCount = [{}, {}, {}, {}]
-    const dispatch = useDispatch()
+  const placeholderCount = [{}, {}, {}, {}]
+  const dispatch = useDispatch()
 
-    useEffect(() => {
-      const suscriber = GetProducts(shop.ShopId, setProducts);
-      dispatch(addIdShop(shop.ShopId))
-      setPlaceholderVisible(false)
-      return () => suscriber();
-    },[])
-    
-    useEffect(()=>{
-      setFilteredProducts(products);
-    },[products])
-    
-    useEffect(() => {
-      if (selectedButton != 'Menú') {
-        setFilteredProducts(products.filter(posicion => posicion.Tipo == selectedButton))
-      }else{
-        setFilteredProducts(products)
-      }
-    }, [selectedButton])     
-    
+  useEffect(() => {
+    const suscriber = GetProducts(shop.ShopId, setProducts);
+    dispatch(addIdShop(shop.ShopId))
+    setPlaceholderVisible(false)
+    return () => suscriber();
+  }, [])
 
-    return (      
-        <SafeAreaView style={styles.bg}>
-            <View style={styles.storeHeader}>
-                <TouchableOpacity style={styles.closeButton} onPress={() => navigation.navigate('Home')}>
-                    <Icon name='close-outline' size={40} type='ionicon' color='white'/>
-                </TouchableOpacity>
-                <Text style={styles.storeTitle}>{shop.ShopName}</Text>                
-                <Image style={styles.image} source={{ uri: shop.Image }} />
-            </View>         
-               
-            <ScrollView style={styles.Boundaries}
-              stickyHeaderIndices={[0]}
-              showsVerticalScrollIndicator={false}
-            >
-                {/** hasFunction -> navigate to cart component */}
-                <View style={styles.menuBar}>
-                  <Title text="Menú" clickableIcon={'cart'} hasFunction={() => navigation.navigate('Cart')}/>
-                  <View style={styles.container}>
-                      <FilterButton selected={selectedButton === "Menú"} text="Menú" setSelectedButton={setSelectedButton} />
-                      <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
-                      <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
-                      <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
-                  </View> 
-                </View>                                
-                {placeholderVisible && placeholderCount?.map((product, index) => <ShopItemPlaceholder key={index}/>)}
-                {/* {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)} */}
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products])
 
-                {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} btnFunction={'addToCart'}/>)}
+  useEffect(() => {
+    if (selectedButton != 'Menú') {
+      setFilteredProducts(products.filter(posicion => posicion.Tipo == selectedButton))
+    } else {
+      setFilteredProducts(products)
+    }
+  }, [selectedButton])
 
-                {(filteredProducts.length == 0) && 
-                  <View style={styles.noItems}>
-                    <Text style={styles.text}>There are no Items in this category</Text>
-                  </View>
-                }
-                
-            </ScrollView>
-        </SafeAreaView>
-    );
+
+  return (
+    <SafeAreaView style={styles.bg}>
+      <View style={styles.storeHeader}>
+        <TouchableOpacity style={styles.closeButton} onPress={() => navigation.navigate('Home')}>
+          <Icon name='close-outline' size={40} type='ionicon' color='white' />
+        </TouchableOpacity>
+        <Text style={styles.storeTitle}>{shop.ShopName}</Text>
+        <Image style={styles.image} source={{ uri: shop.Image }} />
+      </View>
+
+      <ScrollView style={styles.Boundaries}
+        stickyHeaderIndices={[0]}
+        showsVerticalScrollIndicator={false}
+      >
+        {/** hasFunction -> navigate to cart component */}
+        <View style={styles.menuBar}>
+          <Title text="Menú" clickableIcon={'cart'} hasFunction={() => navigation.navigate('Cart')} />
+          <View style={styles.container}>
+            <FilterButton selected={selectedButton === "Menú"} text="Menú" setSelectedButton={setSelectedButton} />
+            <FilterButton selected={selectedButton === "Comida"} text="Comida" icon="Food" setSelectedButton={setSelectedButton} />
+            <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />
+            <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
+          </View>
+        </View>
+        {placeholderVisible && placeholderCount?.map((product, index) => <ShopItemPlaceholder key={index} />)}
+        {/* {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)} */}
+
+        {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} btnFunction={'addToCart'} />)}
+
+        {(filteredProducts.length == 0) &&
+          <View style={styles.noItems}>
+            <Text style={styles.text}>There are no Items in this category</Text>
+          </View>
+        }
+
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
