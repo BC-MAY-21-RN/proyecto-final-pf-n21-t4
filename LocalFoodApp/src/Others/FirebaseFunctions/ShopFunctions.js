@@ -48,10 +48,11 @@ export const getOrderCount = (shopId, setOrderCount) => firebase.firestore()
   .doc(shopId)
   .onSnapshot(e => {
     let userOrders
-    if(e == undefined){
+    if(e == undefined){      
       setOrderCount(0)
     }else{
-      userOrders = e._data.Orders.length
+      userOrders = e._data.Orders
+      userOrders = userOrders.length
       setOrderCount(userOrders)
     }
   })

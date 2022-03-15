@@ -34,8 +34,9 @@ export const TopBar = ({
     isShopOwner(userId, setOwnsShop)
 
     //Order count
-    getOrderCount(`shop-${userId}`, setOrderCount) 
-    
+    if (ownsShop) {
+      getOrderCount(`shop-${userId}`, setOrderCount) 
+    }
 
     getUserOrderCount(userId, setUserOrderCount)
     console.log(orderCount)
@@ -62,16 +63,16 @@ export const TopBar = ({
             {(auth().currentUser != null) && <>
               {hasIcons &&
                 <>
-                  {/* {ownsShop ?  */}
+                  {ownsShop ?
                   <TouchableOpacity onPress={()=>{nav.navigate('OrdenInProgress')}}>
                     <View style={styles.Icon}>
                       <StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'} />                      
                       <BubbleIndicator count={orderCount}/>
                     </View>
                   </TouchableOpacity>
-                  {/* :
+                   :
                    null
-                   }*/}
+                   }
                   <TouchableOpacity onPress={() => nav.navigate('UserOrdersInProgress')}>
                     <View style={styles.Icon}>
                       <NotificationSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />
