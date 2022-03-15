@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const OCBtn = styled.TouchableOpacity`
-    width: 40%;
+    width: 42%;
     margin-left: 10px;
     padding: 7px;
     background-color: ${props => props.color};

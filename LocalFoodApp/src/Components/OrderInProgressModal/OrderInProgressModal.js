@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { styles } from './OrderPMStyles';
 import { Button } from 'react-native-elements';
 import { CancelOrder } from '../../Others/FirebaseFunctions/ShopFunctions';
-import { Title } from '../Title/Title';
 import { CustomButton } from '../CustomButton/CustomButton';
+import { Title } from '../Title/Title'
 
 export const OrdersInProgressModal = ({id,modal, funct, orders}) => {
 
@@ -27,7 +27,7 @@ export const OrdersInProgressModal = ({id,modal, funct, orders}) => {
                     <Title text={'Opciones de orden'} lineBelow={false} textSize={'big'}></Title>
                     
                     <CustomButton text={'Completar Orden'} tcolor={'white'} bcolor={'#198553'} border={'#198553'} func={()=>console.log('Masomenos e.e')}/>
-                    <CustomButton text={'Cancelar Orden'} tcolor={'white'} bcolor={'#FF5454'} border={'#FF5454'} func={()=>cancelOrder2()}/>
+                    <CustomButton text={'Cancelar Orden'} tcolor={'white'} bcolor={'#FF5454'} border={'#FF5454'} func={()=>cancelOrder2()}/>                    
                     <CustomButton text={'Atras'} tcolor={'black'} bcolor={'white'} border={'black'} func={()=>funct(false)}/>
                 </View>
             </View>

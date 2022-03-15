@@ -9,7 +9,7 @@ import auth from '@react-native-firebase/auth'
 import { GetOrders, GetUserNumber } from '../../Others/FirebaseFunctions/ShopFunctions';
 import { useSelector } from 'react-redux';
 
-export const OrdersInProgress = ({navigation}) => {
+export const UserOrdersInProgress = ({navigation}) => {
   const [orders, setOrders] = useState();
   const [phone, setPhone] = useState('');
   const [total, setTotal] = useState()

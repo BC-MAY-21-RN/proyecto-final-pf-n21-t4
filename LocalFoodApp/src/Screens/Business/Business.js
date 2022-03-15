@@ -51,7 +51,8 @@ export const Business = (props) => {
                 </TouchableOpacity>
                 <Text style={styles.storeTitle}>{shop.ShopName}</Text>                
                 <Image style={styles.image} source={{ uri: shop.Image }} />
-            </View>            
+            </View>         
+               
             <ScrollView style={styles.Boundaries}
               stickyHeaderIndices={[0]}
               showsVerticalScrollIndicator={false}
