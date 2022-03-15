@@ -57,7 +57,6 @@ export const Business = (props) => {
         stickyHeaderIndices={[0]}
         showsVerticalScrollIndicator={false}
       >
-        {/** hasFunction -> navigate to cart component */}
         <View style={styles.menuBar}>
           <Title text="Menú" clickableIcon={'cart'} hasFunction={() => navigation.navigate('Cart')} />
           <View style={styles.container}>
@@ -68,11 +67,10 @@ export const Business = (props) => {
           </View>
         </View>
         {placeholderVisible && placeholderCount?.map((product, index) => <ShopItemPlaceholder key={index} />)}
-        {/* {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} />)} */}
 
         {filteredProducts && filteredProducts?.map((product, index) => <ShopItem key={index} product={product} btnFunction={'addToCart'} />)}
 
-        {(filteredProducts.length == 0) &&
+        {(filteredProducts?.length == 0) &&
           <View style={styles.noItems}>
             <Text style={styles.text}>There are no Items in this category</Text>
           </View>

@@ -15,6 +15,11 @@ export const OrderCompBtn = ({type, Action, color}) => {
         TextColor = '#198553'
     }
 
+    if (color == 'cancel') {
+      backColor = '#ff5f5f'
+      TextColor = 'white'
+    }
+
     return (
         <OCBtn color={backColor} onPress={()=>Action()}>
             <OCBtnText color={TextColor}>{type}</OCBtnText>

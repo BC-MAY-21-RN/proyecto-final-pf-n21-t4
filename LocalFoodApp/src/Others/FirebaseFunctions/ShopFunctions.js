@@ -27,6 +27,49 @@ export const GetShops = async (accion) => {
   }
 }
 
+//set ownsShop is not a function, i fucking shit know that fucking shit aint a fucking function for fucks sake.
+export const isShopOwner = (userId, setOwnsShop) => {
+  firestore()
+  .collection('Users')
+  .doc(userId)
+  .onSnapshot((e) => {
+    let shopOwner
+    if (e == undefined) {
+      setOwnsShop(false)
+    } else {
+      shopOwner = e._data.ShopOwner
+      setOwnsShop(shopOwner)
+    }
+  })
+}
+
+export const getOrderCount = (shopId, setOrderCount) => firebase.firestore()
+  .collection('Shops')
+  .doc(shopId)
+  .onSnapshot(e => {
+    let userOrders
+    if(e == undefined){
+      setOrderCount(0)
+    }else{
+      userOrders = e._data.Orders.length
+      setOrderCount(userOrders)
+    }
+  })
+
+  export const getUserOrderCount = (userId, setOrders) => firebase.firestore()
+  .collection('Shops')
+  .onSnapshot(e => {
+    let userOrders = []
+    e.docs.forEach((e) => {
+      for (let i = 0; i < e._data.Orders.length; i++) {
+        if (userId === e._data.Orders[i].client_id) {
+          userOrders.push(e._data.Orders[i])
+        }
+      }
+    })
+    setOrders(userOrders.length)
+  })
+
 export const GetAllShops = (setShops2) => {
   let shops = []
   firestore()

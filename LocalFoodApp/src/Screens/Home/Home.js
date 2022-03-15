@@ -6,7 +6,7 @@ import { InputComponent } from '../../Components/Input/Input';
 import { styles } from '../Home/HomeStyle';
 import Carousel from '../../Components/Carousel/Carousel';
 import { Title } from '../../Components/Title/Title.js';
-import {OrderStatus} from '../../Components/OrderStatus/OrderStatus';
+import { OrderStatus } from '../../Components/OrderStatus/OrderStatus';
 import ShopCard from '../../Components/ShopCad/ShopCard';
 
 import { GetShops, GetAllShops } from '../../Others/FirebaseFunctions/ShopFunctions';
@@ -14,10 +14,10 @@ import { signOut } from '../../Others/FirebaseFunctions/UserFunctions';
 import { GetCart } from '../../Others/FirebaseFunctions/CartFunctions';
 
 import { useSelector, useDispatch } from 'react-redux'
-import { loadCart} from '../../Others/redux/actions/actions';
+import { loadCart } from '../../Others/redux/actions/actions';
 import auth from '@react-native-firebase/auth'
 import { Store } from '../../Others/redux/store';
-import {NotificationMock} from '../../Components/NotificationMock/NotificationMock';
+import { NotificationMock } from '../../Components/NotificationMock/NotificationMock';
 
 export const Home = ({ navigation }) => {
   const { cart, uid } = useSelector(state => state.LocalFoodReducer)
@@ -28,7 +28,7 @@ export const Home = ({ navigation }) => {
   const [search, setSearch] = useState('')
   //this state getts its value from redux when confirming the order in the cart,
   const [hasActiveOrder, setHasActiveOrder] = useState(false)
-  
+
   const [recentShops, setRecentShops] = useState([])
   const [shops2, setShops2] = useState([])
   const [newCards, setNewCards] = useState([])
@@ -39,36 +39,30 @@ export const Home = ({ navigation }) => {
       signOut()
   })
 
-  Store.subscribe(()=>{
+  Store.subscribe(() => {
   })
-
-  useEffect(()=>{
+  useEffect(() => {
     GetShops(setShops)
     GetAllShops(setShops2)
-  },[])
-
-  if(auth().currentUser!=null)
-  {
-    useEffect(()=>{
+  }, [])
+  if (auth().currentUser != null) {
+    useEffect(() => {
       const getCart = async () => {
-        await GetCart(uid).then((response)=>{
+        await GetCart(uid).then((response) => {
           setTempCart(response)
         })
       }
       getCart()
-    },[])
+    }, [])
   }
-
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(loadCart(TempCart))
-  },[TempCart])
-
+  }, [TempCart])
   /*Funcion search bar*/
-  useEffect(()=>{
+  useEffect(() => {
     let x = []
-    shops2.map((valor,index) =>{
-      if(valor.ShopName.toLowerCase().includes(search.toLowerCase()))
-      {
+    shops2.map((valor, index) => {
+      if (valor.ShopName.toLowerCase().includes(search.toLowerCase())) {
         x.push(<ShopCard
           key={`Shop${index}`}
           shop={valor}
@@ -78,11 +72,10 @@ export const Home = ({ navigation }) => {
     })
     setNewCards(x)
   }, [search])
-
   /*Funcion que actualiza las tiendas recientes */
-  useEffect(()=>{
+  useEffect(() => {
     let x = []
-    shops.map((valor, index)=>{
+    shops.map((valor, index) => {
       x.push(<ShopCard
         key={`Shop${index}`}
         shop={valor}
@@ -90,21 +83,19 @@ export const Home = ({ navigation }) => {
       />)
     })
     setRecentShops(x)
-  },[shops])
+  }, [shops])
 
   return (
-    <SafeAreaView style={styles.bg}>      
+    <SafeAreaView style={styles.bg}>
       <View style={styles.Boundaries}>
         <ScrollView
-          //stickyHeaderIndices={cart.length >= 1 ? [0] : [0]}
+          // stickyHeaderIndices={(hasActiveOrder) ? [1] : [1]}
           stickyHeaderIndices={[0]}
           showsVerticalScrollIndicator={false}
-        >          
+        >
           <TopBar hasIcons={true} nav={navigation} />
-          {/* <NotificationMock /> */}
-          {/* {cart.length >= 1 && <OrderStatus ordersETC={cart} nav={navigation}/>} */}
-          {/**placeholder not showing up */}
-          <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false} action={setSearch} value={search}/>                    
+          {/* <NotificationMock text={'Orden lista!'}/> */}
+          <InputComponent inputPlaceHolder='Que se te antoja hoy?' hasLabel={false} action={setSearch} value={search} />
           {
             (search.length >= 1) ?
               <>
@@ -112,10 +103,10 @@ export const Home = ({ navigation }) => {
               </>
               :
               <>
-                <Title text={"Los más pedidos de la semana"} lineBelow={false} textSize={'big'}/>
+                <Title text={"Los más pedidos de la semana"} lineBelow={false} textSize={'big'} />
                 <Carousel shops={shops} timer={3000} navigation={navigation} />
-      
-                <Title text={"Recien añadidos"} lineBelow={true} textSize={'big'}/>
+
+                <Title text={"Recien añadidos"} lineBelow={true} textSize={'big'} />
                 {recentShops}
               </>
           }

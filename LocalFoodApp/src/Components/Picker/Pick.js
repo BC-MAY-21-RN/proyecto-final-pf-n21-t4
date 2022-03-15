@@ -14,7 +14,7 @@ export const Pick = ({selectedValue, setSelectedValue}) => {
           <Picker.Item label="Tipo de producto" value=""></Picker.Item> 
           <Picker.Item label="Comida" value="Comida"></Picker.Item>
           <Picker.Item label="Postre" value="Postre"></Picker.Item>
-          <Picker.Item label="Bebida" value="Bebida"></Picker.Item>
+          <Picker.Item label="Bebidas" value="Bebidas"></Picker.Item>
         </Picker>
       </PickerContainer>
     </Container>

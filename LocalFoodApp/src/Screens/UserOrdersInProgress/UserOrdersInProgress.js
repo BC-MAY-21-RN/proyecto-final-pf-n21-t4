@@ -8,6 +8,9 @@ import { OrderCard } from '../../Components/OrderCard/OrderCard';
 import auth from '@react-native-firebase/auth'
 import { GetUserOrders, GetUserNumber } from '../../Others/FirebaseFunctions/ShopFunctions';
 import { useSelector } from 'react-redux';
+import Pot from '../../Assets/Images/PotIcon.svg'
+import { OrderCompBtn } from '../../Components/OrderComponentButton/OrderCompBtn';
+import { Empty } from '../../Components/Empty/Empty';
 
 export const UserOrdersInProgress = ({navigation}) => {
   const [orders, setOrders] = useState([]);
@@ -32,13 +35,19 @@ export const UserOrdersInProgress = ({navigation}) => {
     orders ?
         <SafeAreaView style={styles.bg}>
           <View style={styles.Boundaries}>
-            <TopBar hasIcons={false} nav={navigation} change={true}/>
-            <Title
-              lineBelow={true}
-              text={'Mis pedidos'}
-              textSize={'big'}
-            />
-            <ScrollView style={{marginBottom: '6%'}}>
+            <TopBar hasIcons={false} nav={navigation} change={true} Iconn={'arrow-back-outline'}/>
+
+            {orders.length > 0 ? 
+            <Title lineBelow={true} text={'Mis pedidos'} textSize={'big'}/>
+            :
+            <View style={loader.centerPage}>
+              <Pot width={47} height={47} stroke={'#808080'} fill={'#808080'} />
+              <Empty bottomMargin={20}/>
+              <Text style={loader.replaceLoader}>Nngun pedido en curso</Text>
+              <OrderCompBtn type={"Regresar a inicio"} color={true} Action={() => navigation.goBack()} />  
+            </View>
+            }
+            <ScrollView>
               {orders && orders?.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders} phone={shopNumber} isBusiness={false}/>)}
             </ScrollView>
           </View>

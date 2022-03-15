@@ -4,11 +4,13 @@ export const styles = StyleSheet.create({
   containerProduct: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     marginBottom: 10,
   },
   productImage: {
     width: 50,
-    height: 50
+    height: 50,
+    borderRadius: 10,
+    marginRight: 15,
   }
 })

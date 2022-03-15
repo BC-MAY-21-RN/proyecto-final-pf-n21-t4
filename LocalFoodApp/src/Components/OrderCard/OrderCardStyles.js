@@ -2,7 +2,8 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   containerCard: {
-    marginTop: 40
+    marginTop: 40,
+    marginBottom: 10,
   },
   fontInfoBold: {
     fontWeight: 'bold',

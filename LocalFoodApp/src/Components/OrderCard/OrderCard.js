@@ -58,7 +58,7 @@ export const OrderCard = ({ order, orderid, orders, phone, isBusiness = true }) 
       {/* Products Ordered */}
       <View>
         {order && order.order?.map((product, index) => <ProductOrdered key={index} product={product} />)}
-        <Text style={{ alignSelf: 'flex-end', marginBottom: 10, fontWeight: 'bold', fontSize: 20 }}>
+        <Text style={{ alignSelf: 'flex-end', marginBottom: 10, fontWeight: '600', fontSize: 20, color: '#333333' }}>
           Total a pagar: <Text style={{ color: 'green', fontWeight: 'normal' }}>${total}</Text>
         </Text>
 
@@ -67,7 +67,7 @@ export const OrderCard = ({ order, orderid, orders, phone, isBusiness = true }) 
           !isBusiness ?
             <View style={styles.containerButtons}>
               <OrderCompBtn type={"Llamar tienda"} color={false} Action={() => callclient()} />
-              <OrderCompBtn type={"Cancelar orden"} color={true} Action={() => eraseOrder(order.hash)} />              
+              <OrderCompBtn type={"Cancelar orden"} color={'cancel'} Action={() => eraseOrder(order.hash)} />              
             </View>
             :
             <>

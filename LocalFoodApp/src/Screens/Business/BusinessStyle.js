@@ -94,4 +94,15 @@ export const loader = StyleSheet.create({
     fontSize: 20,
     marginBottom: 20,
   },
+  doubleLineText:{
+    fontSize: 20,
+    marginBottom: 0,
+  },
+  centerPage:{
+    flex: 1,
+    marginTop: '70%',
+    alignItems: 'center',
+    backgroundColor: 'white',   
+    height: '100%',
+  }
 })
