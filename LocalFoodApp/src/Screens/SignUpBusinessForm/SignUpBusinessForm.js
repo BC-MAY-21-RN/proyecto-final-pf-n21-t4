@@ -58,15 +58,15 @@ const styles = StyleSheet.create({
       paddingRight: '6%',
       width: '100%',
       backgroundColor: 'white',
-      height: '100%',
+      height: '100%',      
     },
     
     bg:{
       backgroundColor: 'white',
-      paddingBottom: '5%',
+      paddingBottom: '5%',            
   },
 
   formContainer:{
-    marginTop: '5%',
+    marginTop: '5%',    
   }
 });

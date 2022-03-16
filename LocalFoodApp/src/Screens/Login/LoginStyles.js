@@ -19,7 +19,7 @@ export const Logo = styled.Image`
 
 export const LoginText = styled.Text`
     font-size: 30px;
-    font-weight: bold;
+    font-weight: 600;
     color: #393939;
     margin-bottom: 15px;
     letter-spacing: 0.2px;

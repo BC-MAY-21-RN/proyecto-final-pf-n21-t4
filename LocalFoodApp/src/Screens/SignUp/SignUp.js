@@ -4,6 +4,7 @@ import { Container, SignUpText, BottomText, ClickHere } from './SignUpStlyes';
 import { InputComponent } from '../../Components/Input/Input';
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { registrarse } from '../../Others/FirebaseFunctions/UserFunctions';
+import { Empty } from '../../Components/Empty/Empty';
 
 export const SignUp = (Props) => {
   const { navigation } = Props
@@ -16,7 +17,7 @@ export const SignUp = (Props) => {
     <ScrollView>
       <Container>
         <Image source={require('../../Assets/Images/Logo.png')} style={{width: 120, height: 75, marginBottom: 10}}/>
-        
+        <Empty topMargin={20}/>
         <SignUpText>Sign up</SignUpText>
 
         <View style={{borderTopWidth: 2, borderTopColor: "#B0B0B0"}}>
