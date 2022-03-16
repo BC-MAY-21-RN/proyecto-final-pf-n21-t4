@@ -13,9 +13,17 @@ const Carousel = ({shops, timer, navigation}) => {
       // count <= shops?.length -2 ? console.log(shops[count+1].ShopName) : console.log(shops[0].ShopName)
   }, timer);
 
+  //somehow this solves the carousel running in the background issue
+  useEffect(() => {
+    return () => {
+      timer = 0
+    }
+  }, [timer])
+  
+
   //<TouchableOpacity style={styles.carousel} >
   return (
-      <TouchableOpacity style={styles.carousel} onPress={()=>{navigation.navigate('Business', shops[count])}}>      
+      <TouchableOpacity style={styles.carousel} onPress={()=>{navigation.navigate('Business', {shop: shops[count]})}}>      
         <Text style={styles.title}>{shops[count]?.ShopName}</Text>
         <Image style={styles.image} source={{uri: shops[count]?.Image}}/>
       </TouchableOpacity>

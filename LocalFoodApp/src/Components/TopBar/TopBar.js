@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './TopBarStyles'
-import logoSource from '../../Assets/Images/Logo.png'
 
 import StoreIcon from '../../Assets/Images/shop.svg'
 import NotificationSvg from '../../Assets/Images/notification.svg'
@@ -13,7 +12,7 @@ import BubbleIndicator from '../BubbleIndicator/BubbleIndicator';
 
 import auth from '@react-native-firebase/auth'
 import { useDispatch, useSelector } from 'react-redux';
-
+import { getOrderCount, getUserOrderCount, isShopOwner } from '../../Others/FirebaseFunctions/ShopFunctions';
 
 export const TopBar = ({
   hasIcons = false,
@@ -24,10 +23,20 @@ export const TopBar = ({
 }) => {
   const [navPage, setNavPage] = useState('');
   const [iconc, setIconc] = useState(Iconn);
-  
   const {cart} = useSelector(state => state.LocalFoodReducer)  
-
+  const [orderCount, setOrderCount] = useState()
+  const [userOrderCount, setUserOrderCount] = useState(0)
+  const [ownsShop, setOwnsShop] = useState(false)
+  let userId
+  
   useEffect(() => {
+    if(auth().currentUser!=null)
+    {
+      userId = auth().currentUser.uid
+      isShopOwner(userId, setOwnsShop)
+      getOrderCount(userId, setOrderCount)
+    }
+
     if (change == true) {
       setNavPage('Home');
       setIconc(Iconn);
@@ -37,6 +46,11 @@ export const TopBar = ({
       setIconc(Iconn);
     }           
   }, [])
+  
+  useEffect(()=>{
+    const suscriber = getUserOrderCount(userId, setUserOrderCount);
+    return () => suscriber();
+  },[])
 
   return (
     <SafeAreaView>
@@ -49,16 +63,20 @@ export const TopBar = ({
             {(auth().currentUser != null) && <>
               {hasIcons &&
                 <>
-                  <TouchableOpacity onPress={funcTest}>
+                  {ownsShop ?
+                  <TouchableOpacity onPress={()=>{nav.navigate('OrdenInProgress')}}>
                     <View style={styles.Icon}>
                       <StoreIcon width={27} height={27} stroke={'#198553'} fill={'#198553'} />                      
-                      <BubbleIndicator count={3}/>
+                      <BubbleIndicator count={orderCount}/>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={funcTest}>
+                   :
+                   null
+                   }
+                  <TouchableOpacity onPress={() => nav.navigate('UserOrdersInProgress')}>
                     <View style={styles.Icon}>
                       <NotificationSvg width={27} height={27} stroke={'#198553'} fill={'#198553'} />
-                      <BubbleIndicator count={3}/>
+                      <BubbleIndicator count={userOrderCount}/>
                     </View>
                   </TouchableOpacity>
                 </>

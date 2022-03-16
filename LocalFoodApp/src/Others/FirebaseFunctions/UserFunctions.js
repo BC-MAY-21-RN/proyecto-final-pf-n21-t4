@@ -96,8 +96,6 @@ export const ChangeUserInfo = async (name="", email="", number="", oldPhone, pwd
     modificacion = true;
   }
 
-  console.log(pwd)
-
   if(pwd!=''){
     if(pwd.length<8)
     {

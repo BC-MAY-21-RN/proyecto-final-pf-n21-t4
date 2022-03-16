@@ -4,7 +4,10 @@ const initialState = {
     uid: '',
     cart: [],
     idShop: '',
-    editableProduct: ''
+    editableProduct: '',
+    activeOrders: '',
+    userOrders: '',
+
 }
 
 const LocalFoodReducer = (state = initialState, action) => {

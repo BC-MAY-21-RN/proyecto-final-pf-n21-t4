@@ -3,10 +3,12 @@ import { SafeAreaView, Text, View, Button } from 'react-native';
 import {TopBar} from '../../Components/TopBar/TopBar';
 import { Title } from '../../Components/Title/Title';
 import { styles } from './UserPStyles';
+import {loader} from '../Business/BusinessStyle'
 import auth from '@react-native-firebase/auth'
 import { MainBtn } from '../../Components/MainBtn/MainBtn';
 import { UserInfo } from '../../Components/UserInfo/UserInfo';
 import { UserOwnerInfo } from '../../Others/FirebaseFunctions/UserFunctions';
+import { OrderCompBtn } from '../../Components/OrderComponentButton/OrderCompBtn';
 
 export const UserPanel = ({navigation}) => {
   const [userIsOwner, setUserIsOwner] = useState(null);
@@ -19,8 +21,8 @@ export const UserPanel = ({navigation}) => {
    return(
       <SafeAreaView style={styles.bg}>
         <View style={styles.Boundaries2}>
-          <Text style={styles.NoUserText}>Please sign in or register your accnout</Text>
-          <MainBtn type={'Iniciar Sesion'} color={true} Action={()=>{navigation.navigate('Login')}}/>
+          <Text style={loader.replaceLoader}>Sign up or login into your account </Text>
+            <MainBtn type={'Iniciar Sesion'} color={true} Action={()=>{navigation.navigate('Login')}}/>
         </View>
       </SafeAreaView>
     );

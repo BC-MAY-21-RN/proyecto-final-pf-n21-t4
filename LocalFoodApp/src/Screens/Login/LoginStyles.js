@@ -1,8 +1,13 @@
 import styled from 'styled-components/native'
+import {Dimensions} from 'react-native'
+
+let statusBarDimX = Math.round(Dimensions.get('screen').height) - Math.round(Dimensions.get('window').height)
+let height = `${Math.round(Dimensions.get('window').height - statusBarDimX) }px`
 
 export const Container = styled.View`
     padding: 25px;
     background-color: #fff;
+    height: ${height};
 `;
 
 export const Logo = styled.Image`
@@ -34,9 +39,10 @@ export const ClickHere = styled.Text`
 `;
 
 export const EndText = styled.Text`
-    font-size 20px;
+    position: absolute;
+    font-size 20px; 
     color: #198654;
     text-decoration: underline;
-    bottom: 0%;
+    bottom: 0;
     align-self: center;
 `;

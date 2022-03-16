@@ -9,6 +9,7 @@ import { login } from '../../Others/FirebaseFunctions/UserFunctions';
 import auth from '@react-native-firebase/auth'
 import { useDispatch } from 'react-redux'
 import { loaduid } from '../../Others/redux/actions/actions';
+import { Empty } from '../../Components/Empty/Empty';
 
 export const Login = (Props) => {
   const { navigation } = Props
@@ -31,7 +32,7 @@ export const Login = (Props) => {
     <ScrollView style={styles.bg}>
       <Container>
         <Logo source={require('../../Assets/Images/Logo.png')} />
-
+        <Empty topMargin={20}/>
         <LoginText>Login</LoginText>
 
         <View style={{borderTopWidth: 2, borderTopColor: '#B0B0B0'}}>

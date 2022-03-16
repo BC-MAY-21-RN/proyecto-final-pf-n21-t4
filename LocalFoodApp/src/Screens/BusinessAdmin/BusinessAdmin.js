@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth'
 import { GetProducts } from '../../Others/FirebaseFunctions/PrductFunctions';
 import { GetShop } from '../../Others/FirebaseFunctions/ShopFunctions';
-import {styles} from '../Business/BusinessStyle'
+import {loader, styles} from '../Business/BusinessStyle'
 import { FilterButton } from '../../Components/FilterButton/FilterButton';
-import { Icon } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import { Title } from '../../Components/Title/Title';
 
 import { ShopItem } from '../../Components/ShopItem/ShopItem';
@@ -71,7 +71,7 @@ export const BusinessAdmin = ({navigation}) => {
             <ScrollView style={styles.Boundaries}
               stickyHeaderIndices={[2]}
               showsVerticalScrollIndicator={false}
-            >
+            >                
                 {/** hasFunction -> navigate to cart component */}
                 <Title text="Menú" hasIcon={false}/>
                 <View style={styles.container}>
@@ -80,16 +80,17 @@ export const BusinessAdmin = ({navigation}) => {
                     <FilterButton selected={selectedButton === "Postre"} text="Postre" icon="Desserts" setSelectedButton={setSelectedButton} />   
                     <FilterButton selected={selectedButton === "Bebidas"} text="Bebidas" icon="Drinks" setSelectedButton={setSelectedButton} />
                 </View>
-                <AddProduct nav={navigation} shopId={shopId}/>
-                                                                                                              {/** change visible to !visible to make it work right*/}
-                {products?.map((value, index) => <ShopItem key={index} product={value} btnText="Editar"  btnFunction={() => {setProductData(value), setProductId(index), showModalWithType('product')}} />)}
+                <AddProduct nav={navigation} shopId={shopId}/>                                                                                                            
+                {products?.map((value, index) => <ShopItem key={index} product={value} btnText="Editar"  btnFunction={() => {setProductData(value), setProductId(index), showModalWithType('product')}} />)}                
     
             </ScrollView>
-            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId} shop={shop}/>  
+            {
+              (products != undefined) ? <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId} shop={shop}/> : null
+            }
         </SafeAreaView>
       </> : 
-      <View style={styles.center}>
-        <Text style={styles.replaceLoader}>Loading store data</Text>
+      <View style={loader.center}>
+        <Text style={loader.replaceLoader}>Loading store data</Text>
         <ActivityIndicator size='large' color='#198553'/> 
       </View>      
   )
