@@ -9,12 +9,10 @@ import { CustomButton } from '../CustomButton/CustomButton';
 import { getProductAndShop } from '../../Others/FirebaseFunctions/ShopFunctions';
 
 
-export const OrderCard = ({ order, orderid, orders, phone, isBusiness = true }) => {
+export const OrderCard = ({ order, orderid, orders, phone, isBusiness = true, shopInfo={} }) => {
   const [total, setTotal] = useState(0)
   const [orderIndex, setOrderIndex] = useState(orderid);
   const [modalStatus, setModalStatus] = useState(false);
-
-
   const getTotal = () => {
     let total = 0
     order.order.map(item => total += item.Cost * item.quantity)
@@ -44,16 +42,33 @@ export const OrderCard = ({ order, orderid, orders, phone, isBusiness = true }) 
   return (
     <View style={styles.containerCard}>
       {/* Client Data */}
-      <View style={{ marginBottom: 20 }}>
-        <Text style={styles.fontInfoBold}>
-          Codigo de pedido:
-          <Text style={{ color: 'green', fontSize: 20 }}> #{order?.hash}</Text>
-        </Text>
-        <Text style={styles.fontInfoBold}>
-          Cliente:
-          <Text style={{ fontWeight: 'normal', fontSize: 20 }}> {order?.client}</Text>
-        </Text>
-      </View>
+      {!isBusiness ?
+        <View style={{ marginBottom: 20 }}>
+          <Text style={styles.fontInfoBold}>
+            Codigo de pedido:
+            <Text style={{ color: 'green', fontSize: 20 }}> #{order?.hash}</Text>
+          </Text>
+          <Text style={styles.fontInfoBold}>
+            Negocio:
+            <Text style={{ fontWeight: 'normal', fontSize: 20 }}> {shopInfo.ShopName}</Text>
+          </Text>
+          <Text style={styles.fontInfoBold}>
+            Dirección:
+            <Text style={{ fontWeight: 'normal', fontSize: 20 }}> {shopInfo.Street}</Text>
+          </Text>
+        </View>
+        :
+        <View style={{ marginBottom: 20 }}>
+          <Text style={styles.fontInfoBold}>
+            Codigo de pedido:
+            <Text style={{ color: 'green', fontSize: 20 }}> #{order?.hash}</Text>
+          </Text>
+          <Text style={styles.fontInfoBold}>
+            Cliente:
+            <Text style={{ fontWeight: 'normal', fontSize: 20 }}> {order?.client}</Text>
+          </Text>
+        </View>
+      }
 
       {/* Products Ordered */}
       <View>

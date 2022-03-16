@@ -47,8 +47,6 @@ export const AddProductForm = (props) => {
     }
   }
 
-  console.log(shop)
-
   return (
     <SafeAreaView style={styles.bg}>
       <ScrollView>
