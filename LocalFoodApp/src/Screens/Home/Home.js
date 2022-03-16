@@ -39,12 +39,11 @@ export const Home = ({ navigation }) => {
       signOut()
   })
 
-  Store.subscribe(() => {
-  })
   useEffect(() => {
     GetShops(setShops)
     GetAllShops(setShops2)
   }, [])
+  
   if (auth().currentUser != null) {
     useEffect(() => {
       const getCart = async () => {
@@ -55,9 +54,11 @@ export const Home = ({ navigation }) => {
       getCart()
     }, [])
   }
+
   useEffect(() => {
     dispatch(loadCart(TempCart))
   }, [TempCart])
+
   /*Funcion search bar*/
   useEffect(() => {
     let x = []

@@ -34,7 +34,7 @@ export const isShopOwner = (userId, setOwnsShop) => {
   .doc(userId)
   .onSnapshot((e) => {
     let shopOwner
-    if (e == undefined) {
+    if (e.data() == undefined) {
       setOwnsShop(false)
     } else {
       shopOwner = e._data.ShopOwner
@@ -45,14 +45,13 @@ export const isShopOwner = (userId, setOwnsShop) => {
 
 export const getOrderCount = (shopId, setOrderCount) => firebase.firestore()
   .collection('Shops')
-  .doc(shopId)
+  .doc(`shop-${shopId}`)
   .onSnapshot(e => {
     let userOrders
-    if(e == undefined){      
+    if(e.data() == undefined){      
       setOrderCount(0)
     }else{
-      userOrders = e._data.Orders
-      userOrders = userOrders.length
+      userOrders = e._data.Orders.length
       setOrderCount(userOrders)
     }
   })
@@ -246,7 +245,6 @@ export const getProductAndShop = (hash) => firebase.firestore()
           .get()
           .then(e=>{
             newOrders = e._data.Orders;            
-            console.log("before splice: ", newOrders)
             newOrders.map((order,index) => {
               if (order.hash == hash) {
                 newOrders.splice(index, 1)

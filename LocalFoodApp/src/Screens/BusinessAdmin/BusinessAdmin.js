@@ -84,7 +84,9 @@ export const BusinessAdmin = ({navigation}) => {
                 {products?.map((value, index) => <ShopItem key={index} product={value} btnText="Editar"  btnFunction={() => {setProductData(value), setProductId(index), showModalWithType('product')}} />)}                
     
             </ScrollView>
-            <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId} shop={shop}/>
+            {
+              (products != undefined) ? <ProductEditModal openModal={visible} product={product} products={products} productId={productId} updateStoreData={updateType} shopId={shopId} shop={shop}/> : null
+            }
         </SafeAreaView>
       </> : 
       <View style={loader.center}>

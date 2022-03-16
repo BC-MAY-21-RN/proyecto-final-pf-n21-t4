@@ -25,21 +25,17 @@ export const TopBar = ({
   const [iconc, setIconc] = useState(Iconn);
   const {cart} = useSelector(state => state.LocalFoodReducer)  
   const [orderCount, setOrderCount] = useState()
-  const [userOrderCount, setUserOrderCount] = useState()
+  const [userOrderCount, setUserOrderCount] = useState(0)
   const [ownsShop, setOwnsShop] = useState(false)
   let userId
   
   useEffect(() => {
-    userId = auth().currentUser.uid
-    isShopOwner(userId, setOwnsShop)
-
-    //Order count
-    if (ownsShop) {
-      getOrderCount(`shop-${userId}`, setOrderCount) 
+    if(auth().currentUser!=null)
+    {
+      userId = auth().currentUser.uid
+      isShopOwner(userId, setOwnsShop)
+      getOrderCount(userId, setOrderCount)
     }
-
-    getUserOrderCount(userId, setUserOrderCount)
-    console.log(orderCount)
 
     if (change == true) {
       setNavPage('Home');
@@ -51,6 +47,10 @@ export const TopBar = ({
     }           
   }, [])
   
+  useEffect(()=>{
+    const suscriber = getUserOrderCount(userId, setUserOrderCount);
+    return () => suscriber();
+  },[])
 
   return (
     <SafeAreaView>

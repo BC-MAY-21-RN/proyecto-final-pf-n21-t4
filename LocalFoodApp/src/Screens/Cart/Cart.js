@@ -38,7 +38,7 @@ const [total, setTotal] = useState(0)
 
   const getRenderCart = () => {
     let renderCart = []
-    cart.map((item, index) => {
+    cart?.map((item, index) => {
       renderCart.push(<ProductDescriptionAdded
         key={`cartItem-${index}`}
         uriImage={item.ImgURL}
