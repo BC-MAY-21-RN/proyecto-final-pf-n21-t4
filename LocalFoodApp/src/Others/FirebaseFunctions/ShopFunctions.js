@@ -208,18 +208,21 @@ export const MakeOrder = (cart, dispatch, nav) => {
   nav.navigate('Home');
 }
 
-export const GetUserOrders = (userId, setOrders, setShopNumber) => firebase.firestore()
+export const GetUserOrders = (userId, setOrders, setShopNumber, setShopInfo) => firebase.firestore()
   .collection('Shops')
   .onSnapshot(e => {
+    let shopInfo = []
     let userOrders = []
     e.docs.forEach((e) => {
       for (let i = 0; i < e._data.Orders.length; i++) {
         setShopNumber(e._data.PhoneNumber)
         if (userId === e._data.Orders[i].client_id) {
+          shopInfo.push(e._data)
           userOrders.push(e._data.Orders[i])
         }
       }
     })
+    setShopInfo(shopInfo)
     setOrders(userOrders)
   })
 

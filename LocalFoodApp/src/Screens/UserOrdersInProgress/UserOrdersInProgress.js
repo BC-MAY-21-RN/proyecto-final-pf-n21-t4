@@ -18,11 +18,12 @@ export const UserOrdersInProgress = ({navigation}) => {
   const [phone, setPhone] = useState('');
   const [total, setTotal] = useState()
   const [renderCart, setRenderCart] = useState([]);
+  const [shopInfo, setShopInfo] = useState([]);
 
   const {cart} = useSelector(state => state.LocalFoodReducer)
 
   useEffect(()=>{
-    GetUserOrders(auth().currentUser.uid, setOrders, setShopNumber)
+    GetUserOrders(auth().currentUser.uid, setOrders, setShopNumber, setShopInfo)
   },[])
 
   const getTotal = () => {
@@ -48,7 +49,7 @@ export const UserOrdersInProgress = ({navigation}) => {
             </View>
             }
             <ScrollView>
-              {orders && orders?.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders} phone={shopNumber} isBusiness={false}/>)}
+              {orders && orders?.map((order, index)=>(order.status) ? null : <OrderCard key={index} order={order} orderid={index} orders={orders} phone={shopNumber} isBusiness={false} shopInfo={shopInfo[index]}/>)}
             </ScrollView>
           </View>
         </SafeAreaView>
